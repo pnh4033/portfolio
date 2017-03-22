@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.portfolio.mapper.ProductMapper">
+
+	<insert id="createProduct">
+	insert into product_tbl 
+	(pID, title, i_price, startPrice, nowPrice, buyType, tenderCnt, quantity, createDate)
+	values
+	(seq_product, #{title}, #{i_price}, #{startPrice}, #{nowPrice}, 
+	 #{buyType}, #{tenderCnt}, #{quantity}, sysdate)
+	</insert>
+	
+	<select id="readProduct" resultType="ProductVO">
+	select * from product_tbl
+	where pID=#{pID}
+	</select>
+	
+	<update id="updateProduct">
+	update product_tbl set
+	title=#{title},
+	i_price=#{i_price},
+	startPrice=#{startPrice},
+	buyType=#{buyType},
+	quantity=#{quantity}
+	where pID=#{pID}
+	</update>
+	
+	<delete id="deleteProduct">
+	delete from product_tbl
+	where pID=#{pID}
+	</delete>
+	
+	<select id="listAll" resultType="ProductVO">
+	select * from product_tbl
+	<![CDATA[
+	where pID>0
+	]]>
+	order by pID desc, createDate desc
+	</select>
+	
+	<select id="listPage" resultType="ProductVO">
+	select * from product_tbl
+	<![CDATA[
+	where pID>0
+	]]> 
+	order by pID desc, createDate desc 
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
