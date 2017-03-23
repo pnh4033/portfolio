@@ -5,10 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import web.portfolio.domain.ProductVO;
 
+@Repository
 public class ProductDAOImpl implements ProductDAO {
 	
 	private static final String NAMESPACE="web.portfolio.mapper.ProductMapper.";
@@ -18,7 +20,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void createProduct(ProductVO vo) throws Exception {
-		session.insert(NAMESPACE+"create", vo);
+		session.insert(NAMESPACE+"createProduct", vo);
 
 	}
 

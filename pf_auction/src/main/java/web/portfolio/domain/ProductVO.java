@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class ProductVO {
 	
-	private Integer pID;
+	private Integer pid;
 	private String title;
 	private int i_price;
-	private int startPrice;
-	private int nowPrice;
-	private boolean buyType;
-	private int tenderCnt;
+	private int startprice;
+	private int nowprice;
+	private String buytype;
+	private int tendercnt;
 	private int quantity;
-	private Date createDate;
+	private Date createdate;
 	
 	public Date getCreateDate() {
-		return createDate;
+		return createdate;
 	}
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		this.createdate = createDate;
 	}
 	public Integer getpID() {
-		return pID;
+		return pid;
 	}
 	public void setpID(Integer pID) {
-		this.pID = pID;
+		this.pid = pID;
 	}
 	public String getTitle() {
 		return title;
@@ -39,28 +39,28 @@ public class ProductVO {
 		this.i_price = i_price;
 	}
 	public int getStartPrice() {
-		return startPrice;
+		return startprice;
 	}
 	public void setStartPrice(int startPrice) {
-		this.startPrice = startPrice;
+		this.startprice = startPrice;
 	}
 	public int getNowPrice() {
-		return nowPrice;
+		return nowprice;
 	}
 	public void setNowPrice(int nowPrice) {
-		this.nowPrice = nowPrice;
+		this.nowprice = nowPrice;
 	}
-	public boolean isBuyType() {
-		return buyType;
+	public String isBuyType() {
+		return buytype;
 	}
-	public void setBuyType(boolean buyType) {
-		this.buyType = buyType;
+	public void setBuyType(String buyType) {
+		this.buytype = buyType;
 	}
 	public int getTenderCnt() {
-		return tenderCnt;
+		return tendercnt;
 	}
 	public void setTenderCnt(int tenderCnt) {
-		this.tenderCnt = tenderCnt;
+		this.tendercnt = tenderCnt;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -72,8 +72,8 @@ public class ProductVO {
 	
 	@Override
 	public String toString() {
-		return "ProductsVO [pID=" + pID + ", title=" + title + ", i_price=" + i_price + ", startPrice=" + startPrice
-				+ ", nowPrice=" + nowPrice + ", buyType=" + buyType + ", tenderCnt=" + tenderCnt + ", quantity="
+		return "ProductsVO [pID=" + pid + ", title=" + title + ", i_price=" + i_price + ", startPrice=" + startprice
+				+ ", nowPrice=" + nowprice + ", buyType=" + buytype + ", tenderCnt=" + tendercnt + ", quantity="
 				+ quantity + "]";
 	}
 	

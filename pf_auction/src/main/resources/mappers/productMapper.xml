@@ -7,10 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createProduct">
 	insert into product_tbl 
-	(pID, title, i_price, startPrice, nowPrice, buyType, tenderCnt, quantity, createDate)
+	(pid, title, i_price, startprice, nowprice, buytype, tendercnt, quantity, createdate)
 	values
-	(seq_product, #{title}, #{i_price}, #{startPrice}, #{nowPrice}, 
-	 #{buyType}, #{tenderCnt}, #{quantity}, sysdate)
+	(seq_product.nextval, #{title}, #{i_price}, #{startprice}, #{nowprice}, 
+	 #{buytype}, #{tendercnt}, #{quantity}, sysdate)
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
