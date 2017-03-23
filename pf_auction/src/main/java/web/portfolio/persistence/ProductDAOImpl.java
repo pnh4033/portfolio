@@ -30,7 +30,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void updateProduct(ProductVO vo) throws Exception {
+	public void modifyProduct(ProductVO vo) throws Exception {
 		session.update(NAMESPACE+"update", vo);
 
 	}

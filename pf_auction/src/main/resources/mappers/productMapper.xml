@@ -15,38 +15,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="readProduct" resultType="ProductVO">
 	select * from product_tbl
-	where pID=#{pID}
+	where pid=#{pid}
 	</select>
 	
-	<update id="updateProduct">
+	<update id="modifyProduct">
 	update product_tbl set
 	title=#{title},
 	i_price=#{i_price},
-	startPrice=#{startPrice},
-	buyType=#{buyType},
+	startprice=#{startprice},
+	buytype=#{buytype},
 	quantity=#{quantity}
-	where pID=#{pID}
+	where pid=#{pid}
 	</update>
 	
 	<delete id="deleteProduct">
 	delete from product_tbl
-	where pID=#{pID}
+	where pid=#{pid}
 	</delete>
 	
 	<select id="listAll" resultType="ProductVO">
 	select * from product_tbl
 	<![CDATA[
-	where pID>0
+	where pid>0
 	]]>
-	order by pID desc, createDate desc
+	order by pid desc, createdate desc
 	</select>
 	
 	<select id="listPage" resultType="ProductVO">
 	select * from product_tbl
 	<![CDATA[
-	where pID>0
+	where pid>0
 	]]> 
-	order by pID desc, createDate desc 
+	order by pid desc, createdate desc 
 	</select>
 
 </mapper>

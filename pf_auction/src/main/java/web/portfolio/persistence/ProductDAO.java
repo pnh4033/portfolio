@@ -7,9 +7,9 @@ import web.portfolio.domain.ProductVO;
 public interface ProductDAO {
 	
 	public void createProduct(ProductVO vo) throws Exception;
-	public ProductVO readProduct(int pID) throws Exception;
-	public void updateProduct(ProductVO vo) throws Exception;
-	public void deleteProduct(int pID) throws Exception;
+	public ProductVO readProduct(int pid) throws Exception;
+	public void modifyProduct(ProductVO vo) throws Exception;
+	public void deleteProduct(int pid) throws Exception;
 	public List<ProductVO> listAll() throws Exception;
 	public List<ProductVO> listPage(int page) throws Exception;
 	/*countPaging(Criteria cri) 
