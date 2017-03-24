@@ -22,9 +22,9 @@ public class TestDB {
 		ProductVO vo=new ProductVO();
 		vo.setTitle("test title 입니다.");
 		vo.setI_price(4999999);
-		vo.setStartPrice(50000);
+		vo.setStartprice(50000);
 		vo.setQuantity(300000);
-		vo.setBuyType("auction");
+		vo.setBuytype("auction");
 		
 		dao.createProduct(vo);
 	}

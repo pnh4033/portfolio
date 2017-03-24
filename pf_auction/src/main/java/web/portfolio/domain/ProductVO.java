@@ -14,69 +14,143 @@ public class ProductVO {
 	private int quantity;
 	private Date createdate;
 	
-	public Date getCreateDate() {
-		return createdate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createdate = createDate;
-	}
-	public Integer getpID() {
+	
+	
+	
+	public Integer getPid() {
 		return pid;
 	}
-	public void setpID(Integer pID) {
-		this.pid = pID;
+
+
+
+
+	public void setPid(Integer pid) {
+		this.pid = pid;
 	}
+
+
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
+
+
 	public int getI_price() {
 		return i_price;
 	}
+
+
+
+
 	public void setI_price(int i_price) {
 		this.i_price = i_price;
 	}
-	public int getStartPrice() {
+
+
+
+
+	public int getStartprice() {
 		return startprice;
 	}
-	public void setStartPrice(int startPrice) {
-		this.startprice = startPrice;
+
+
+
+
+	public void setStartprice(int startprice) {
+		this.startprice = startprice;
 	}
-	public int getNowPrice() {
+
+
+
+
+	public int getNowprice() {
 		return nowprice;
 	}
-	public void setNowPrice(int nowPrice) {
-		this.nowprice = nowPrice;
+
+
+
+
+	public void setNowprice(int nowprice) {
+		this.nowprice = nowprice;
 	}
-	public String isBuyType() {
+
+
+
+
+	public String getBuytype() {
 		return buytype;
 	}
-	public void setBuyType(String buyType) {
-		this.buytype = buyType;
+
+
+
+
+	public void setBuytype(String buytype) {
+		this.buytype = buytype;
 	}
-	public int getTenderCnt() {
+
+
+
+
+	public int getTendercnt() {
 		return tendercnt;
 	}
-	public void setTenderCnt(int tenderCnt) {
-		this.tendercnt = tenderCnt;
+
+
+
+
+	public void setTendercnt(int tendercnt) {
+		this.tendercnt = tendercnt;
 	}
+
+
+
+
 	public int getQuantity() {
 		return quantity;
 	}
+
+
+
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	
+
+
+
+
+	public Date getCreatedate() {
+		return createdate;
+	}
+
+
+
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "ProductsVO [pID=" + pid + ", title=" + title + ", i_price=" + i_price + ", startPrice=" + startprice
-				+ ", nowPrice=" + nowprice + ", buyType=" + buytype + ", tenderCnt=" + tendercnt + ", quantity="
-				+ quantity + "]";
+		return "ProductVO [pid=" + pid + ", title=" + title + ", i_price=" + i_price + ", startprice=" + startprice
+				+ ", nowprice=" + nowprice + ", buytype=" + buytype + ", tendercnt=" + tendercnt + ", quantity="
+				+ quantity + ", createdate=" + createdate + "]";
 	}
-	
-	
+
+
+
 
 }
