@@ -8,27 +8,70 @@
 
 <style>
 	div {
-	border-color: gray;
-	border:dashed 1px;
+	margin:0px;
 	}
-	section {
-	margin:5px;
+    ul {
+    list-style: none;
+    }
+	.wrap {
+	margin:0px;
 	}
-	.body {
-	width:800px;
+
+	#bottom {
+	background-color:#28CC00;
+	width: 70%; height: 100px;
+	}
+	.contents {
+	background-color: white;
+	margin:0px;
+	overflow: hidden;
+	}
 	
+	#empty {height:60px;}
+	
+	#top_menu {
+	width:70%;
+	height: 100px;
+	background-color: #E8963A
 	}
+	
+	
+	#left_bar {float: left; width:15%; height: 800px; background-color:#00405E;}
+	#center {float: left; width: 70%; height: 800px;}
+	#right_bar {float: left; width:15%; height: 800px; background-color:white;}
+	
 </style>
 
 <title>Insert title here</title>
 </head>
 <body>
-  <section class="contents">
-
+  <div class="wrap" align="center"><!-- wrap -->
+  
+  
+  
+  <div id="top" align="center">
+  
+  <div id="top_menu"></div>
+  
+  </div>
+  
+  
+  
+  <div class="contents" align="center"><!-- contents -->
+  
+  <div id="left_bar"></div>
+  <div id="center">  
+    <div id="empty"></div>
 	<div class="body">
-		<div><%@ include file="../product/listproduct.jsp" %></div>
+		<div id="body_con1"><%@ include file="../product/listproduct.jsp" %></div>
 	</div>
-
-  </section>
+  </div>
+  <div id="right_bar"></div>
+  
+  </div>                <!-- contents -->
+  
+  
+  
+  </div>            <!-- wrap -->
 </body>
 </html>
