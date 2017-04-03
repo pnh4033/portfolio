@@ -12,7 +12,24 @@ public class ProductVO {
 	private String buytype;
 	private int tendercnt;
 	private int quantity;
+	private String desc_product;
 	private Date createdate;
+	
+	
+	public String getDesc_product() {
+		return desc_product;
+	}
+
+
+
+
+	public void setDesc_product(String desc_product) {
+		this.desc_product = desc_product;
+	}
+
+
+
+
 	
 	
 	

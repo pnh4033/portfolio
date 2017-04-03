@@ -16,7 +16,7 @@ import web.portfolio.domain.ProductVO;
 import web.portfolio.service.ProductService;
 
 @Controller
-@RequestMapping(value="/main")
+@RequestMapping(value="/main/*")
 public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
@@ -30,12 +30,13 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping(value="/registproduct", method=RequestMethod.GET)
+	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String registProductGET() throws Exception {
-		return "main/registproduct";
+		logger.info("regist");
+		return "/main/register";
 	}
 	
-	@RequestMapping(value="/registproduct", method=RequestMethod.POST)
+	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info(vo.toString());
 		
@@ -45,7 +46,7 @@ public class MainController {
 		return "redirect:/main/contents";
 	}
 	
-	@RequestMapping(value="/readproduct")
+	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pid, Model model,Criteria criteria) throws Exception {
 		model.addAttribute(prod_service.readProduct(pid));
 	}

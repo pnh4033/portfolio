@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.service.ProductService;
 
-@Controller
+/*@Controller
 @RequestMapping("/product/*")
 public class ProductControler {
 	
@@ -23,17 +23,17 @@ public class ProductControler {
 	@Inject
 	private ProductService service;
 	
-	@RequestMapping(value="/listproduct", method=RequestMethod.GET)
+	@RequestMapping(value="/listProduct", method=RequestMethod.GET)
 	public void product(Model model) throws Exception {
 		model.addAttribute("list", service.listAll());
 	}
 	
-	@RequestMapping(value="/registproduct", method=RequestMethod.GET)
+	@RequestMapping(value="/registProduct", method=RequestMethod.GET)
 	public void registProductGET(ProductVO vo, Model model) throws Exception {
 		logger.info(vo.toString());
 	}
 	
-	@RequestMapping(value="/registproduct",method=RequestMethod.POST)
+	@RequestMapping(value="/registProduct",method=RequestMethod.POST)
 	public String registProduct(ProductVO vo, RedirectAttributes rttr, Model model) throws Exception {
 		
 		
@@ -42,8 +42,9 @@ public class ProductControler {
 		
 		logger.info(vo.toString());
 		
-		return "/product/listproduct";
+		return "/product/listProduct";
 		
 	}
 
 }
+ */
