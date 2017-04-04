@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	(pid, title, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate)
 	values
 	(seq_product.nextval, #{title}, #{i_price}, #{startprice}, #{nowprice}, 
-	 #{buytype}, #{tendercnt}, #{desc_product}, #{quantity}, sysdate)
+	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, sysdate)
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">

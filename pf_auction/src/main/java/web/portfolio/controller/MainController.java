@@ -40,7 +40,7 @@ public class MainController {
 	public String registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info(vo.toString());
 		
-		prod_service.registProduct(vo);
+		prod_service.createProduct(vo);
 		rttr.addFlashAttribute("msg","success");
 		
 		return "redirect:/main/contents";
