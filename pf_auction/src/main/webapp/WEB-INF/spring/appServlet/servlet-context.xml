@@ -22,6 +22,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/resources/js" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -31,19 +32,16 @@
 	
 	<context:component-scan base-package="web.portfolio.controller" />
 	
-	<!-- <beans:bean id="multipartResolver" class=
+	<beans:bean id="multipartResolver" class=
 	"org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	
 	<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
-	<beans:constructor-arg value="c:\\zzz\\upload"/>
+	<beans:constructor-arg value="c:\\image\\upload"/>
 	</beans:bean>
 	
-	<beans:bean id="uPath" class="java.lang.String">
-	<beans:constructor-arg value="c:\\test_up"/>
-	</beans:bean> -->
 	
 	<!-- <beans:bean id="authInterceptor" class="com.practice.AuthInterceptor"/>
 	<beans:bean id="loginInterceptor" class="com.practice.LoginInterceptor"/>

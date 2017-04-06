@@ -1,5 +1,8 @@
 package web.portfolio.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -44,6 +47,20 @@ public class MainController {
 		rttr.addFlashAttribute("msg","success");
 		
 		return "redirect:/main/contents";
+	}
+	
+	@RequestMapping(value="/selectImage", method=RequestMethod.GET) 
+	public void selectImage() throws Exception {
+		
+	}
+	
+	@RequestMapping(value="/selectImage", method=RequestMethod.POST)
+	public List<String> selectImage(Model model) throws Exception {
+		List<String> imgList=new ArrayList<>(); 
+		
+		model.addAttribute("imgList", imgList);	
+		
+		return imgList;
 	}
 	
 	@RequestMapping(value="/readProduct")

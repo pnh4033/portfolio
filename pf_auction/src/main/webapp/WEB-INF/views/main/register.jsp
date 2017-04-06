@@ -61,6 +61,13 @@
 	line-height: 30px;
 	}
 	
+	#selectImg {
+	opacity: 0.5;
+	width: 300px;
+	height: 500px;
+	border: 1px solid gray;
+	}
+	
 </style>	
 </head>
 
@@ -80,9 +87,12 @@
 		<div>
 		<label>제목 : <input type="text" name="title" class="reg_form" size="100" value="${ productVO.title }"></label>
 		</div>
-		<div>
+		
 		<p>add img</p>
+		<div id="selectImg">
+		
 		</div>
+		
 		<div>
 		<label for="i_price">즉시 구입 가격 : </label>
 		<input type="text" name="i_price" class="reg_form" value="${ productVO.i_price }">원
@@ -136,6 +146,9 @@
 		  formObj.attr("method", "post");
 		  formObj.submit();
 	  });
+	  
+	  
+	  $("#selectImg").load("selectImage");
 	
 	});
 	</script>
