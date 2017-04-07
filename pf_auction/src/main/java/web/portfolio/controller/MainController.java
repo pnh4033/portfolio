@@ -2,6 +2,8 @@ package web.portfolio.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
@@ -17,12 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.service.ProductService;
+import web.portfolio.utils.MakeFolder;
 
 @Controller
 @RequestMapping(value="/main/*")
 public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
+	
+	
 	
 	@Inject
 	ProductService prod_service;
@@ -34,8 +39,9 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String registProductGET() throws Exception {
+	public String registProductGET(Model model) throws Exception {
 		logger.info("regist");
+		
 		return "/main/register";
 	}
 	
@@ -50,12 +56,19 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/selectImage", method=RequestMethod.GET) 
-	public void selectImage() throws Exception {
+	public void selectImageGET(Model model) throws Exception {
+		
+		String path="c:\\";
+		
+		MakeFolder makeFolder=(MakeFolder) new MakeFolder();
+		/*Map.Entry<List, String> folderList=(Entry<List, String>) makeFolder.readFolder(path);*/
+		model.addAttribute(makeFolder);
+		/*model.addAttribute(folderList);*/
 		
 	}
 	
 	@RequestMapping(value="/selectImage", method=RequestMethod.POST)
-	public List<String> selectImage(Model model) throws Exception {
+	public List<String> selectImagePOST(Model model) throws Exception {
 		List<String> imgList=new ArrayList<>(); 
 		
 		model.addAttribute("imgList", imgList);	

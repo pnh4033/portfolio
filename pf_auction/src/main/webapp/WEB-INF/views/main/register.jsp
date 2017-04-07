@@ -62,10 +62,11 @@
 	}
 	
 	#selectImg {
-	opacity: 0.5;
-	width: 300px;
-	height: 500px;
+	width: 500px;
+	height: 600px;
 	border: 1px solid gray;
+	background-color: white;
+	overflow: scroll;
 	}
 	
 </style>	

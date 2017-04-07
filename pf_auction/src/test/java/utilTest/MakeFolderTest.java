@@ -1,4 +1,4 @@
-package web.portfolio.utils;
+package utilTest;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,30 +6,39 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public class MakeFolder {
+import web.portfolio.utils.MakeFolder;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
+public class MakeFolderTest {
 	
 	private static final Logger logger=LoggerFactory
 			.getLogger(MakeFolder.class);
 	
 	List<Map> listMap=new ArrayList<>();
-    Map<List, String> fileListMap=new HashMap<>();
-    
-    Map dirList=new HashMap<>();
+    Map<List, String> fileList=new HashMap<>();
     
     
     String path="c:\\";
     String addPath;
     
-   
     
-	public Map<List, String> readFolder(String path) {
+
+    
+	@Test
+	public void readFolder(String path) {
 		
 		
 		List<String> dirName=new ArrayList<>();
@@ -39,6 +48,7 @@ public class MakeFolder {
 		
 		if(!file.exists() || !file.isDirectory()) {
 			logger.info("no validation");
+			return;
 		}
 		
 		File[] files=file.listFiles();
@@ -65,15 +75,14 @@ public class MakeFolder {
 			
 		}
 
-		    fileListMap.put(dirName, "folder");
-			fileListMap.put(fileName, "file");
+		    fileList.put(dirName, "folder");
+			fileList.put(fileName, "file");
 			
-			logger.info(fileListMap.toString());
+			System.out.println(fileList.toString());
 			
 			
-			/*Set<Entry<List, String>> folderList=fileListMap.entrySet();
-			
-			Iterator<Entry<List, String>> it=folderList.iterator();
+			Set<Entry<List, String>> set=fileList.entrySet();
+			Iterator<Entry<List, String>> it=set.iterator();
 			
 			while(it.hasNext()) {
 				Map.Entry<List, String> e=it.next();
@@ -81,21 +90,24 @@ public class MakeFolder {
 				if(e.getValue().equals("folder")) {
 					addPath=path + File.separator + e.getKey();
 					
-					String fName="[" + e.getKey() + "]";
+					readFolder(addPath);
 					
 				}
-				
-				
-			}*/
+			}
 
-			return fileListMap;
+			
 			
 
+			/*listMap.add(fileList);*/
+			
 
 		
 	}
+	
+
 
 }
+
 
 
 
