@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<%@page import="web.portfolio.utils.SubFolder"%>
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,8 +16,8 @@
 <style>
 #folder {
 padding: 10px;
-width: 200px;
-height: 300px;
+width: 800px;
+font-size: 16px;
 }
 </style>
 
@@ -24,18 +26,74 @@ height: 300px;
 <p>show directory</p>
 <div id="folder">
 
-${makeFolder.readFolder("c:\\") }
+<form role="form" action="selectImage" method="post">
+<input type="hidden" name="filePath" value="${fileType.path}"/>
+<input type="hidden" name="dirPath" value="${fileType.path}"/>
+</form>
 
-<%-- <c:forEach var="i" items="${makeFolder}">
 
-<c:if test="${i.value} == 'folder'"><c:out value="${i.key}"/></c:if>
+<ul>
+<c:forEach var="i" items="${fileMap}" varStatus="st">
 
-</c:forEach> --%>
+<c:choose>
+<c:when test="${i.key.lastIndexOf(']') == -1}">
+
+<li class="file" name="${st.index}" value="${i.value }"> ${i.key} <input type="checkbox" name="filePath" value="${i.value}"/></li>
+</c:when>
+
+<c:otherwise>
+<li class="dir" name="${st.index}" value="${i.value }"> ${i.key} <input type="hidden" name="dirPath" value="${i.value}"/>
+</li>
+</c:otherwise>
+
+</c:choose>
+
+</c:forEach>
+</ul>
+
+
+
 </div>
 <div>
 
 </div>
 
-
+<script>
+$(document).ready(function() {
+    $(".dir").on("click", function() {
+    	
+    	/* var formObj=$("form[role='form']");
+    	formObj.submit(function(event) {
+    		event.preventDefault;
+    		$(this).submit();
+    	}); */
+    	
+    	<%-- var path='<%=  %>'; --%>
+    	
+    	for(var i=0 ; len=)
+    	if($(this).attr("name") == ${idx}) {
+    		${subList}
+    	}
+    	
+    	
+    	
+		var val=$(this).attr('value');
+		$(this).append("${subList}");
+	});
+});
+</script>
+	
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

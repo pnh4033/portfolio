@@ -62,7 +62,7 @@
 	}
 	
 	#selectImg {
-	width: 500px;
+	width: 800px;
 	height: 600px;
 	border: 1px solid gray;
 	background-color: white;
@@ -149,7 +149,7 @@
 	  });
 	  
 	  
-	  $("#selectImg").load("selectImage");
+	  $("#selectImg").load("/file/readFile");
 	
 	});
 	</script>

@@ -1,9 +1,5 @@
 package web.portfolio.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
@@ -19,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.service.ProductService;
-import web.portfolio.utils.MakeFolder;
 
 @Controller
 @RequestMapping(value="/main/*")
@@ -55,26 +50,7 @@ public class MainController {
 		return "redirect:/main/contents";
 	}
 	
-	@RequestMapping(value="/selectImage", method=RequestMethod.GET) 
-	public void selectImageGET(Model model) throws Exception {
-		
-		String path="c:\\";
-		
-		MakeFolder makeFolder=(MakeFolder) new MakeFolder();
-		/*Map.Entry<List, String> folderList=(Entry<List, String>) makeFolder.readFolder(path);*/
-		model.addAttribute(makeFolder);
-		/*model.addAttribute(folderList);*/
-		
-	}
 	
-	@RequestMapping(value="/selectImage", method=RequestMethod.POST)
-	public List<String> selectImagePOST(Model model) throws Exception {
-		List<String> imgList=new ArrayList<>(); 
-		
-		model.addAttribute("imgList", imgList);	
-		
-		return imgList;
-	}
 	
 	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pid, Model model,Criteria criteria) throws Exception {
