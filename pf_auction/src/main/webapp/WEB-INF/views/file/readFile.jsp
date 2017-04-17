@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<form role="form" method="post" action="fileView" target="#selectImg">
+<%-- <form role="form" method="post" action="fileView" target="#selectImg">
 <input type="hidden" name="fno" value="${fileVO.fno}"/>
 </form>
 <div>
@@ -30,10 +30,10 @@
  </tr>
 <c:forEach var="fileVO" items="${list}">
 
-<%-- <p id="${i.fno}">${i.fno}<input type="hidden" name="fno" value="${i.fno}"/>
+<p id="${i.fno}">${i.fno}<input type="hidden" name="fno" value="${i.fno}"/>
 </p>
 <p id="${i.path}">${i.path}<input type="hidden" name="path" value="${i.path}"/>
-</p> --%>
+</p>
 
 <tr>
 <td>${fileVO.fno}</td><td><a href="/file/fileView?fno=${fileVO.fno}">${fileVO.path}</a>
@@ -58,7 +58,7 @@
 
 
 </div>
-
+ --%>
 
 <!-- <script>
 	

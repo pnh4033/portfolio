@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <title>Insert title here</title>
 
@@ -61,12 +62,36 @@
 	line-height: 30px;
 	}
 	
+	#fileWrap {
+	margin: 5px;
+	overflow: hidden;
+	}
+	
 	#selectImg {
-	width: 800px;
+	width: 400px;
 	height: 600px;
-	border: 1px solid gray;
 	background-color: white;
+	font-size:15px;
 	overflow: scroll;
+	float: left;
+	}
+	
+	#checkedFile {
+	width: 385px;
+	height: 600px;
+	background-color: white;
+	border-left: dashed gray 1px;
+	overflow: scroll;
+	float: left;
+	}
+	
+	ul {
+	overflow: hidden;
+	}
+	
+	li {
+	margin: 5px;
+	float: left;
 	}
 	
 </style>	
@@ -88,11 +113,25 @@
 		<div>
 		<label>제목 : <input type="text" name="title" class="reg_form" size="100" value="${ productVO.title }"></label>
 		</div>
+
+		<div id="fileWrap">
+		<ul>
 		
-		<p>add img</p>
+		<li>
 		<div id="selectImg">
 		
 		</div>
+		</li>
+		
+		<li><div></div></li>
+		
+		<li>
+		<div id="checkedFile">
+		</div>
+		</li>
+		
+		</ul>
+		</div>  <!-- filewrap -->
 		
 		<div>
 		<label for="i_price">즉시 구입 가격 : </label>
@@ -136,23 +175,82 @@
 	
 	
 	
-	<script>
+<script>
 	
-	$(document).ready (
-	function () {
+	/* function () {
 		var formObj=$("form[role='form']");	
 	
 	  $("#reg_submit").on("click", function() {
 		  formObj.attr("action", "/main/register");
 		  formObj.attr("method", "post");
 		  formObj.submit();
+	  }); */
+	  
+	  
+	  
+	  $("#selectImg").load("/file/listFiles"); 
+	
+/* 	   function loadFile() {
+			
+		  $.ajax({
+			type : 'get',
+			url : '/file/listFiles',
+		    headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "GET"
+			}, 
+			dataType : 'text',
+			    data : JSON.stringify({
+			    fno:fno,	
+				filename : filename,
+				path : path,
+				isdir : isdir
+			}), 
+			success : function(result) {
+				if(result == 'SUCCESS') {
+					
+				}
+			}
+		  });
+	  }
+	  
+	  loadFile(); */
+	  
+		  
+	  
+	  
+	  
+	  $(".list").on("click", function() {
+		
+		  var filename=$("#checkedFile").val();
+		  
+		  $.ajax({
+			type : 'post',
+			url : '/file/setFile/',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "post"
+			},
+			dataType : 'text',
+			data : JSON.stringify({
+				fno : fno,
+				fileName : fileName,
+				path : path,
+				isdir : isdir
+			}),
+			success : function(result) {
+				if(result == 'SUCCESS') {
+					alert('등록되었습니다.');
+				}
+			}
+		  });
+	  
+	  
+		  
 	  });
 	  
-	  
-	  $("#selectImg").load("/file/readFile");
 	
-	});
-	</script>
+</script>
 
 </body>
 </html>

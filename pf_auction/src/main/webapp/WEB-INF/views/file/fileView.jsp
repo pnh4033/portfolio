@@ -7,8 +7,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ -->
+ 
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <style>
 
 </style>
@@ -24,7 +26,7 @@
 <div>
 <div class="table">
 
-<table>
+<%-- <table>
  <tr>
  <th style="width:10px">fno</th><th style="width:200px">path</th>
  </tr>
@@ -48,7 +50,13 @@
 
 
 </c:forEach>
-</table>
+</table> --%>
+
+
+
+	<ul id="fileLi">
+	</ul>
+
 
 </div>
 
@@ -56,6 +64,29 @@
 </div>
 
 <script>
+
+$(document).ready(function() {
+	
+	getList();
+	
+function getList() {
+	$.getJSON("/file/listFiles", function(data) {
+		$(data).each(function() {
+			str += "<li data-fno='"+this.fno+"' class='list'>"
+			    + this.path + "<input type='checkbox' name='"+this.fno+"' />"
+			    + "</li>";
+		});
+		
+		$("#fileLi").html(str);
+	});
+}
+
+}); 
+	
+	
+	
+	
+	
 	
 	$("p").on("click", function() {
 		var formObj=$("form[role='form']");

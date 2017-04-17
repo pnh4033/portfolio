@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="listFile" resultType="FileVO">
-	select distinct fno, path, isdir from file_tbl
+	select distinct fno, filename, path, isdir from file_tbl
 	order by path
 	</select>
 	
