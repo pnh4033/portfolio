@@ -45,5 +45,10 @@ public class FileServiceImpl implements FileService {
 		return dao.readPath(fno);
 	}
 
+	@Override
+	public List<FileVO> selectFile(String path) throws Exception {
+		return dao.selectFile(path);
+	}
+
 	
 }

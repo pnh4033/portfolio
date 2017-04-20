@@ -9,7 +9,14 @@ public class FileVO {
 	private Boolean first=true;
 	private String path;
 	private String isdir;
+	private List<FileVO> presentList;
 	
+	public List<FileVO> getPresentList() {
+		return presentList;
+	}
+	public void setPresentList(List<FileVO> presentList) {
+		this.presentList = presentList;
+	}
 	public String getIsdir() {
 		return isdir;
 	}

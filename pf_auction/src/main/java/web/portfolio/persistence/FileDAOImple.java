@@ -20,7 +20,7 @@ public class FileDAOImple implements FileDAO {
 	@Override
 	public void saveFile(FileVO vo) throws Exception {
 		session.insert(NAMESPACE+"saveFile", vo);
-		
+	
 	}
 
 	@Override
@@ -43,6 +43,11 @@ public class FileDAOImple implements FileDAO {
 	@Override
 	public String readPath(Integer fno) throws Exception {
 		return session.selectOne(NAMESPACE+"readPath", fno);
+	}
+
+	@Override
+	public List<FileVO> selectFile(String path) throws Exception {
+		return session.selectList(NAMESPACE+"selectFile", path);
 	}
 
 	

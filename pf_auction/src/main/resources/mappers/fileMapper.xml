@@ -6,11 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="web.portfolio.mapper.FileMapper">
 
 	<insert id="saveFile">
-	insert into file_tbl 
+	insert into file_tbl
 	(filename, path, isdir)
-	values
-	(#{filename}, #{path}, #{isdir})
-	
+    values
+    (#{filename}, #{path}, #{isdir})
 	</insert>
 	
 	<select id="readFile" resultType="FileVO">
@@ -18,7 +17,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- where path like concat('%',#{path},'%') -->
 	
 	where fno=#{fno}
-	order by filename
 	</select>
 	
 	<select id="readPath" resultType="String">
@@ -30,6 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listFile" resultType="FileVO">
 	select distinct fno, filename, path, isdir from file_tbl
 	order by path
+	</select>
+	
+	<select id="selectFile" resultType="FileVO">
+	select distinct fno, filename, path, isdir from file_tbl
+	where path like concat('%', #{path}, '%')
 	</select>
 	
 	<delete id="deleteAll">

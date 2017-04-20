@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@page import="web.portfolio.utils.SubFolder"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
