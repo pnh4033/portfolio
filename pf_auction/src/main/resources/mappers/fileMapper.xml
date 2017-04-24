@@ -30,13 +30,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by path
 	</select>
 	
+	<select id="pathList" resultType="String">
+	select path from file_tbl
+	order by path
+	</select>
+	
 	<select id="selectFile" resultType="FileVO">
-	select distinct fno, filename, path, isdir from file_tbl
-	where path like concat('%', #{path}, '%')
+	select DISTINCT fno, filename, path, isdir
+	from file_tbl
+	where path like concat(#{path}, '%')
 	</select>
 	
 	<delete id="deleteAll">
 	truncate table file_tbl
+	</delete>
+	
+	<delete id="deleteFile">
+	delete from file_tbl
+	where fno=#{fno}
 	</delete>
 
 

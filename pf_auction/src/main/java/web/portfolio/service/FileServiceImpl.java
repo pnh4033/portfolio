@@ -1,5 +1,7 @@
 package web.portfolio.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,8 +19,13 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public void saveFile(FileVO vo) throws Exception {
-		dao.saveFile(vo);
 		
+		try {
+			dao.saveFile(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
 	}
 
 	@Override
@@ -48,6 +55,17 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public List<FileVO> selectFile(String path) throws Exception {
 		return dao.selectFile(path);
+	}
+
+	@Override
+	public List<String> pathList() throws Exception {
+		return dao.pathList();
+	}
+
+	@Override
+	public void deleteFile(Integer fno) throws Exception {
+		dao.deleteFile(fno);
+		
 	}
 
 	

@@ -11,6 +11,8 @@ public interface FileDAO {
 	public List<FileVO> selectFile(String path) throws Exception;
 	public FileVO readFile(Integer fno) throws Exception;
 	public String readPath(Integer fno) throws Exception;
+	public void deleteFile(Integer fno) throws Exception;
+	public List<String> pathList() throws Exception;
 	public void deleteAll() throws Exception;
 
 }

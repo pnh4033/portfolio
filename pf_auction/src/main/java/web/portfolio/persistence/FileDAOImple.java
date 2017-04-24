@@ -50,6 +50,17 @@ public class FileDAOImple implements FileDAO {
 		return session.selectList(NAMESPACE+"selectFile", path);
 	}
 
+	@Override
+	public List<String> pathList() throws Exception {
+		return session.selectList(NAMESPACE+"pathList");
+	}
+
+	@Override
+	public void deleteFile(Integer fno) throws Exception {
+		session.delete(NAMESPACE+"deleteFile");
+		
+	}
+
 	
 
 }

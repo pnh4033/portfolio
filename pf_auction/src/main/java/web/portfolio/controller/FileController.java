@@ -3,6 +3,7 @@ package web.portfolio.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,25 +29,24 @@ public class FileController {
 	@Inject
 	private FileService service;
 	
-	
 	@RequestMapping(value="/listFiles", method=RequestMethod.GET)
 	public ResponseEntity<List<FileVO>> fileReadGET(FileVO vo) throws Exception {
 		
 		ResponseEntity<List<FileVO>> entity=null;
 
+		List<FileVO> fileList=new ArrayList<>();
 		try {
-			/*service.deleteAll();*/
 			
-			if(vo.getFirst()==true) {
 				vo.setPath("c:"+File.separator);
 			
 			
 			File file=new File(vo.getPath());
 			File[] files=file.listFiles();
 			for(File f : files) {
+				vo=new FileVO();
 				
 				vo.setFilename(f.getName());
-				vo.setPath(f.getPath());
+				vo.setPath(f.getCanonicalPath());
 				
 				if(f.isFile()) {
 					vo.setIsdir("file");
@@ -53,36 +54,19 @@ public class FileController {
 					vo.setIsdir("dir");
 				}
 				
-				service.saveFile(vo);
-			}
-			entity=new ResponseEntity<List<FileVO>>(service.listFile(), HttpStatus.OK);
-			
-			vo.setFirst(false);
-			
-  }else{
-			  
-			  /*service.deleteAll();*/
-			  File file=new File(vo.getPath());
-				File[] files=file.listFiles();
-				for(File f : files) {
-					
-					vo.setFilename(f.getName());
-					vo.setPath(f.getPath());
-					
-					if(f.isFile()) {
-						vo.setIsdir("file");
-					}else if(f.isDirectory()) {
-						vo.setIsdir("dir");
-					}
-					
-					service.saveFile(vo);
-				} /*end for*/
+				System.out.println(vo.getIsdir());
+				fileList.add(vo);
+
+				/*service.saveFile(vo);*/
 				
-				entity=new ResponseEntity<List<FileVO>>(service.listFile(), HttpStatus.OK);
-  }   /*end if*/
+			}
+			/*entity=new ResponseEntity<List<FileVO>>(service.listFile(), HttpStatus.OK);*/
+			entity=new ResponseEntity<List<FileVO>>(fileList, HttpStatus.OK);
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity=new ResponseEntity<>(service.listFile(), HttpStatus.BAD_REQUEST);
+			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
@@ -132,7 +116,6 @@ public class FileController {
 				System.out.println(vo.toString());
 				
 			}
-			vo.setPresentList(service.selectFile(str));   /*now*/
 			
 			entity=new ResponseEntity<List<FileVO>>(service.selectFile(str), HttpStatus.OK);
 			
@@ -298,24 +281,29 @@ public class FileController {
 		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/selectFile/{fno}", method=RequestMethod.POST) 
-	public ResponseEntity<List<FileVO>> selectFilePOST(@PathVariable("fno") Integer fno, FileVO vo)
+	@SuppressWarnings("finally")
+	@RequestMapping(value="/selectFile/**", method=RequestMethod.POST) 
+	public ResponseEntity<List<FileVO>> selectFilePOST(@RequestBody String path, FileVO vo)
 	throws Exception {
 		
 		ResponseEntity<List<FileVO>> entity=null;
-		vo=service.readFile(fno);
-		String str=vo.getPath();
-				
+		
+		String str=path.replace("\\", "\\\\");
+		System.out.println("str"+str);
 		try {
 			List<FileVO> fileList=new ArrayList<>();
 			
 			 File file=new File(str);
-				File[] files=file.listFiles();
+			 if(file != null) {
+
+				 File[] files=file.listFiles();
+				
+				
 				for(File f : files) {
+					vo=new FileVO();
 					
 					vo.setFilename(f.getName());
-					vo.setPath(f.getPath());
+					vo.setPath(f.getCanonicalPath());
 					
 					if(f.isFile()) {
 						vo.setIsdir("file");
@@ -323,47 +311,26 @@ public class FileController {
 						vo.setIsdir("dir");
 					}
 					
-					service.saveFile(vo);
 					
+					fileList.add(vo);
+
 				} /*end for*/
-				fileList=service.selectFile(str.replace("\\", "\\\\"));
+				} /*end if*/
+
+			 entity=new ResponseEntity<List<FileVO>>(fileList, HttpStatus.OK);
 				
-				vo.setPresentList(fileList);
-				System.out.println(str);
-				System.out.println("fileList : "+fileList.toString());
-				System.out.println("vo.get : "+vo.getPresentList());
-				
-				
-				entity=new ResponseEntity<List<FileVO>>(fileList, HttpStatus.OK);
 				
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity=new ResponseEntity<List<FileVO>>(service.selectFile(str), HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/result", method=RequestMethod.GET)
-	public ResponseEntity<List<FileVO>> result(FileVO vo) throws Exception {
-		
-		ResponseEntity<List<FileVO>> entity=null;
-		
-		try {
-		
-		List<FileVO> list=new ArrayList<>();
-		list=vo.getPresentList();
-		
-		entity=new ResponseEntity<>(vo.getPresentList(), HttpStatus.OK);
-		System.out.println("result : "+list);
-		}catch(Exception e) {
-			e.printStackTrace();
 			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}finally{
+			
+			return entity;
 		}
 		
-		return entity;
+		
 	}
+
 	
 }
 

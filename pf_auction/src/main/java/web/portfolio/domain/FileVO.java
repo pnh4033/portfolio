@@ -6,30 +6,11 @@ import java.util.List;
 public class FileVO {
 	private Integer fno;
 	private String filename;
-	private Boolean first=true;
 	private String path;
 	private String isdir;
-	private List<FileVO> presentList;
 	
-	public List<FileVO> getPresentList() {
-		return presentList;
-	}
-	public void setPresentList(List<FileVO> presentList) {
-		this.presentList = presentList;
-	}
-	public String getIsdir() {
-		return isdir;
-	}
-	public void setIsdir(String isdir) {
-		this.isdir = isdir;
-	}
-	public Boolean getFirst() {
-		return first;
-	}
-	public void setFirst(Boolean first) {
-		this.first = first;
-	}
-
+	
+	
 	public Integer getFno() {
 		return fno;
 	}
@@ -48,12 +29,24 @@ public class FileVO {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	public String getIsdir() {
+		return isdir;
+	}
+	public void setIsdir(String isdir) {
+		this.isdir = isdir;
+	}
+	
 	
 	
 	@Override
 	public String toString() {
-		return "FileVO [fno=" + fno + ", filename=" + filename + ", path=" + path + "]";
+		return "FileVO [fno=" + fno + ", filename=" + filename + ", path=" + path + ", isdir=" + isdir + "]";
 	}
+	
+	
+	
+    
+
 	
 	
 	

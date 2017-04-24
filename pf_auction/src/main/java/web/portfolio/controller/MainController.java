@@ -73,18 +73,17 @@ public class MainController {
 	public void fileReadGET(FileVO vo, Model model) throws Exception {
 		
 		
-			file_service.deleteAll();
+			List<FileVO> list=new ArrayList<>();
 			
-			if(vo.getFirst()==true) {
 				vo.setPath("c:"+File.separator);
-			
 			
 			File file=new File(vo.getPath());
 			File[] files=file.listFiles();
 			for(File f : files) {
+				vo=new FileVO();
 				
 				vo.setFilename(f.getName());
-				vo.setPath(f.getPath());
+				vo.setPath(f.getCanonicalPath());
 				
 				if(f.isFile()) {
 					vo.setIsdir("file");
@@ -92,101 +91,19 @@ public class MainController {
 					vo.setIsdir("dir");
 				}
 				
-				
-				file_service.saveFile(vo);
-			}
-			
-			vo.setFirst(false);
-			
-  }else{
-			  
-			  file_service.deleteAll();
-			  File file=new File(vo.getPath());
-				File[] files=file.listFiles();
-				for(File f : files) {
-					
-					vo.setFilename(f.getName());
-					vo.setPath(f.getPath());
-					
-					if(f.isFile()) {
-						vo.setIsdir("file");
-					}else if(f.isDirectory()) {
-						vo.setIsdir("dir");
-					}
-					
-					file_service.saveFile(vo);
-				} /*end for*/
-				
-  }   /*end if*/
-		
-		model.addAttribute("fileVO", vo);
-		model.addAttribute("list", file_service.listFile());
-}
-	
-	
-	/*@RequestMapping(value="/listFiles", method=RequestMethod.GET)
-	public ResponseEntity<List<FileVO>> fileReadGET(FileVO vo) throws Exception {
-		
-		ResponseEntity<List<FileVO>> entity=null;
+				System.out.println(vo.toString());
+				list.add(vo);
 
-		try {
-			file_service.deleteAll();
-			
-			if(vo.getFirst()==true) {
-				vo.setPath("c:"+File.separator);
-			
-			
-			File file=new File(vo.getPath());
-			File[] files=file.listFiles();
-			for(File f : files) {
-				
-				vo.setFilename(f.getName());
-				vo.setPath(f.getPath());
-				
-				if(f.isFile()) {
-					vo.setIsdir("file");
-				}else if(f.isDirectory()) {
-					vo.setIsdir("dir");
-				}
-				
-				file_service.saveFile(vo);
-			}
-			entity=new ResponseEntity<List<FileVO>>(file_service.listFile(), HttpStatus.OK);
-			
-			vo.setFirst(false);
-			
-  }else{
-			  
-			  file_service.deleteAll();
-			  File file=new File(vo.getPath());
-				File[] files=file.listFiles();
-				for(File f : files) {
-					
-					vo.setFilename(f.getName());
-					vo.setPath(f.getPath());
-					
-					if(f.isFile()) {
-						vo.setIsdir("file");
-					}else if(f.isDirectory()) {
-						vo.setIsdir("dir");
-					}
-					
-					file_service.saveFile(vo);
-				} end for
-				
-				entity=new ResponseEntity<List<FileVO>>(file_service.listFile(), HttpStatus.OK);
-  }   end if
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity=new ResponseEntity<>(file_service.listFile(), HttpStatus.BAD_REQUEST);
-		}
 		
-		return entity;
-		
-	}*/
-	
-	
+		System.out.println(list.toString());
+		model.addAttribute("fileVO", vo);
+		model.addAttribute("list", list);
+      }
+	}
 }
+
+	
+
 
 
 

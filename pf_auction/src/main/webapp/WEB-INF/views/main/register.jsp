@@ -188,7 +188,7 @@
 	  
 	  
 	  
-	  $("#selectImg").load("/file/listFiles"); 
+	  $("#selectImg").load("/main/listFiles"); 
 	
 /* 	   function loadFile() {
 			
