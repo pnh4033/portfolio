@@ -94,6 +94,10 @@
 	float: left;
 	}
 	
+	#wd1 {
+	
+	}
+	
 </style>	
 </head>
 
@@ -115,12 +119,13 @@
 		</div>
 
 		<div id="fileWrap">
+		<div id="listImg">
+		<button type="button" id="selectImg">이미지 추가하기<input type="button" ></input></button>
+		</div>
+
 		<ul>
 		
 		<li>
-		<div id="selectImg">
-		
-		</div>
 		</li>
 		
 		<li><div></div></li>
@@ -188,33 +193,15 @@
 	  
 	  
 	  
-	  $("#selectImg").load("/main/listFiles"); 
-	
-/* 	   function loadFile() {
-			
-		  $.ajax({
-			type : 'get',
-			url : '/file/listFiles',
-		    headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "GET"
-			}, 
-			dataType : 'text',
-			    data : JSON.stringify({
-			    fno:fno,	
-				filename : filename,
-				path : path,
-				isdir : isdir
-			}), 
-			success : function(result) {
-				if(result == 'SUCCESS') {
-					
-				}
-			}
-		  });
-	  }
+	  /* $("#selectImg").load("/main/listFiles"); */
 	  
-	  loadFile(); */
+	  $("#selectImg").on("click", function() {
+		var url="/main/listFiles";
+		window.open(url, "wd1", "");
+	  });
+	  
+	
+
 	  
 		  
 	  

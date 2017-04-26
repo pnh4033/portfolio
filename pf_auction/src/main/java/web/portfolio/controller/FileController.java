@@ -289,7 +289,7 @@ public class FileController {
 		ResponseEntity<List<FileVO>> entity=null;
 		
 		String str=path.replace("\\", "\\\\");
-		System.out.println("str"+str);
+		System.out.println(str);
 		try {
 			List<FileVO> fileList=new ArrayList<>();
 			
@@ -313,16 +313,19 @@ public class FileController {
 					
 					
 					fileList.add(vo);
+					
+					
 
 				} /*end for*/
 				} /*end if*/
 
 			 entity=new ResponseEntity<List<FileVO>>(fileList, HttpStatus.OK);
-				
+
 				
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+
 		}finally{
 			
 			return entity;
