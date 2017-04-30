@@ -7,8 +7,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <script type="text/javascript" src="/resources/plugins/jquery/jquery-3.2.0.min.js"></script>
-
-
+<!-- <script src="/resources/plugins/multifile-master/jquery.MultiFile.js" type="text/javascript" language="javascript"></script>
+<script src="/resources/plugins/multifile-master/jquery.form.min.js"></script>
+<script src="/resources/plugins/multifile-master/jQuery.MultiFile.min.js"></script> -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js'></script>
 <style>
 
 div{
@@ -87,6 +89,12 @@ width: 20%;
 height: auto;
 }
 
+iframe {
+width: 0px;
+height: 0px;
+border: 0px;
+}
+
 /* #selectFile {
 width:100%;
 height: 40px;
@@ -117,8 +125,14 @@ vertical-align: middle;
 <div id="wrap">
 <div id="left1"></div>
 
-<div id="selectFile"><input type="button" id="sel_btn" value="선택하기"/><input type="button" id="send_btn" value="서버로 보내기"/></div>
-<!-- <div id="sendFile"><input type="button" id="send_btn" value="서버로 보내기"/></div> -->
+<div id="selectFile"><input type="button" id="sel_btn" value="이미지 선택"/>
+<input type="button" id="all_reset" value="초기화"/>
+</div>
+<form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
+      target="ifrm">
+<input type="submit" id="send_btn" value="등록하기"/>
+<input type="file" class="mFile" name="mFile" id="mFile" />
+</form>
 
 <div id="left2">
 <ul id="fileLi">
@@ -153,9 +167,14 @@ vertical-align: middle;
 </div>
 <div id="d1"></div>
 
-
+<iframe name="ifrm"></iframe>
 
 <script type="text/javascript">
+
+function addImg(msg) {
+	alert(msg);
+	$("#form1").reset();
+}
 
 function ext(t) {                       /* 크롬 보안문제로 이미지 로드 불가 */
 	var loc=t.attr("data-path");
@@ -457,38 +476,58 @@ $("#sel_btn").click(function() {
 			
 			var temp=$(this).parent().attr("data-path");
 			var sub=temp.substr(-3, 3).toLowerCase();
-			alert(sub);
 			if((sub == 'jpg') || (sub == 'gif') || (sub == 'png')) {
 			
 		$("#right_ul").append("<li id='rightLi'>"+$(this).parent().attr("data-path")+"</li>");
 		
-		}
-		
-		
 		}else{
 			alert("jpg, gif, png 파일만 가능합니다.");
-			$(this).attr("checked", false);
+			$("input:checkbox[name='fileCheck']").prop("checked", false);
 		}  
+		}
 		
 	});
 });
 
 
-$("#send_btn").click(function() {
-	var list=$("#right li");
-	var fileList=new Array();
-	/* for(var i=0; list.length; i++) {
-		fileList.push(list[i].text());
-	} */
+
+
+$("#all_reset").click(function() {
+	$("input:checkbox[name='fileCheck']").prop("checked", false);
+	$("#right_ul").empty();
+});
+
+
+
+
+
+$("#send_btn").submit(function() {
+
+	var form=$("#form1")[0];
+	var formData=new FormData(form);  
+	var inpFile=$("input[name='mFile']")[0];
+ 	/* $(".multi").each(function() {
+	});  */ 
 	
-	$(list).each(function() {
-		alert($(this).text());
+	
+	formData.append("mFile", inpFile).files[0]; 
+	
+	$("#form1").ajaxForm({
+		url:'/main/upload',
+		type:'POST',
+		data:formData,
+		dataType:'text',
+		processData: false,
+		contentType: false,
+		success: function() {
+			$("#form1").reset();
+		}
 	});
 	
+}); 
 	
 	
-});
-	
+
 
 
 </script>

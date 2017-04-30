@@ -6,6 +6,8 @@
 <html>
 <head>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
 <title>Insert title here</title>
 
 <style>
@@ -94,8 +96,16 @@
 	float: left;
 	}
 	
-	#wd1 {
+	iframe {
+	width: 0px;
+	height: 0px;
+	border: 0px;
+	}
 	
+	#fileList_ul {
+	width: 200px;
+	height: 300px;
+	border: solid grey 1px;
 	}
 	
 </style>	
@@ -118,26 +128,6 @@
 		<label>제목 : <input type="text" name="title" class="reg_form" size="100" value="${ productVO.title }"></label>
 		</div>
 
-		<div id="fileWrap">
-		<div id="listImg">
-		<button type="button" id="selectImg">이미지 추가하기<input type="button" ></input></button>
-		</div>
-
-		<ul>
-		
-		<li>
-		</li>
-		
-		<li><div></div></li>
-		
-		<li>
-		<div id="checkedFile">
-		</div>
-		</li>
-		
-		</ul>
-		</div>  <!-- filewrap -->
-		
 		<div>
 		<label for="i_price">즉시 구입 가격 : </label>
 		<input type="text" name="i_price" class="reg_form" value="${ productVO.i_price }">원
@@ -172,7 +162,21 @@
 	</div>
 
 	</form>
-	
+
+		<div id="fileWrap">
+		  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
+                >
+            <input type="submit" id="send_btn" value="등록하기"/>
+            <input type="file" name="mFile" id="mFile" multiple/>
+          </form>
+		</div>  <!-- filewrap -->
+
+<!-- <iframe name="ifrm"></iframe> -->
+
+<ul id="fileList_ul">
+	<li>${result}</li>
+</ul>
+
 </div>
 
 
@@ -182,59 +186,42 @@
 	
 <script>
 	
-	/* function () {
-		var formObj=$("form[role='form']");	
-	
-	  $("#reg_submit").on("click", function() {
-		  formObj.attr("action", "/main/register");
-		  formObj.attr("method", "post");
-		  formObj.submit();
-	  }); */
-	  
-	  
-	  
-	  /* $("#selectImg").load("/main/listFiles"); */
-	  
-	  $("#selectImg").on("click", function() {
-		var url="/main/listFiles";
-		window.open(url, "wd1", "");
-	  });
-	  
-	
+$("#send_btn").submit(function() {
 
+	var form=$("#form1")[0];
+	var formData=new FormData(form);  
+	var inpFile=$("input[name='mFile']")[0];
+ 	
+	
+	/* formData.append("mFile", inpFile).files[0]; 
+	alert(inpFile.files[0].value()); */
+	
+	for(var i=0; i<$('#form1')[0].files.length; i++){
+
+        formData.append('mFile', $('#mFile')[0].files[i]);
+
+    }
+
+	
+	$("#form1").ajaxForm({
+		url:'/main/upload',
+		type:'POST',
+		data:formData,
+		dataType:'text',
+		processData: false,
+		contentType: false,
+		success: function(data) {
+			var dt=JSON.parse(data);
+			alert(dt);
+			/* $("#form1").reset(); */
+			$("#fileList_ul").html("<li>"+dt+"</li>");
+		}
+	}); 
+	
+	
+}); 
 	  
-		  
-	  
-	  
-	  
-	  $(".list").on("click", function() {
-		
-		  var filename=$("#checkedFile").val();
-		  
-		  $.ajax({
-			type : 'post',
-			url : '/file/setFile/',
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "post"
-			},
-			dataType : 'text',
-			data : JSON.stringify({
-				fno : fno,
-				fileName : fileName,
-				path : path,
-				isdir : isdir
-			}),
-			success : function(result) {
-				if(result == 'SUCCESS') {
-					alert('등록되었습니다.');
-				}
-			}
-		  });
-	  
-	  
-		  
-	  });
+	
 	  
 	
 </script>
