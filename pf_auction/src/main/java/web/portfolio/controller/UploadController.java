@@ -41,15 +41,14 @@ public class UploadController {
 	
 	@ResponseBody
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
-	public ResponseEntity<List<MultipartFile>> upload(@RequestPart MultipartFile mFile) throws Exception {
+	public ResponseEntity<String> upload(@RequestPart List<MultipartFile> mFile) throws Exception {
 		
-		ResponseEntity<List<MultipartFile>> entity=null;
+		ResponseEntity<String> entity=null;
 		System.out.println(mFile.toString());
 		
 		try{
 			
-			/*List<MultipartFile> list=new ArrayList<MultipartFile>();
-			Iterator<MultipartFile> it=list.iterator();
+			Iterator<MultipartFile> it=mFile.iterator();
 			MultipartFile file;
 			
 			while(it.hasNext()) {
@@ -59,11 +58,11 @@ public class UploadController {
 				byte[] imgData=file.getBytes();
 				
 				UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
-			}*/
+			}
 			
-			String oriName=mFile.getOriginalFilename();
+			/*String oriName=mFile.getOriginalFilename();
 			System.out.println(oriName);
-			byte[] imgData=mFile.getBytes();
+			byte[] imgData=mFile.getBytes();*/
 			
 			/*String path = "C:\\image"+File.separator;
 	          InputStream inputStream = null;
@@ -109,17 +108,14 @@ public class UploadController {
 	          }*/
 			
 			
-			UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
+			/*UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
 
 			String result=uploadPath+File.separator+oriName;	
-			System.out.println(result);
+			System.out.println(result);*/
 			
-			/*ModelAndView mav=new ModelAndView();
-			mav.setViewName("/main/register");
-			mav.addObject("result", result);
-			System.out.println(mav.getModel().toString());*/
+
 			
-			entity=new ResponseEntity<List<MultipartFile>>(HttpStatus.CREATED);
+			entity=new ResponseEntity<String>(HttpStatus.CREATED);
 			
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -6,7 +6,7 @@
 <html>
 <head>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js'></script>
 
 <title>Insert title here</title>
 
@@ -87,14 +87,14 @@
 	float: left;
 	}
 	
-	ul {
+/* 	ul {
 	overflow: hidden;
 	}
 	
 	li {
 	margin: 5px;
 	float: left;
-	}
+	} */
 	
 	iframe {
 	width: 0px;
@@ -103,9 +103,21 @@
 	}
 	
 	#fileList_ul {
-	width: 200px;
+	width: 350px;
 	height: 300px;
-	border: solid grey 1px;
+	border: solid 2px;
+	border-color: #D3DEEA; 
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	text-align: left;
+	padding: 10px;
+	overflow: auto;
+	}
+	
+	.fileLi {
+	
 	}
 	
 </style>	
@@ -165,16 +177,15 @@
 
 		<div id="fileWrap">
 		  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
-                >
-            <input type="submit" id="send_btn" value="등록하기"/>
-            <input type="file" name="mFile" id="mFile" multiple/>
+                target="ifrm">
+            <input type="button" id="send_btn" value="등록하기"/>
+            <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
           </form>
 		</div>  <!-- filewrap -->
 
-<!-- <iframe name="ifrm"></iframe> -->
+<iframe name="ifrm"></iframe>
 
 <ul id="fileList_ul">
-	<li>${result}</li>
 </ul>
 
 </div>
@@ -186,24 +197,28 @@
 	
 <script>
 	
-$("#send_btn").submit(function() {
+$("#mFile").on("change", function() {
 
 	var form=$("#form1")[0];
 	var formData=new FormData(form);  
-	var inpFile=$("input[name='mFile']")[0];
- 	
 	
-	/* formData.append("mFile", inpFile).files[0]; 
-	alert(inpFile.files[0].value()); */
 	
-	for(var i=0; i<$('#form1')[0].files.length; i++){
+	for(var i=0; i<$("#mFile")[0].files.length; i++){
+	var fname=$("#mFile")[0].files[i].name;
 
         formData.append('mFile', $('#mFile')[0].files[i]);
-
+    	$("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");
+      
+		
     }
 
 	
-	$("#form1").ajaxForm({
+	$("#send_btn").click(function() {
+		$("#form1").submit();
+		
+		alert("등록 되었습니다.");
+		
+	/* $("#form1").ajaxForm({
 		url:'/main/upload',
 		type:'POST',
 		data:formData,
@@ -213,13 +228,39 @@ $("#send_btn").submit(function() {
 		success: function(data) {
 			var dt=JSON.parse(data);
 			alert(dt);
-			/* $("#form1").reset(); */
-			$("#fileList_ul").html("<li>"+dt+"</li>");
+		
 		}
-	}); 
+	});  
 	
+	$(this).submit(); */ 
 	
-}); 
+	});   
+
+
+});  
+
+
+
+/* $("#send_btn").on('click', function () {
+    $("#fileList_ul").empty();
+    var fp = $("#form1");
+    var lg = fp[0].files.length; // get length
+    var items = fp[0].files;
+    var fragment = "";
+    
+    if (lg > 0) {
+        for (var i = 0; i < lg; i++) {
+            var fileName = items[i].name; // get file name
+            var fileSize = items[i].size; // get file size 
+            var fileType = items[i].type; // get file type
+
+            // append li to UL tag to display File info
+            fragment += "<li>" + fileName + " (<b>" + fileSize + "</b> bytes) - Type :" + fileType + "</li>";
+        }
+
+        $("#fileList_ul").append(fragment);
+    }
+}); */
 	  
 	
 	  
