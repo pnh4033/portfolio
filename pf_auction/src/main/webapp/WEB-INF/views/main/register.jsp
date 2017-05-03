@@ -116,6 +116,19 @@
 	overflow: auto;
 	}
 	
+	#fileList_div {
+	width: 480px;
+	height: 430px;
+	border: solid 2px;
+	border-color: #D3DEEA; 
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	text-align: left;
+	padding: 10px;
+	}
+	
 	.fileLi {
 	
 	}
@@ -175,18 +188,29 @@
 
 	</form>
 
-		<div id="fileWrap">
-		  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
-                target="ifrm">
-            <input type="button" id="send_btn" value="등록하기"/>
-            <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
-          </form>
-		</div>  <!-- filewrap -->
+		
 
 <iframe name="ifrm"></iframe>
 
+<div id="fileList_div">
+<div><p>이미지는 다중선택이 가능하며 용량은 10MB 이하로 제한됩니다.</p></div>
+<div>
 <ul id="fileList_ul">
 </ul>
+</div>
+
+<div id="fileWrap">
+  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
+        target="ifrm">
+    <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
+    <input type="button" id="send_btn" value="등록하기"/>
+  </form>
+</div>  <!-- filewrap -->
+
+</div>
+<div id="img"></div>
+
+
 
 </div>
 
@@ -201,12 +225,13 @@ $("#mFile").on("change", function() {
 
 	var form=$("#form1")[0];
 	var formData=new FormData(form);  
-	
+	var size=0;
 	
 	for(var i=0; i<$("#mFile")[0].files.length; i++){
 	var fname=$("#mFile")[0].files[i].name;
 
         formData.append('mFile', $('#mFile')[0].files[i]);
+        size+=$("#mFile")[0].files[i].size;
     	$("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");
       
 		
@@ -214,25 +239,81 @@ $("#mFile").on("change", function() {
 
 	
 	$("#send_btn").click(function() {
-		$("#form1").submit();
 		
-		alert("등록 되었습니다.");
+		if(size >= 1024*1024*1024) {
+			alert("10MB 이상은 등록할 수 없습니다.");
+			$("#fileList_ul").empty();
+			size=0;
+		}else if(size <= 0){
+			alert("등록할 파일이 없습니다.");
+			size=0;
+		}else{
+     		/* $("#form1").submit();
+     		alert("등록되었습니다.");
+     		$("#fileList_ul").empty();
+     		size=0; */
+     		
+     			
+     		
+     		$.ajax({
+     			url:'/main/upload',
+     			data:formData,
+     			dataType:'text',
+     			processData:false,
+     			contentType:false,
+     			type:'POST',
+     			success: function(data) {
+     				
+     				$("#img").append("<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>");
+     				
+     				alert("등록되었습니다.");
+     	     		$("#fileList_ul").empty();
+     	     		size=0; 
+     			}
+     		
+     		});
+     		
+     		
+     		
+     		
+     		
+		}
+			
 		
-	/* $("#form1").ajaxForm({
+	/* $.ajax({
 		url:'/main/upload',
-		type:'POST',
-		data:formData,
+		type:'post',
 		dataType:'text',
-		processData: false,
-		contentType: false,
+		processData:false,
+		contentType:false,
 		success: function(data) {
 			var dt=JSON.parse(data);
-			alert(dt);
-		
+			$(dt).each(function() {
+				alert($(this));
+			});
 		}
-	});  
+		
+	}); */
 	
-	$(this).submit(); */ 
+	/* $.ajax({
+		url:'/main/listImgs',
+		type:'POST',
+		dataType:'text',
+		processData:false,
+		contentType:false,
+		success: function(data) {
+			
+			var str="";
+			$.each(function(data) {
+				
+			$("img").append("<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>")
+			});
+		}
+		
+	}); */ 
+	
+	
+	
 	
 	});   
 
