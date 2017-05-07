@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="readProduct" resultType="ProductVO">
 	select * from product_tbl
-	where pid=#{pid}
+	where pno=#{pno}
 	</select>
 	
 	<update id="modifyProduct">
@@ -26,29 +26,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	buytype=#{buytype},
 	quantity=#{quantity}
 	desc_product=#{desc_product},
-	where pid=#{pid}
+	where pno=#{pno}
 	</update>
 	
 	<delete id="deleteProduct">
 	delete from product_tbl
-	where pid=#{pid}
+	where pno=#{pno}
 	</delete>
 	
 	<select id="listAll" resultType="ProductVO">
 	select * from product_tbl
 	<![CDATA[
-	where pid>0
+	where pno>0
 	]]>
-	order by pid desc, createdate desc
+	order by pno desc, createdate desc
 	</select>
 	
 	<select id="listPage" resultType="ProductVO">
 	select * from product_tbl
 	<![CDATA[
-	where pid>0
+	where pno>0
 	]]> 
-	order by pid desc, createdate desc 
+	order by pno desc, createdate desc 
 	</select>
+	
+	<select id="getPno" resultType="int">
+	select max(pno) from product_tbl
+	</select>
+	
+	<insert id="addAttach">
+	insert into prod_attach (fullName, pno)
+	values (#{fullName}, (select max(pno) from product_tbl))
+	</insert>
 
 </mapper>
 

@@ -14,13 +14,13 @@
 <body>
 <table class="prod_table">
 <tr>
-<th>PID</th><th>TITLE</th><th>I_PRICE</th><th>STARTPRICE</th><th>NOW</th>
+<th>PNO</th><th>TITLE</th><th>I_PRICE</th><th>STARTPRICE</th><th>NOW</th>
 <th>BUYTYPE</th><th>TENDERCOUNT</th><th>DESCRIPTION</th><th>QUANTITY</th>
 <th>CREATEDATE</th>
 </tr>
 <c:forEach items="${list}" var="vo">
 <tr>
-  <td>${vo.pid}</td><td> ${vo.title} </td><td>${vo.i_price}</td> <td>${vo.startprice}</td>
+  <td>${vo.pno}</td><td> ${vo.title} </td><td>${vo.i_price}</td> <td>${vo.startprice}</td>
   <td>${vo.nowprice} </td><td>${vo.buytype} </td><td>${vo.tendercnt} </td>
   <td>${vo.desc_product}</td>
   <td>${vo.quantity}</td>

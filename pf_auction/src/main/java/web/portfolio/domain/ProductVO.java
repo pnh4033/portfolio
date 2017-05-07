@@ -1,10 +1,12 @@
 package web.portfolio.domain;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class ProductVO {
 	
-	private Integer pid;
+	private Integer pno;
 	private String title;
 	private int i_price;
 	private int startprice;
@@ -15,7 +17,38 @@ public class ProductVO {
 	private String desc_product;
 	private Date createdate;
 	
+	private String[] imgs;
+	private List<String> fileList;
 	
+	
+	public List<String> getFileList() {
+		return fileList;
+	}
+
+
+
+
+	public void setFileList(List<String> fileList) {
+		this.fileList = fileList;
+	}
+
+
+
+
+	public String[] getImgs() {
+		return imgs;
+	}
+
+
+
+
+	public void setImgs(String[] imgs) {
+		this.imgs = imgs;
+	}
+
+
+
+
 	public String getDesc_product() {
 		return desc_product;
 	}
@@ -34,15 +67,15 @@ public class ProductVO {
 	
 	
 	
-	public Integer getPid() {
-		return pid;
+	public Integer getPno() {
+		return pno;
 	}
 
 
 
 
-	public void setPid(Integer pid) {
-		this.pid = pid;
+	public void setPno(Integer pno) {
+		this.pno = pno;
 	}
 
 
@@ -162,10 +195,17 @@ public class ProductVO {
 
 	@Override
 	public String toString() {
-		return "ProductVO [pid=" + pid + ", title=" + title + ", i_price=" + i_price + ", startprice=" + startprice
+		return "ProductVO [pno=" + pno + ", title=" + title + ", i_price=" + i_price + ", startprice=" + startprice
 				+ ", nowprice=" + nowprice + ", buytype=" + buytype + ", tendercnt=" + tendercnt + ", quantity="
-				+ quantity + ", createdate=" + createdate + "]";
+				+ quantity + ", desc_product=" + desc_product + ", createdate=" + createdate + ", imgs="
+				+ Arrays.toString(imgs) + ", fileList=" + fileList + "]";
 	}
+
+
+
+
+	
+
 
 
 

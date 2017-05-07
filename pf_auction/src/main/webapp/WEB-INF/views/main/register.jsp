@@ -21,7 +21,7 @@
 	background-color: #D0E7F4;
 	margin: 30px;
 	padding: 50px;
-	font-size: 20px;
+	font-size: 13px;
 	z-index: 10010;
 	}
 	
@@ -40,12 +40,12 @@
 	}
 	
 	input[type=text] {
-	padding: 8px;
-	font-size: 16px;
+	padding: 2px;
+	font-size: 13px;
 	}
 	
 	textarea {
-	font-size: 18px;
+	font-size: 13px;
 	}
 	
 	#opt {
@@ -73,7 +73,7 @@
 	width: 400px;
 	height: 600px;
 	background-color: white;
-	font-size:15px;
+	font-size:13px;
 	overflow: scroll;
 	float: left;
 	}
@@ -140,7 +140,7 @@
 
 
 <div class="regist_product">
-	<form role="form" action="register" method="post">
+	<form role="form" name="regForm" id="regForm" action="register" method="post">
 	
 	<input type="hidden" name="page" value="${ criteria.page }">
 	<input type="hidden" name="searchType" value="${ criteria.searchType }">
@@ -178,6 +178,9 @@
 		<label for="desc_product" id="desc_label">상품 설명</label><br/>
 		<textarea class="form_desc" name="desc_product" rows="10" cols="100">${ productVO.desc_product }</textarea>
 		</div>
+		
+		
+		
 <p></p>		
 <div id="s_div" style="align:'left';">
 	<p></p>
@@ -233,12 +236,15 @@ $("#mFile").on("change", function() {
         formData.append('mFile', $('#mFile')[0].files[i]);
         size+=$("#mFile")[0].files[i].size;
     	$("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");
-      
+        
+    	$(".inner-form").append("<input type='hidden' name='imgs' value='"+$('#mFile')[0].files[i].name+"'>");
 		
     }
 
 	
 	$("#send_btn").click(function() {
+		
+		
 		
 		if(size >= 1024*1024*1024) {
 			alert("10MB 이상은 등록할 수 없습니다.");
@@ -248,12 +254,10 @@ $("#mFile").on("change", function() {
 			alert("등록할 파일이 없습니다.");
 			size=0;
 		}else{
-     		/* $("#form1").submit();
-     		alert("등록되었습니다.");
-     		$("#fileList_ul").empty();
-     		size=0; */
      		
-     			
+     		
+     		var formObj=$("#regForm")[0];
+     		formObj.submit();
      		
      		$.ajax({
      			url:'/main/upload',
@@ -264,7 +268,10 @@ $("#mFile").on("change", function() {
      			type:'POST',
      			success: function(data) {
      				
-     				$("#img").append("<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>");
+     					
+     				/* $("#img").append(
+     						"<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>"); */
+				
      				
      				alert("등록되었습니다.");
      	     		$("#fileList_ul").empty();

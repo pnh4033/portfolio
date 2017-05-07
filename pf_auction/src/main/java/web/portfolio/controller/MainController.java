@@ -55,6 +55,7 @@ public class MainController {
 	public String registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info(vo.toString());
 		
+		System.out.println("vo.toString() : "+vo.toString());
 		prod_service.createProduct(vo);
 		rttr.addFlashAttribute("msg","success");
 		
@@ -64,8 +65,8 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/readProduct")
-	public void readProduct(@RequestParam Integer pid, Model model,Criteria criteria) throws Exception {
-		model.addAttribute(prod_service.readProduct(pid));
+	public void readProduct(@RequestParam Integer pno, Model model,Criteria criteria) throws Exception {
+		model.addAttribute(prod_service.readProduct(pno));
 	}
 	
 	

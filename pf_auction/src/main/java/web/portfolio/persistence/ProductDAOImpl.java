@@ -25,8 +25,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ProductVO readProduct(int pID) throws Exception {
-		return session.selectOne(NAMESPACE+"read", pID);
+	public ProductVO readProduct(int pno) throws Exception {
+		return session.selectOne(NAMESPACE+"read", pno);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	@Transactional
 	@Override
-	public void deleteProduct(int pID) throws Exception {
-		session.delete(NAMESPACE+"delete", pID);
+	public void deleteProduct(int pno) throws Exception {
+		session.delete(NAMESPACE+"delete", pno);
 
 	}
 
@@ -54,6 +54,19 @@ public class ProductDAOImpl implements ProductDAO {
 		page=(page-1)*10;
 		
 		return session.selectList(NAMESPACE+"listPage", page);
+	}
+
+
+
+	@Override
+	public int getPno() throws Exception {
+		return session.selectOne(NAMESPACE+"getPno");
+	}
+
+	@Override
+	public void addAttach(String fullName) throws Exception {
+		session.insert(NAMESPACE+"addAttach", fullName);
+		
 	}
 
 }

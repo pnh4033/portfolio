@@ -3,7 +3,10 @@ package web.portfolio.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -19,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.portfolio.domain.ImgListVO;
+import web.portfolio.domain.ProductVO;
+import web.portfolio.persistence.ProductDAO;
 import web.portfolio.utils.MediaUtil;
 import web.portfolio.utils.UploadImageUtils;
 
@@ -40,11 +47,15 @@ public class UploadController {
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
+	@Inject
+	private ProductDAO dao;
+	
 	@RequestMapping(value="/main/upload", method=RequestMethod.GET)
 	public void upload() {
 		
 	}
 	
+	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
 	public ResponseEntity<String> upload(@RequestPart List<MultipartFile> mFile) throws Exception {
@@ -53,31 +64,39 @@ public class UploadController {
 		System.out.println(mFile.toString());
 		
 		try{
-			String fileName="";
-			MultipartFile file=null;
+			
 			Iterator<MultipartFile> it=mFile.iterator();
-			List<String> list=new ArrayList<>();
+			String fileName="";
+			String oriName="";
 			
 			while(it.hasNext()) {
+				byte[] imgData=null;
+				MultipartFile file=null;
 				
 				file=it.next();
-				String oriName=file.getOriginalFilename();
-				System.out.println(oriName);
-				byte[] imgData=file.getBytes();
+				imgData=file.getBytes();
+				oriName=file.getOriginalFilename();
+				System.out.println("originalName : "+oriName);
 				
 				fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
 				System.out.println("fileName : "+fileName);
-				/*list.add(fileName);*/
 				
+				dao.addAttach(fileName);
 				
-				entity=new ResponseEntity<String>(fileName, HttpStatus.CREATED);
 			}
+
+			
+			
+
+			
+			
+			entity=new ResponseEntity<String>(fileName, HttpStatus.CREATED);
 			
 			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			entity=new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		/*String savedName=uploadImg(file.getOriginalFilename(), file.getBytes());
@@ -96,11 +115,9 @@ public class UploadController {
 		InputStream inputStream=null;
 		ResponseEntity<byte[]> entity=null;
 		
-		
 		try{
 			/*imgList=vo.getImgList();
 			Iterator<String> it=imgList.iterator();*/
-			
 			
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtil.getMediaType(formatName);
@@ -127,7 +144,7 @@ public class UploadController {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
 		}finally{
 			inputStream.close();
 		}
