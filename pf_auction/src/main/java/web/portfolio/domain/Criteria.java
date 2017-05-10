@@ -3,12 +3,23 @@ package web.portfolio.domain;
 public class Criteria {
 	
 	private int page;
-	
+	private int perPageNum;
 	private String searchType;
 	private String keyWord;
 	
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
+	}
+
+
+	
 	public Criteria() {
 		this.page=1;
+		this.perPageNum=20;
 	}
 	
 	public int getPage() {
@@ -25,7 +36,7 @@ public class Criteria {
 	}
 	
 	public int getStartPage() {
-		return (this.page-1)*10;
+		return (this.page-1)*20;
 	}
 	
 	

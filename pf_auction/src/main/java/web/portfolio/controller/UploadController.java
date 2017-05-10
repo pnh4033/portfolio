@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.portfolio.domain.ImgListVO;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.persistence.ProductDAO;
+import web.portfolio.service.ProductService;
 import web.portfolio.utils.MediaUtil;
 import web.portfolio.utils.UploadImageUtils;
 
@@ -49,6 +50,9 @@ public class UploadController {
 	
 	@Inject
 	private ProductDAO dao;
+	
+	@Inject
+	private ProductService service;
 	
 	@RequestMapping(value="/main/upload", method=RequestMethod.GET)
 	public void upload() {
@@ -83,9 +87,9 @@ public class UploadController {
 				
 				dao.addAttach(fileName);
 				
+				
 			}
 
-			
 			
 
 			
@@ -154,7 +158,57 @@ public class UploadController {
 	
 	
 	
-	private String uploadImg(String oriName, byte[] imgData) throws Exception {
+	@ResponseBody
+	@RequestMapping(value="/main/listImgsPno")
+	public ResponseEntity<byte[]> listImgsPno(@RequestParam("pno") Integer pno) throws Exception {
+		
+		InputStream inputStream=null;
+		ResponseEntity<byte[]> entity=null;
+		
+		try{
+			String fileName=service.getOneImg(pno);
+			System.out.println("filename : "+fileName);
+			
+			File imgFile=new File(uploadPath+fileName);
+			
+			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
+			MediaType mType=MediaUtil.getMediaType(formatName);
+			HttpHeaders headers=new HttpHeaders();
+			String path=uploadPath+fileName;
+			
+			path.replace("\\\\", "/");
+			path.replace("\\", "/");
+			System.out.println("uploadPath+fileName : "+path);
+			inputStream=new FileInputStream(path);
+			/*inputStream=new FileInputStream(path);*/
+			
+			if(mType != null) {
+				headers.setContentType(mType);
+			}else{
+				fileName=fileName.substring(fileName.lastIndexOf("_")+1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition", "attachment; fileName=\""+
+						new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+			}
+			
+			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream)
+					, headers, HttpStatus.CREATED);
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
+		}finally{
+			inputStream.close();
+		}
+		
+		return entity;
+	}
+	
+	
+	
+/*	private String uploadImg(String oriName, byte[] imgData) throws Exception {
 		
 		UUID uid=UUID.randomUUID();
 		String savedName=uid.toString() + "_" + oriName;
@@ -163,7 +217,7 @@ public class UploadController {
 		FileCopyUtils.copy(imgData, target);
 		
 		return savedName;
-	}
+	}*/
 
 }
 

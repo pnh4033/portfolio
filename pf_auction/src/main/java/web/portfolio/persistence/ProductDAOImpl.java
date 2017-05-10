@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import web.portfolio.domain.Criteria;
 import web.portfolio.domain.ProductVO;
 
 @Repository
@@ -51,7 +52,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> listPage(int page) throws Exception {
 		
 		if(page<=0) page=1;
-		page=(page-1)*10;
+		page=(page-1)*20;
 		
 		return session.selectList(NAMESPACE+"listPage", page);
 	}
@@ -67,6 +68,21 @@ public class ProductDAOImpl implements ProductDAO {
 	public void addAttach(String fullName) throws Exception {
 		session.insert(NAMESPACE+"addAttach", fullName);
 		
+	}
+
+	@Override
+	public List<ProductVO> listCriteria(Criteria cri) throws Exception {
+		return session.selectList(NAMESPACE+"listCriteria", cri);
+	}
+
+	@Override
+	public int countPaging(Criteria criteria) throws Exception {
+		return session.selectOne(NAMESPACE+"countPaging", criteria);
+	}
+
+	@Override
+	public String getOneImg(Integer pno) throws Exception {
+		return session.selectOne(NAMESPACE+"getOneImg", pno);
 	}
 
 }

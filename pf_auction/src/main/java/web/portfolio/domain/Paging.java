@@ -28,7 +28,7 @@ public class Paging {
 		endPage=(int)(Math.ceil(criteria.getPage()/(double)showPageNum)*showPageNum);
 		startPage=(endPage-showPageNum)+1;
 		
-		int addEndPage=(int)(Math.ceil(totalCount/(double)10));
+		int addEndPage=(int)(Math.ceil(totalCount/(double)criteria.getPerPageNum()));
 		
 		if(endPage>addEndPage) {
 			endPage=addEndPage;

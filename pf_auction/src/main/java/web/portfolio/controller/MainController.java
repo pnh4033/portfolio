@@ -1,16 +1,11 @@
 package web.portfolio.controller;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import web.portfolio.domain.Criteria;
-import web.portfolio.domain.FileVO;
+import web.portfolio.domain.Paging;
 import web.portfolio.domain.ProductVO;
+import web.portfolio.domain.SampleVO;
 import web.portfolio.service.FileService;
 import web.portfolio.service.ProductService;
 
@@ -30,17 +26,23 @@ public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
 	
-	
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	@Inject
 	private ProductService prod_service;
 	
-	@Inject
-	private FileService file_service;
+
 	
 	@RequestMapping(value="/contents")
 	public void mainPage(ProductVO vo, Model model, Criteria criteria) throws Exception {
-		model.addAttribute("list", prod_service.listAll());
+		
+		Paging paging=new Paging();
+		paging.setCriteria(criteria);
+		paging.setTotalCount(prod_service.listCountCriteria(criteria));
+		
+		model.addAttribute("list", prod_service.listCriteria(criteria));
+		model.addAttribute("paging", paging);
 		
 	}
 	
@@ -67,40 +69,38 @@ public class MainController {
 	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pno, Model model,Criteria criteria) throws Exception {
 		model.addAttribute(prod_service.readProduct(pno));
+		
 	}
 	
 	
-	@RequestMapping(value="/listFiles", method=RequestMethod.GET)
-	public void fileReadGET(FileVO vo, Model model) throws Exception {
+	@RequestMapping(value="/listProduct")
+	public void listCri(Criteria criteria, Model model) throws Exception {
 		
+		Paging paging=new Paging();
+		paging.setCriteria(criteria);
+		paging.setTotalCount(prod_service.listCountCriteria(criteria));
 		
-			List<FileVO> list=new ArrayList<>();
-			
-				vo.setPath("c:"+File.separator);
-			
-			File file=new File(vo.getPath());
-			File[] files=file.listFiles();
-			for(File f : files) {
-				vo=new FileVO();
-				
-				vo.setFilename(f.getName());
-				vo.setPath(f.getCanonicalPath());
-				
-				if(f.isFile()) {
-					vo.setIsdir("file");
-				}else if(f.isDirectory()) {
-					vo.setIsdir("dir");
-				}
-				
-				System.out.println(vo.toString());
-				list.add(vo);
-
+		model.addAttribute("list", prod_service.listCriteria(criteria));
+		model.addAttribute("paging", paging);
 		
-		System.out.println(list.toString());
-		model.addAttribute("fileVO", vo);
-		model.addAttribute("list", list);
-      }
 	}
+	
+	
+	@RequestMapping(value="/getOneImg")
+	public void getOneImg(Integer pno, Model model, SampleVO svo) throws Exception {
+		
+		String path=uploadPath;
+		svo.setSamplePath(path+prod_service.getOneImg(pno).replace("/", "\\\\"));
+		
+		try {
+			model.addAttribute("sampleImg", svo.getSamplePath());
+			System.out.println(model.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
 
 	

@@ -16,6 +16,7 @@
     }
 	.wrap {
 	margin:0px;
+	height: auto;
 	}
 
 	#bottom {
@@ -42,7 +43,7 @@
 	#body {
 	margin: 0 auto;
 	width: 100%;
-	height: 100%;
+	height: auto;
 	}
 	
 	#event {
@@ -51,9 +52,9 @@
 	background-color: #F4D197;
 	}
 	
-	#left_bar {float: left; width:15%; height: 100%; background-color:#00405E;}
-	#center {float: left; width: 70%; height: 100%;}
-	#right_bar {float: left; width:15%; height: 100%; background-color:white;}
+	#left_bar {float: left; width:15%; height: 1500px; background-color:#00405E;}
+	#center {float: left; width: 70%; height: 1500px;}
+	#right_bar {float: left; width:15%; height: 1500px; background-color:white;}
 	
 </style>
 

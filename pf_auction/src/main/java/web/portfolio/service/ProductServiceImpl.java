@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import web.portfolio.domain.Criteria;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.persistence.ProductDAO;
 
@@ -35,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
 				return;
 			}
 			
-			/*for(String fileName : imgs) {
-				dao.addAttach(fileName);
+			/*for(String fullName : imgs) {
+				dao.addAttach(fullName);
 			}*/
 			
 			
@@ -78,6 +79,21 @@ public class ProductServiceImpl implements ProductService {
 	public void addAttach(String fullName) throws Exception {
 		dao.addAttach(fullName);
 		
+	}
+
+	@Override
+	public List<ProductVO> listCriteria(Criteria criteria) throws Exception {
+		return dao.listCriteria(criteria);
+	}
+
+	@Override
+	public int listCountCriteria(Criteria criteria) throws Exception {
+		return dao.countPaging(criteria);
+	}
+
+	@Override
+	public String getOneImg(Integer pno) throws Exception {
+		return dao.getOneImg(pno);
 	}
 
 

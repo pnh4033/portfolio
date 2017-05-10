@@ -48,6 +48,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where pno>0
 	]]> 
 	order by pno desc, createdate desc 
+	limit #{page},20
+	</select>
+	
+	<select id="listCriteria" resultType="ProductVO">
+	select * from product_tbl
+	<![CDATA[
+	where pno>0
+	]]> 
+	order by pno desc, createdate desc 
+	limit #{page},20
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select count(pno) from product_tbl
+	where pno>0
+	]]>
 	</select>
 	
 	<select id="getPno" resultType="int">
@@ -58,6 +75,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into prod_attach (fullName, pno)
 	values (#{fullName}, (select max(pno) from product_tbl))
 	</insert>
+	
+	<select id="getOneImg" resultType="String">
+	select * from prod_attach 
+	where pno=#{pno} 
+	limit 1
+	</select>
 
 </mapper>
 
