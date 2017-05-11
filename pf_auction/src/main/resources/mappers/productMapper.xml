@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where pno>0
 	]]> 
 	order by pno desc, createdate desc 
-	limit #{page},20
+	limit #{startPage},#{perPageNum}
 	</select>
 	
 	<select id="countPaging" resultType="int">
@@ -80,6 +80,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from prod_attach 
 	where pno=#{pno} 
 	limit 1
+	</select>
+	
+	<select id="getAllImg" resultType="String">
+	select * from prod_attach
+	where pno=#{pno}
 	</select>
 
 </mapper>

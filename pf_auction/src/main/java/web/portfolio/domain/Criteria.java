@@ -12,7 +12,10 @@ public class Criteria {
 	}
 
 	public void setPerPageNum(int perPageNum) {
-		this.perPageNum = perPageNum;
+		if(perPageNum <= 0 || perPageNum > 200) {
+			this.perPageNum=20;
+			return;
+		}
 	}
 
 

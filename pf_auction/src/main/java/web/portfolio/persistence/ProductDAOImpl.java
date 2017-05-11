@@ -27,7 +27,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public ProductVO readProduct(int pno) throws Exception {
-		return session.selectOne(NAMESPACE+"read", pno);
+		return session.selectOne(NAMESPACE+"readProduct", pno);
 	}
 
 	@Override
@@ -83,6 +83,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public String getOneImg(Integer pno) throws Exception {
 		return session.selectOne(NAMESPACE+"getOneImg", pno);
+	}
+
+	@Override
+	public List<String> getAllImg(Integer pno) throws Exception {
+		return session.selectList(NAMESPACE+"getAllImg", pno);
 	}
 
 }

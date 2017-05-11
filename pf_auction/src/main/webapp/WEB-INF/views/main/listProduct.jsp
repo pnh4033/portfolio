@@ -44,7 +44,7 @@ margin: 3px;
 
 <title>Insert title here</title>
 </head>
-<body>
+<body id="listBody">
 
 <table class="prod_table">
 <%-- <tr>
@@ -66,7 +66,7 @@ margin: 3px;
 
   <tr>
 <c:forEach items="${list}" var="vo" varStatus="st">
-  <td><a href="/main/readProduct?pno=${vo.pno}"><img src="/main/listImgsPno?pno=${vo.pno}"/></a></td>
+  <td><a href="/main/readProduct?pno=${vo.pno}" target="_blank"><img src="/main/listImgsPno?pno=${vo.pno}"/></a></td>
   <c:if test="${(st.count mod 4) == 0}">
   </tr>
   </c:if>
@@ -101,9 +101,22 @@ margin: 3px;
 
 <script>
 
-	$(document).ready(function() {
-		
-	});
+$(document).ready(function () {
+$("html body").animate({
+scrollTop: $("#top").offset().top
+}, 'slow');
+});
+
+
+$("a").click(function(event) {
+	
+	event.preventDefault();
+	
+	var t=$(this).attr("href");
+	
+	$("#body_con1").load(t);
+	
+});
 
 </script>
 

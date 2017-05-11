@@ -68,8 +68,8 @@ public class MainController {
 	
 	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pno, Model model,Criteria criteria) throws Exception {
-		model.addAttribute(prod_service.readProduct(pno));
-		
+		model.addAttribute("productVO",prod_service.readProduct(pno));
+		System.out.println(model.toString());
 	}
 	
 	

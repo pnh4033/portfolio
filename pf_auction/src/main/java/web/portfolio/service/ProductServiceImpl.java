@@ -96,6 +96,11 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getOneImg(pno);
 	}
 
+	@Override
+	public List<String> getAllImg(Integer pno) throws Exception {
+		return dao.getAllImg(pno);
+	}
+
 
 
 }

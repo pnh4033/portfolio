@@ -169,8 +169,6 @@ public class UploadController {
 			String fileName=service.getOneImg(pno);
 			System.out.println("filename : "+fileName);
 			
-			File imgFile=new File(uploadPath+fileName);
-			
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtil.getMediaType(formatName);
 			HttpHeaders headers=new HttpHeaders();
@@ -204,6 +202,71 @@ public class UploadController {
 		}
 		
 		return entity;
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/main/listImgsPnoAll")
+	public ResponseEntity<byte[]> listImgsPnoAll(@RequestParam("pno") Integer pno) throws Exception {
+		
+		InputStream inputStream=null;
+		ResponseEntity<byte[]> entity=null;
+		List<String> list=new ArrayList<>();
+		
+		list=service.getAllImg(pno);
+		
+		Iterator<String> it=list.iterator();
+
+			
+			while(it.hasNext()) {
+			
+			try{
+				
+				String fileName=it.next();
+				String front=fileName.substring(1,12);
+				String rear=fileName.substring(14);
+				fileName=front+rear;
+				
+				System.out.println("fileName=front+rear : "+fileName);
+				
+			System.out.println("filename : "+fileName);
+			
+			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
+			MediaType mType=MediaUtil.getMediaType(formatName);
+			HttpHeaders headers=new HttpHeaders();
+			String path=uploadPath+File.separator+fileName;
+			
+			path.replace("\\\\", "/");
+			path.replace("\\", "/");
+			System.out.println("uploadPath+fileName : "+path);
+			inputStream=new FileInputStream(path);
+			/*inputStream=new FileInputStream(path);*/
+			
+			if(mType != null) {
+				headers.setContentType(mType);
+			}else{
+				fileName=fileName.substring(fileName.lastIndexOf("_")+1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition", "attachment; fileName=\""+
+						new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+			}
+			
+			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream)
+					, headers, HttpStatus.CREATED);
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
+		}finally{
+			inputStream.close();
+		}
+			}    /*while end*/
+		
+			return entity;
+
 	}
 	
 	

@@ -35,7 +35,7 @@ public class Paging {
 		}
 		
 		prev=(startPage == 1) ? false : true;
-		next=(endPage*10) >= totalCount ? false : true;
+		next=(endPage*20) >= totalCount ? false : true;
 	}
 
 	

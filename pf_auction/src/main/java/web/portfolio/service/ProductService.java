@@ -17,6 +17,7 @@ public interface ProductService {
 	public List<ProductVO> listCriteria(Criteria criteria) throws Exception;
 	public int listCountCriteria(Criteria criteria) throws Exception;
 	public String getOneImg(Integer pno) throws Exception;
+	public List<String> getAllImg(Integer pno) throws Exception;
 	/*public List<ProductVO> searchProduct(SearchCriteria scri) throws Exception;*/
 
 }

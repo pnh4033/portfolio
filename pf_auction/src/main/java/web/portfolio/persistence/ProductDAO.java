@@ -19,6 +19,7 @@ public interface ProductDAO {
 	public void addAttach(String fullName) throws Exception;
 	public int countPaging(Criteria criteria) throws Exception; 
 	public String getOneImg(Integer pno) throws Exception;
+	public List<String> getAllImg(Integer pno) throws Exception;
 	
 
 }
