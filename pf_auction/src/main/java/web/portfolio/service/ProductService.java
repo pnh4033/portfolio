@@ -1,5 +1,6 @@
 package web.portfolio.service;
 
+import java.util.Date;
 import java.util.List;
 
 import web.portfolio.domain.Criteria;
@@ -18,6 +19,7 @@ public interface ProductService {
 	public int listCountCriteria(Criteria criteria) throws Exception;
 	public String getOneImg(Integer pno) throws Exception;
 	public List<String> getAllImg(Integer pno) throws Exception;
+	public String getExpdate(Integer pno) throws Exception;
 	/*public List<ProductVO> searchProduct(SearchCriteria scri) throws Exception;*/
 
 }

@@ -107,10 +107,7 @@
 	height: 300px;
 	border: solid 2px;
 	border-color: #D3DEEA; 
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px;
-	border-top-right-radius: 4px;
-	border-top-left-radius: 4px;
+	border-radius: 4px;
 	text-align: left;
 	padding: 10px;
 	overflow: auto;
@@ -121,10 +118,7 @@
 	height: 430px;
 	border: solid 2px;
 	border-color: #D3DEEA; 
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px;
-	border-top-right-radius: 4px;
-	border-top-left-radius: 4px;
+	border-radius: 4px;
 	text-align: left;
 	padding: 10px;
 	}
@@ -140,6 +134,9 @@
 
 
 <div class="regist_product">
+
+	
+	<!-- 페이징 처리와 검색을 위한 데이터 -->
 	<form role="form" name="regForm" id="regForm" action="register" method="post">
 	
 	<input type="hidden" name="page" value="${ criteria.page }">
@@ -152,7 +149,11 @@
 		<div>
 		<label>제목 : <input type="text" name="title" class="reg_form" size="100" value="${ productVO.title }"></label>
 		</div>
-
+		
+		<div>
+		<label for="pname">상품명 : </label>
+		<input type="text" name="pname" class="reg_form" value="${ productVO.pname }">
+		</div>
 		<div>
 		<label for="i_price">즉시 구입 가격 : </label>
 		<input type="text" name="i_price" class="reg_form" value="${ productVO.i_price }">원
@@ -184,7 +185,7 @@
 <p></p>		
 <div id="s_div" style="align:'left';">
 	<p></p>
-	<button type="submit" id="reg_submit">등록</button>
+	<!-- <button type="submit" id="reg_submit">등록</button> -->
 </div>	
 	  </div>
 	</div>
@@ -224,7 +225,7 @@
 	
 <script>
 	
-$("#mFile").on("change", function() {
+$("#mFile").on("change", function() {   
 
 	var form=$("#form1")[0];
 	var formData=new FormData(form);  
@@ -233,11 +234,14 @@ $("#mFile").on("change", function() {
 	for(var i=0; i<$("#mFile")[0].files.length; i++){
 	var fname=$("#mFile")[0].files[i].name;
 
-        formData.append('mFile', $('#mFile')[0].files[i]);
-        size+=$("#mFile")[0].files[i].size;
-    	$("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");
+        formData.append('mFile', $('#mFile')[0].files[i]);   /* 폼에 파일 추가 */
         
-    	$(".inner-form").append("<input type='hidden' name='imgs' value='"+$('#mFile')[0].files[i].name+"'>");
+        size+=$("#mFile")[0].files[i].size;    /* 파일 사이즈 제한을 위해 카운팅 */
+    	
+        $("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");   /* 선택한 파일 목록 만들기 */ 
+        
+    	$(".inner-form").append(      /* 등록 폼에 파일명을 붙여서 전송 */
+    			"<input type='hidden' name='imgs' value='"+$('#mFile')[0].files[i].name+"'>");
 		
     }
 
@@ -257,10 +261,12 @@ $("#mFile").on("change", function() {
      		
      		
      		var formObj=$("#regForm")[0];
-     		formObj.submit();
+     		formObj.submit();        /* 등록폼 전송 */
      		
+     		
+     		/* 파일 업로드 */
      		$.ajax({
-     			url:'/main/upload',
+     			url:'/main/upload',     
      			data:formData,
      			dataType:'text',
      			processData:false,

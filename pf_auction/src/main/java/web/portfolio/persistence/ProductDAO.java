@@ -1,5 +1,6 @@
 package web.portfolio.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import web.portfolio.domain.Criteria;
@@ -20,6 +21,7 @@ public interface ProductDAO {
 	public int countPaging(Criteria criteria) throws Exception; 
 	public String getOneImg(Integer pno) throws Exception;
 	public List<String> getAllImg(Integer pno) throws Exception;
+	public String getExpdate(Integer pno) throws Exception;
 	
 
 }

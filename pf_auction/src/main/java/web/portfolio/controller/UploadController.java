@@ -24,7 +24,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -215,7 +217,7 @@ public class UploadController {
 		List<String> list=new ArrayList<>();
 		
 		list=service.getAllImg(pno);
-		
+		System.out.println("list=service.getAllImg(pno) : "+list.toString());
 		Iterator<String> it=list.iterator();
 
 			
@@ -256,7 +258,6 @@ public class UploadController {
 					, headers, HttpStatus.CREATED);
 			
 			
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
@@ -267,6 +268,30 @@ public class UploadController {
 		
 			return entity;
 
+	}
+	
+	
+	
+	@RequestMapping("/main/listImgsString/{pno}")
+	@ResponseBody
+	public ResponseEntity<List<String>> listImgsString(@PathVariable Integer pno) throws Exception {
+		
+		ResponseEntity<List<String>> entity=null;
+		
+		List<String> list=new ArrayList<>();
+		try{
+
+			list=service.getAllImg(pno);
+			entity=new ResponseEntity<>(list, HttpStatus.OK);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
 	}
 	
 	

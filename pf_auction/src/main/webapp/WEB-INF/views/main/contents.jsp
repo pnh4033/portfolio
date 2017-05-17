@@ -2,12 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
-<style>
+<style type="text/css">
+	
+	html, body {
+	height: 100%;
+	}
+	
 	div {
 	margin:0px;
 	}
@@ -16,7 +22,7 @@
     }
 	.wrap {
 	margin:0px;
-	height: auto;
+	/* height: 100%; */
 	}
 
 	#bottom {
@@ -43,7 +49,7 @@
 	#body {
 	margin: 0 auto;
 	width: 100%;
-	height: auto;
+	/* height: 100%; */
 	}
 	
 	#event {
@@ -52,9 +58,13 @@
 	background-color: #F4D197;
 	}
 	
-	#left_bar {float: left; width:15%; height: 1500px; background-color:#00405E;}
-	#center {float: left; width: 70%; height: 1500px;}
-	#right_bar {float: left; width:15%; height: 1500px; background-color:white;}
+	#body_con1 {
+
+	}
+	
+	#left_bar {border:solid white 1px; float:left; width:15%; height: 99%;}
+	#center {border:solid white 1px; float: left; width: 70%; height: 99%;}
+	#right_bar {border:solid white 1px; float: left; width:15%; height: 99%;}
 	
 </style>
 
@@ -98,7 +108,7 @@
   
   </div>            <!-- wrap -->
 
-
+<div id="footer"><%@ include file="footer.jsp" %></div>
 
 </body>
 </html>

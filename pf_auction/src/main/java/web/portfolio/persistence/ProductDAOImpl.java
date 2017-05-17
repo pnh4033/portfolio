@@ -1,5 +1,6 @@
 package web.portfolio.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -88,6 +89,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<String> getAllImg(Integer pno) throws Exception {
 		return session.selectList(NAMESPACE+"getAllImg", pno);
+	}
+
+	@Override
+	public String getExpdate(Integer pno) throws Exception {
+		return session.selectOne(NAMESPACE+"getExpdate", pno);
 	}
 
 }

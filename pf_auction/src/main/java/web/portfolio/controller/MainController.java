@@ -1,6 +1,12 @@
 package web.portfolio.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
@@ -17,7 +23,6 @@ import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.SampleVO;
-import web.portfolio.service.FileService;
 import web.portfolio.service.ProductService;
 
 @Controller
@@ -44,6 +49,8 @@ public class MainController {
 		model.addAttribute("list", prod_service.listCriteria(criteria));
 		model.addAttribute("paging", paging);
 		
+		System.out.println("vo.getEnddate() : "+vo.getEnddate());
+		
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
@@ -67,21 +74,32 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/readProduct")
-	public void readProduct(@RequestParam Integer pno, Model model,Criteria criteria) throws Exception {
-		model.addAttribute("productVO",prod_service.readProduct(pno));
-		System.out.println(model.toString());
+	public void readProduct(@RequestParam Integer pno, 
+			Model model,Criteria criteria, ProductVO vo) throws Exception {
+		
+		vo=prod_service.readProduct(pno);
+		
+		model.addAttribute("productVO",vo);
+		
+		
+		
+		System.out.println("vo.toString : "+vo.toString());
 	}
 	
 	
 	@RequestMapping(value="/listProduct")
-	public void listCri(Criteria criteria, Model model) throws Exception {
+	public void listCri(Criteria criteria, Model model, ProductVO vo) throws Exception {
 		
 		Paging paging=new Paging();
 		paging.setCriteria(criteria);
 		paging.setTotalCount(prod_service.listCountCriteria(criteria));
+
 		
 		model.addAttribute("list", prod_service.listCriteria(criteria));
 		model.addAttribute("paging", paging);
+
+		
+		
 		
 	}
 	
@@ -100,6 +118,14 @@ public class MainController {
 		}
 		
 	}
+	
+	
+
+	
+	
+
+	
+	
 	
 }
 

@@ -7,10 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createProduct">
 	insert into product_tbl 
-	(title, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate)
+	(title, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate)
 	values
 	(#{title}, #{i_price}, #{startprice}, #{nowprice}, 
-	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now())
+	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
+	(select ADDTIME(now(), '3 00:00:00')))
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
@@ -52,7 +53,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="listCriteria" resultType="ProductVO">
-	select * from product_tbl
+	<!-- select pno, title, i_price, startprice, nowprice, buytype, tendercnt,
+	quantity, createdate, desc_product, pname, 
+	date_format(enddate, "%Y/%c/%e %T") -->
+	select *
+	 from product_tbl
 	<![CDATA[
 	where pno>0
 	]]> 
@@ -76,14 +81,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values (#{fullName}, (select max(pno) from product_tbl))
 	</insert>
 	
-	<select id="getOneImg" resultType="String">
-	select * from prod_attach 
+	<select id="getOneImg" resultType="string">
+	select fullName from prod_attach 
 	where pno=#{pno} 
+	order by regdate desc
 	limit 1
 	</select>
 	
-	<select id="getAllImg" resultType="String">
-	select * from prod_attach
+	<select id="getAllImg" resultType="string">
+	select fullName from prod_attach
+	where pno=#{pno}
+	</select>
+	
+	<select id="getExpdate" resultType="String">
+	select date_format(enddate, "%Y%m%d%h%i%s") from product_tbl
 	where pno=#{pno}
 	</select>
 

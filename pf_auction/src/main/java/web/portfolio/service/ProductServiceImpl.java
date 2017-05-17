@@ -1,6 +1,7 @@
 package web.portfolio.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -99,6 +100,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<String> getAllImg(Integer pno) throws Exception {
 		return dao.getAllImg(pno);
+	}
+
+	@Override
+	public String getExpdate(Integer pno) throws Exception {
+		return dao.getExpdate(pno);
 	}
 
 
