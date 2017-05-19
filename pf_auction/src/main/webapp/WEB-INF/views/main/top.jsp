@@ -16,18 +16,18 @@
 	
     #top_left {
     width: 15%;
-	height: 100px;
+	height: 150px;
 	float: left;
 	}
 	#top_center{
 	width: 70%;
-	height: 100px;
+	height: 150px;
 	background-color: #E1E9ED;
 	float: left;
 	}
 	#top_right {
 	width: 15%;
-	height: 100px;
+	height: 150px;
 	float: left;
 	} 
 	
@@ -43,7 +43,6 @@
 	</div>
 	<div id="top_center"></div>
 	<div id="top_right">
-    <div id="regist" align="right"><button type="button" class="btn" id="reg_btn">상품등록</button></div>
     </div>
     
   </div>
@@ -52,7 +51,7 @@
 <script>
   $(document).ready( function() {
 	$("#reg_btn").on("click", function() {
-		$("#body").load("register")
+		window.open("register");
 	});
   });
 </script>

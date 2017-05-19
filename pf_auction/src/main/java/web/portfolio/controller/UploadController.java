@@ -64,10 +64,11 @@ public class UploadController {
 	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
-	public ResponseEntity<String> upload(@RequestPart List<MultipartFile> mFile) throws Exception {
-		ResponseEntity<String> entity=null;
+	public ResponseEntity<List<String>> upload(@RequestPart List<MultipartFile> mFile) throws Exception {
+		ResponseEntity<List<String>> entity=null;
 		
 		System.out.println(mFile.toString());
+		List<String> list=new ArrayList<>();
 		
 		try{
 			
@@ -88,7 +89,7 @@ public class UploadController {
 				System.out.println("fileName : "+fileName);
 				
 				dao.addAttach(fileName);
-				
+				list.add(fileName);
 				
 			}
 
@@ -96,7 +97,7 @@ public class UploadController {
 
 			
 			
-			entity=new ResponseEntity<String>(fileName, HttpStatus.CREATED);
+			entity=new ResponseEntity<List<String>>(list, HttpStatus.CREATED);
 			
 			
 			

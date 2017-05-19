@@ -61,14 +61,14 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
+	public void registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info(vo.toString());
 		
 		System.out.println("vo.toString() : "+vo.toString());
 		prod_service.createProduct(vo);
 		rttr.addFlashAttribute("msg","success");
 		
-		return "redirect:/main/contents";
+
 	}
 	
 	

@@ -10,7 +10,70 @@
 <html>
 <head>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+
 <style type="text/css">
+
+div {
+	margin:0px;
+	}
+    ul {
+    list-style: none;
+    }
+	.wrap {
+	margin:0px;
+	/* height: 100%; */
+	}
+
+	#bottom {
+	background-color:#28CC00;
+	width: 70%; height: 100px;
+	}
+	.contents {
+	background-color: white;
+	margin:0px;
+	overflow: hidden;
+	}
+	
+	/* #empty {
+	height:60px;
+	background-color: white;
+	} */
+	
+	#top_menu {
+	width:100%;
+	height: 150px;
+	/* background-color: #E8963A */
+	}
+	
+	#body {
+	margin: 0 auto;
+	width: 100%;
+	/* height: 100%; */
+	}
+	
+	#center_menu {
+	width: 900px;
+	height: 80px;
+	background-color: #061559;
+	border-radius:7px;
+	margin: 0 auto;
+	padding: 10px;
+	display: table-cell;
+	vertical-align: middle;
+	}
+	
+	#body_con1 {
+
+	}
+	
+	#left_bar {border:solid white 1px; float:left; width:15%; height: 99%;}
+	#center {border:solid white 1px; float: left; width: 70%; height: 99%;}
+	#right_bar {border:solid white 1px; float: left; width:15%; height: 99%;}
+
+
+
 
 html, body {
 height: 100%;
@@ -127,7 +190,40 @@ height: 0;
 
 <title>Insert title here</title>
 </head>
-<body id="listBody">
+<body id="top">
+
+<div class="wrap" align="center"><!-- wrap -->
+  
+  
+  
+  <div id="top_menu" align="center"><%@ include file="top.jsp" %>
+  
+<!--   <div id="top_menu">
+    <div id="regist" align="right"><button type="button" class="btn" id="reg_btn">상품등록</button></div>
+  </div> -->
+  
+  </div>
+  
+  
+  
+  <div class="contents" align="center"><!-- contents -->
+  
+  <div id="left_bar"></div>
+  <div id="center">  
+    <!-- <div id="empty"></div> -->
+    <p></p>
+	<div id="body">
+	
+	
+	
+		<div id="center_menu">
+		
+		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
+		
+		</div><p></p>
+
+
+
 
 
 
@@ -197,7 +293,8 @@ height: 0;
     </li>  --%>
     
     
-    <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}">&nbsp;</li>
+    <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}">&nbsp;
+    <img src="/resources/image/clock.png" width="18px" style="vertical-align: text-bottom;"/></li>
     
 <%--     <c:forEach var="entry" items="${expMap}" varStatus="st">
     ${entry.key} - ${entry.value}
@@ -239,6 +336,21 @@ height: 0;
 
 
 
+
+
+</div>
+  </div>
+  <div id="right_bar"></div>
+  
+  </div>                <!-- contents -->
+  
+  
+  
+  </div>            <!-- wrap -->
+
+<div id="footer"><%@ include file="footer.jsp" %></div>
+
+
 <script>
 
 $(document).ready(function () {
@@ -260,7 +372,7 @@ $(".listItem").click(function(event) {
 });
 
 
-$(".pageA").click(function(event) {
+/* $(".pageA").click(function(event) {
 	
 	event.preventDefault();
 	
@@ -268,7 +380,7 @@ $(".pageA").click(function(event) {
 	
 	$("#body_con1").load(t); 
 	
-});
+}); */
 
 
 
@@ -288,7 +400,7 @@ $(".expDate").each(function() {
 			var id="#expDate"+pno;
 			
 			if(result != null) {
-				$(id).append("남은시간 &nbsp;&nbsp;&nbsp;"+result);
+				$(id).append("&nbsp;"+result);
 			}else{
 				$(id).append(result);
 			}

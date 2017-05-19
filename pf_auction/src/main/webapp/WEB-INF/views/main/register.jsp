@@ -194,7 +194,7 @@
 
 		
 
-<iframe name="ifrm"></iframe>
+<!-- <iframe name="ifrm"></iframe> -->
 
 <div id="fileList_div">
 <div><p>이미지는 다중선택이 가능하며 용량은 10MB 이하로 제한됩니다.</p></div>
@@ -204,8 +204,7 @@
 </div>
 
 <div id="fileWrap">
-  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
-        target="ifrm">
+  <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data">
     <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
     <input type="button" id="send_btn" value="등록하기"/>
   </form>
@@ -254,14 +253,14 @@ $("#mFile").on("change", function() {
 			alert("10MB 이상은 등록할 수 없습니다.");
 			$("#fileList_ul").empty();
 			size=0;
+			return;
 		}else if(size <= 0){
 			alert("등록할 파일이 없습니다.");
 			size=0;
+			return;
 		}else{
      		
      		
-     		var formObj=$("#regForm")[0];
-     		formObj.submit();        /* 등록폼 전송 */
      		
      		
      		/* 파일 업로드 */
@@ -272,16 +271,20 @@ $("#mFile").on("change", function() {
      			processData:false,
      			contentType:false,
      			type:'POST',
-     			success: function(data) {
+     			success: function(result) {
      				
      					
      				/* $("#img").append(
      						"<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>"); */
 				
+     		var formObj=$("#regForm")[0];
+     		formObj.submit();        /* 등록폼 전송 */
      				
-     				alert("등록되었습니다.");
-     	     		$("#fileList_ul").empty();
+     				alert("등록되었습니다. 창을 닫습니다.");
+     	     		/* $("#fileList_ul").empty(); */
      	     		size=0; 
+     	     		self.close();
+
      			}
      		
      		});

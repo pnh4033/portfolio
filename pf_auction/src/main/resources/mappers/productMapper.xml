@@ -7,11 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createProduct">
 	insert into product_tbl 
-	(title, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate)
+	(title, pname, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate)
 	values
-	(#{title}, #{i_price}, #{startprice}, #{nowprice}, 
+	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
-	(select ADDTIME(now(), '3 00:00:00')))
+	(select ADDTIME(now(), 3 '00:00:00')))
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
