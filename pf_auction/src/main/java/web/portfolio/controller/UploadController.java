@@ -64,7 +64,8 @@ public class UploadController {
 	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
-	public ResponseEntity<List<String>> upload(@RequestPart List<MultipartFile> mFile) throws Exception {
+	public ResponseEntity<List<String>> upload(@RequestPart List<MultipartFile> mFile,
+			ProductVO vo) throws Exception {
 		ResponseEntity<List<String>> entity=null;
 		
 		System.out.println(mFile.toString());
@@ -88,9 +89,8 @@ public class UploadController {
 				fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
 				System.out.println("fileName : "+fileName);
 				
-				dao.addAttach(fileName);
+				/*dao.addAttach(fileName);*/
 				list.add(fileName);
-				
 			}
 
 			

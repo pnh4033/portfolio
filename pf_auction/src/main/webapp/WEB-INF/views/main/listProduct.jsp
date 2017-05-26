@@ -120,7 +120,8 @@ margin: 20px;
 }
 
 #listImg {
-width: 220px;
+max-width: 221px;
+max-height: 190px;
 }
 
 #listWrap {
@@ -186,6 +187,22 @@ color: red;
 width: 0;
 height: 0;
 }
+
+#table_menu {
+border:0px;
+margin: 3px;
+}
+
+#table_img {
+border:0px;
+}
+
+#table_title {
+border:0px;
+color: white;
+font-weight: bold;
+}
+
 </style>
 
 <title>Insert title here</title>
@@ -217,8 +234,16 @@ height: 0;
 	
 	
 		<div id="center_menu">
-		
+		<table id="table_menu">
+		<tr>
+		<td id="table_img">
 		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
+		</td>
+		</tr>
+		<tr>
+		<td id="table_title">상품등록</td>
+		</tr>
+		</table>
 		
 		</div><p></p>
 

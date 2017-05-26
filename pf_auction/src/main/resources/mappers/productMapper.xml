@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
-	(select ADDTIME(now(), 3 '00:00:00')))
+	<!-- (select DATE_ADD(now(), interval 3 day))) -->
+	now() + interval 72 hour)
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
@@ -78,7 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="addAttach">
 	insert into prod_attach (fullName, pno)
-	values (#{fullName}, (select max(pno) from product_tbl))
+	<!-- values (#{fullName}, (select max(pno) from product_tbl)) -->
+	values (#{fullName}, LAST_INSERT_ID())
 	</insert>
 	
 	<select id="getOneImg" resultType="string">

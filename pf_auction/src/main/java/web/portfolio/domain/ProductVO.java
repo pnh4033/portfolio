@@ -25,8 +25,8 @@ public class ProductVO {
 	
 	private String[] imgs;
 
-	
-	
+
+
 	public Date getEnddate() {
 		return enddate;
 	}

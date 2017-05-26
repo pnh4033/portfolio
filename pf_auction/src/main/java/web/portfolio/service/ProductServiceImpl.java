@@ -23,30 +23,34 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void createProduct(ProductVO vo) throws Exception {
-		String[] imgs=vo.getImgs();
 		
 		dao.createProduct(vo);
-		int pno=dao.getPno();
-		System.out.println("pno : "+pno);
-		vo.setPno(pno);
-		List<String> list=new ArrayList<>();
+		String[] imgs=vo.getImgs();
+		/*System.out.println("imgs : "+imgs.toString());*/
+		/*List<String> list=vo.getImgList();
+		System.out.println("list : "+list.toString());*/
 		
-		try{
 	
 			if(imgs == null) {
 				return;
 			}
 			
-			/*for(String fullName : imgs) {
-				dao.addAttach(fullName);
-			}*/
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+			for(String fileName : imgs) {
+				fileName.replace("\"", "");
+				fileName.replace("\\[", "");
+				fileName.replace("\\]", "");
+				dao.addAttach(fileName);
+			}
 		
-
+		/*Iterator<String> it=list.iterator();
+		
+		while(it.hasNext()) {
+			String fileName=it.next();
+			
+			dao.addAttach(fileName);
+		}*/
+		
+			
 	}
 
 	@Override
