@@ -165,39 +165,54 @@
 	  <div class="inner-form">
 	  
 		<div>
-		<label>제목 : <input type="text" name="title" id="title" class="reg_form" size="100" value="${ productVO.title }"></label>
+		<label>제목 : <input type="text" name="title" id="form_title" class="reg_form" size="100" value="${ productVO.title }"></label>
 		</div><br>
 		
 		<div>
 		<label for="pname">상품명 : </label>
-		<input type="text" name="pname" id="pname" class="reg_form" value="${ productVO.pname }">
+		<input type="text" name="pname" id="form_pname" class="reg_form" value="${ productVO.pname }">
 		</div><br>
 		
-		<div>
+		<%-- <div>
 		<label for="i_price">즉시 구입 가격 : </label>
-		<input type="text" name="i_price" id="i_price" class="reg_form" value="${ productVO.i_price }">원
+		<input type="text" name="i_price" id="form_i_price" class="reg_form" value="${ productVO.i_price }">원
 		</div>
 		<p></p>
 		<div>
 		<label for="startprice">시작가 : </label>
-		<input type="text" name="startprice" id="startprice" class="reg_form" value="${ productVO.startprice }">원
+		<input type="text" name="startprice" id="form_startprice" class="reg_form" value="${ productVO.startprice }">원
 		</div>
-		<p></p>
-		<div id="opt">
+		<p></p> --%>
+		
+		<!-- <div id="opt">
 		<p>판매방식 선택</p>
-		<label for="buytype">즉시구입 </label><input type="checkbox" name="imm" id="imm" value="i">
-        <label for="buytype">경매 </label><input type="checkbox" name="auc" id="auc" value="a" checked="checked">
+		<label for="buytype">즉시구입 </label><input type="checkbox" name="buytype" id="imm" value="i">
+        <label for="buytype">경매 </label><input type="checkbox" name="buytype" id="auc" value="a" checked="checked">
 		</div>
+		<p></p> -->
+		
+		<div id="opt">
+		<select name="buytype" id="form_buytype">
+		<option value="n" <c:out value="${productVO.buytype == null ? 'selected' : ''}"/>></option>
+		<option value="i" <c:out value="${productVO.buytype eq 'i' ? 'selected' : ''}"/>>즉시구매</option>
+		<option value="a" <c:out value="${productVO.buytype eq 'a' ? 'selected' : ''}"/>>경매</option>
+		<option value="ai" <c:out value="${productVO.buytype eq 'ai' ? 'selected' : ''}"/>>경매,즉시구매</option>
+		</select>
+		</div>
+		
 		<p></p>
+		<div id="opt_val"></div>
+		
+		
 		<div>
 		<label for="quantity">수량 : </label>
-		<input type="text" name="quantity" id="quantity" class="reg_form" value="${ productVO.quantity }"> EA
+		<input type="text" name="quantity" id="form_quantity" class="reg_form" value="${ productVO.quantity }"> EA
 		</div>
 		<p></p>
 		
 		<div>
 		<label for="desc_product" id="desc_label">상품 설명</label><br/>
-		<textarea class="form_desc" name="desc_product" id="desc_product" rows="10" cols="100">${ productVO.desc_product }</textarea>
+		<textarea class="form_desc" name="desc_product" id="form_desc_product" rows="10" cols="100">${ productVO.desc_product }</textarea>
 		</div>
 		
 <p></p>		
@@ -264,39 +279,98 @@
 	
 <script>
 
+$("#form_buytype").change(function() {
+	$("#opt_val").html("");
+	
+	if($("#form_buytype option:selected").val() == 'i') {
+		$("#opt_val").append("즉시구매 가격 : <input type='text' name='i_price' id='form_i_price'"
+				+"class='reg_form' value='${productVO.i_price}'>원");
+		$("#opt_val").append("<p></p>");
+	}
+	
+	if($("#form_buytype option:selected").val() == 'a') {
+		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice'"
+				+"class='reg_form' value='${productVO.startprice}'>원");
+		$("#opt_val").append("<p></p>");
+	}
+	
+	if($("#form_buytype option:selected").val() == 'ai') {
+		$("#opt_val").append("즉시구매 가격 : <input type='text' name='i_price' id='form_i_price' class='reg_form' value='${productVO.i_price}'>원");
+		$("#opt_val").append("<p></p>");
+		
+		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice' class='reg_form' value='${productVO.startprice}'>원");
+		$("#opt_val").append("<p></p>");
+	}
+});
+
+
 function submit_chk() {
-	var title_chk=/^[0-9|가-힣|a-z|A-Z]{2,50}$/;
-	var pname_chk=/^[0-9|가-힣|a-z|A-Z]{1,50}$/;
+	var title_chk=/^[\w|\W]{2,50}$/g;
+	var pname_chk=/^[\w|\W]{1,50}$/g;
 	var i_price_chk=/\d{1,9}$/;
 	var startprice_chk=/\d{1,9}$/;
+	var quantity_chk=/\d{1,9}$/;
+	var buytype_chk=/^[a|i|ai]/;
 	
-	var title=$("#title");
-	var pname=$("#pname");
-	var i_price=$("#i_price");
-	var startprice=$("#startprice");
+	var title=$("#form_title");
+	var pname=$("#form_pname");
+	var i_price=$("#form_i_price");
+	var startprice=$("#form_startprice");
+	var quantity=$("#form_quantity");
+	var buytype=$("#form_buytype option:selected");
 	
 	var title_result=title_chk.test(title.val());
 	var pname_result=pname_chk.test(pname.val());
 	var i_price_result=i_price_chk.test(i_price.val());
 	var startprice_result=startprice_chk.test(startprice.val());
+	var quantity_result=quantity_chk.test(quantity.val());
+	var buytype_result=buytype_chk.test(buytype.val());
 	
 	if(!title_result) {
 		alert("제목을 입력하세요.");
-		$("#title").focus();
+		$("#form_title").focus();
 		return false;
 	}else if(!pname_result) {
 		alert("상품명을 입력하세요.");
-		$("#pname").focus();
+		$("#form_pname").focus();
 		return false;
-	}else if($("input:checkbox[name='imm']").prop("checked") && !i_price_result){
+	}else if($("input:checkbox[id='imm']").prop("checked") && !i_price_result){
 		alert("즉구가를 입력하세요.");
-		$("#i_price").focus();
+		$("#form_i_price").focus();
 		return false;
-	}else if($("input:checkbox[name='auc']").prop("checked") && !startprice_result) {
+	}else if($("input:checkbox[id='auc']").prop("checked") && !startprice_result) {
 		alert("시작가를 입력하세요.");
-		$("#startprice").focus();
+		$("#form_startprice").focus();
 		return false;
-	}else {
+	}else if(!buytype_result) {
+		alert("판매방식을 선택하세요.");
+		$("#form_buytype").focus();
+		return false;
+	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {
+		alert("즉구가를 입력하세요.");
+		$("#form_buytype").focus();
+		return false;
+	}else if($("#form_buytype option:selected").val() == 'a' && !startprice_result) {
+		alert("시작가를 입력하세요.");
+		$("#form_buytype").focus();
+		return false;
+	}else if($("#form_buytype option:selected").val() == 'ai' && !i_price_result) {
+		alert("즉구가를 입력하세요.");
+		$("#form_buytype").focus();
+		return false;
+	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result) {
+		alert("시작가를 입력하세요.");
+		$("#form_buytype").focus();
+		return false;	
+	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result && !i_price_result) {
+		alert("즉구가 와 시작가를 입력하세요.");
+		$("#form_buytype").focus();
+		return false;
+	}else if(!quantity_result) {
+		alert("수량을 입력하세요.");
+		$("#form_quantity").focus();
+		return false;
+	}else{
 		return true;
 	}
 }
@@ -326,35 +400,6 @@ $("#mFile").on("change", function() {
 
 	
 	$("#send_btn").click(function() {
-		
-		
-		var title=$("#title");
-		var pname=$("#pname");
-		var i_price=$("#i_price");
-		var startprice=$("#startprice");
-		var imm=$("#imm");
-		var auc=$("#auc");
-		var quantity=$("#quantity");
-		
-		/* if(title.text==null) {
-			alert("제목을 입력해야 합니다.");
-			return;
-		}else if(pname.attr("value")=='') {
-			alert("상품명을 입력해야 합니다.");
-			return;
-		}else if($("input:checkbox[name='imm']").prop("checked") && (i_price.attr("value")=='')) {
-			alert("즉구가를 입력해야 합니다.");
-			return;
-		}else if($("input:checkbox[name='auc']").prop("checked") && (startprice.attr("value")=='')) {
-			alert("시작가를 입력해야 합니다.");
-			return;
-		}  */
-		
-		
-		
-		
-		
-		
 		
 		
 		if(size >= 1024*1024*1024) {

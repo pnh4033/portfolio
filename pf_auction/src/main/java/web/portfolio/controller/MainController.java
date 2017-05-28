@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
@@ -61,12 +64,12 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public void registProductPOST(ProductVO vo, RedirectAttributes rttr) throws Exception {
+	public void registProductPOST(ProductVO vo) throws Exception {
 		logger.info(vo.toString());
 		
 		System.out.println("vo.toString() : "+vo.toString());
 		prod_service.createProduct(vo);
-		rttr.addFlashAttribute("msg","success");
+		/*rttr.addFlashAttribute("msg","success");*/
 		
 
 	}
