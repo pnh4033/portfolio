@@ -7,7 +7,7 @@
 <style>
 	
 	body {
-	margin:0px;
+	margin:1px;
 	}
 	
 	#wrap {
@@ -39,7 +39,7 @@
   
   <div id="wrap">	
 	<div id="top_left">
-	<a href="/main/contents">main</a>
+	<a href="/main/listProduct" target="_parent">main</a>
 	</div>
 	<div id="top_center"></div>
 	<div id="top_right">

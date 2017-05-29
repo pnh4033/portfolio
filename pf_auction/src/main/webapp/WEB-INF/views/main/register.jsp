@@ -173,25 +173,10 @@
 		<input type="text" name="pname" id="form_pname" class="reg_form" value="${ productVO.pname }">
 		</div><br>
 		
-		<%-- <div>
-		<label for="i_price">즉시 구입 가격 : </label>
-		<input type="text" name="i_price" id="form_i_price" class="reg_form" value="${ productVO.i_price }">원
-		</div>
-		<p></p>
-		<div>
-		<label for="startprice">시작가 : </label>
-		<input type="text" name="startprice" id="form_startprice" class="reg_form" value="${ productVO.startprice }">원
-		</div>
-		<p></p> --%>
-		
-		<!-- <div id="opt">
-		<p>판매방식 선택</p>
-		<label for="buytype">즉시구입 </label><input type="checkbox" name="buytype" id="imm" value="i">
-        <label for="buytype">경매 </label><input type="checkbox" name="buytype" id="auc" value="a" checked="checked">
-		</div>
-		<p></p> -->
+
 		
 		<div id="opt">
+		판매 방식 : 
 		<select name="buytype" id="form_buytype">
 		<option value="n" <c:out value="${productVO.buytype == null ? 'selected' : ''}"/>></option>
 		<option value="i" <c:out value="${productVO.buytype eq 'i' ? 'selected' : ''}"/>>즉시구매</option>
@@ -304,13 +289,14 @@ $("#form_buytype").change(function() {
 });
 
 
+//폼 입력 필드 유효성 검사
 function submit_chk() {
 	var title_chk=/^[\w|\W]{2,50}$/g;
 	var pname_chk=/^[\w|\W]{1,50}$/g;
 	var i_price_chk=/\d{1,9}$/;
 	var startprice_chk=/\d{1,9}$/;
 	var quantity_chk=/\d{1,9}$/;
-	var buytype_chk=/^[a|i|ai]/;
+	var buytype_chk=/^[a|i|ai]/;    // a:경매  | i:즉구  | ai:경매, 즉구
 	
 	var title=$("#form_title");
 	var pname=$("#form_pname");
@@ -346,7 +332,7 @@ function submit_chk() {
 		alert("판매방식을 선택하세요.");
 		$("#form_buytype").focus();
 		return false;
-	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {
+	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {  //선택된 옵션에 대해서 검사
 		alert("즉구가를 입력하세요.");
 		$("#form_buytype").focus();
 		return false;

@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,20 +92,39 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/listProduct")
-	public void listCri(Criteria criteria, Model model, ProductVO vo) throws Exception {
+	public void listCriteria(@ModelAttribute("criteria") Criteria criteria,
+			Model model, ProductVO vo) throws Exception {
 		
+		logger.info(criteria.toString());
+		model.addAttribute("list", prod_service.listCriteria(criteria));
+
 		Paging paging=new Paging();
 		paging.setCriteria(criteria);
 		paging.setTotalCount(prod_service.listCountCriteria(criteria));
-
 		
-		model.addAttribute("list", prod_service.listCriteria(criteria));
 		model.addAttribute("paging", paging);
 
-		
-		
-		
 	}
+	
+	
+	
+	@RequestMapping(value="/searchedList")
+	public void searchedList(@ModelAttribute("criteria") Criteria criteria,
+			Model model, ProductVO vo) throws Exception {
+		
+		logger.info(criteria.toString());
+		model.addAttribute("list", prod_service.searchedList(criteria));
+
+		Paging paging=new Paging();
+		paging.setCriteria(criteria);
+		paging.setTotalCount(prod_service.searchedCount(criteria));
+
+		model.addAttribute("paging", paging);
+
+	}
+	
+	
+	
 	
 	
 	@RequestMapping(value="/getOneImg")

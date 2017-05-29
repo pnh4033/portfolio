@@ -96,6 +96,21 @@ public class ProductDAOImpl implements ProductDAO {
 		return session.selectOne(NAMESPACE+"getExpdate", pno);
 	}
 
+	@Override
+	public List<ProductVO> searchedList(Criteria criteria) throws Exception {
+		return session.selectList(NAMESPACE+"searchedList", criteria);
+	}
+
+	@Override
+	public int searchedCount(Criteria criteria) throws Exception {
+		return session.selectOne(NAMESPACE+"searchedCount");
+	}
+
+	@Override
+	public String getCreateDate(Integer pno) throws Exception {
+		return session.selectOne(NAMESPACE+"getCreateDate", pno);
+	}
+
 }
 
 

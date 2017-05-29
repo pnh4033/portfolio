@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
-	<!-- (select DATE_ADD(now(), interval 3 day))) -->
-	now() + interval 72 hour)
+	(select addtime((select date_format(now(), "%Y%m%d%h%i%s")), '2 23:59:59')))
+	<!-- now() + interval 72 hour) -->
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
@@ -98,6 +98,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getExpdate" resultType="String">
 	select date_format(enddate, "%Y%m%d%h%i%s") from product_tbl
 	where pno=#{pno}
+	</select>
+	
+	<select id="getCreateDate" resultType="String">
+	select date_format(createdate, "%Y%m%d%h%i%s") from product_tbl
+	where pno=#{pno}
+	</select>
+	
+	<select id="searchedList" resultType="ProductVO">
+	select * from product_tbl
+	where
+	<![CDATA[
+	pno > 0
+	]]>
+	and (title like CONCAT('%', #{keyWord}, '%') OR
+	pname like CONCAT('%', #{keyWord}, '%') OR
+	category like CONCAT('%', #{keyWord}, '%'))
+	</select>
+	
+	<select id="searchedCount" resultType="int">
+	select count(pno) from product_tbl
+	where
+	<![CDATA[
+	pno > 0
+	]]>
+	and (title like CONCAT('%', #{keyWord}, '%') OR
+	pname like CONCAT('%', #{keyWord}, '%') OR
+	category like CONCAT('%', #{keyWord}, '%'))
 	</select>
 
 </mapper>

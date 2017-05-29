@@ -26,11 +26,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		dao.createProduct(vo);
 		String[] imgs=vo.getImgs();
-		/*System.out.println("imgs : "+imgs.toString());*/
-		/*List<String> list=vo.getImgList();
-		System.out.println("list : "+list.toString());*/
 		
-	
 			if(imgs == null) {
 				return;
 			}
@@ -42,17 +38,10 @@ public class ProductServiceImpl implements ProductService {
 				dao.addAttach(fileName);
 			}
 		
-		/*Iterator<String> it=list.iterator();
-		
-		while(it.hasNext()) {
-			String fileName=it.next();
-			
-			dao.addAttach(fileName);
-		}*/
-		
-			
 	}
 
+	
+	
 	@Override
 	public ProductVO readProduct(Integer pno) throws Exception {
 		return dao.readProduct(pno);
@@ -109,6 +98,23 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String getExpdate(Integer pno) throws Exception {
 		return dao.getExpdate(pno);
+	}
+
+	@Override
+	public List<ProductVO> searchedList(Criteria criteria) throws Exception {
+		return dao.searchedList(criteria);
+	}
+
+	@Override
+	public int searchedCount(Criteria criteria) throws Exception {
+		return dao.searchedCount(criteria);
+	}
+
+
+
+	@Override
+	public String getCreateDate(Integer pno) throws Exception {
+		return dao.getCreateDate(pno);
 	}
 
 

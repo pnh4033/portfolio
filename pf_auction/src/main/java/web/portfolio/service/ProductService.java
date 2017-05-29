@@ -20,6 +20,8 @@ public interface ProductService {
 	public String getOneImg(Integer pno) throws Exception;
 	public List<String> getAllImg(Integer pno) throws Exception;
 	public String getExpdate(Integer pno) throws Exception;
-	/*public List<ProductVO> searchProduct(SearchCriteria scri) throws Exception;*/
-
+	public String getCreateDate(Integer pno) throws Exception;
+    
+	public List<ProductVO> searchedList(Criteria criteria) throws Exception;
+	public int searchedCount(Criteria criteria) throws Exception;
 }

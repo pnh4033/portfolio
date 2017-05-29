@@ -102,7 +102,6 @@ public class Paging {
 	public String makeSearchQuery(int page) {
 		UriComponents uriComponents=UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
-				.queryParam("searchType", criteria.getSearchType())
 				.queryParam("keyWord", criteria.getKeyWord())
 				.build();
 		

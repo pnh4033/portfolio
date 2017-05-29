@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,44 +29,58 @@ public class DateController {
 		
 		try{
 			
-			String str=service.getExpdate(pno);
-			System.out.println("enddate : "+str);
+			String str=service.getCreateDate(pno);
+			System.out.println("createDate : "+str);
 
 			SimpleDateFormat sdf;
 			sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 			
-			Calendar cal=Calendar.getInstance();    /*현재시간*/
-			Calendar calEnd=Calendar.getInstance();    /*종료시간*/
+			Calendar cal=Calendar.getInstance();    
+			Calendar calEnd=Calendar.getInstance();    
 			
 			Date date=sdf.parse(str);
 			calEnd.setTime(date);
 			
 			long now=cal.getTimeInMillis();
-			long end=calEnd.getTimeInMillis();
+			long end=calEnd.getTimeInMillis()+(1000*60*60*24*3);
 			
 			System.out.println("before : "+now);
 			System.out.println("after : "+end);
 			
-			long val=end-now;
-			System.out.println("val : "+val);
+			long diff=end-now;
+			System.out.println("diff : "+diff);
 			
-			int day= (int)(val/(1000*60*60*24));    /*남은 일 수*/
+				
+			
+			int day= (int)(diff/(1000*60*60*24));    
 			System.out.println("day : "+day);
 			
-			int hour=(int)((val / (1000*60*60)) - (24*day));    /*남은 시간*/
+			int hour=(int)((diff / (1000*60*60)) - (24*day));    
 			int hourFloor=(int) Math.floor((double)hour);
 			System.out.println("hour : "+hourFloor);
 			
-			int minute = (int)(val / 1000/60 - (24*60*day) - (60*hourFloor));    /*남은 분*/
+			int minute = (int)(diff / 1000/60 - (24*60*day) - (60*hourFloor));    
 			int minuteFloor=(int) Math.floor((double)minute);
 			System.out.println("minute : "+minuteFloor);
 			
-			int second = (int)(val / 1000 - (24*60*60*day) - (60*60*hourFloor) - (60*minuteFloor)); /*남은 초*/
+			int second = (int)(diff / 1000 - (24*60*60*day) - (60*60*hourFloor) - (60*minuteFloor)); 
 			int secondRound=Math.round(second);
 			System.out.println("second : "+secondRound);
 			
-			
 			String remainTime="";
+			
+
+			
+			/*final int[] TIME_UNIT={3600, 60, 1};
+			final String[] TIME_UNIT_NAME={"시간 ", "분 ", "초"};
+			
+			
+			for(int i=0; i<TIME_UNIT.length; i++) {
+				remainTime += diff/TIME_UNIT[i] + TIME_UNIT_NAME[i];
+				diff %= TIME_UNIT[i];
+			}*/
+			
+			
 			
 			if(day > 0) {
 				remainTime += day+"일 ";
@@ -84,6 +99,7 @@ public class DateController {
 			
 			
 			if(day<=0 && hourFloor<=0 && minuteFloor<=0 && secondRound<=0) {
+
 				remainTime="종료 되었습니다.";
 			}
 			
@@ -95,9 +111,15 @@ public class DateController {
 			System.out.println("remainTime : "+remainTime);
 			
 			
-			
+
 			
 			entity=new ResponseEntity<String>(remainTime, HttpStatus.OK);
+			
+			
+			
+			
+			
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
