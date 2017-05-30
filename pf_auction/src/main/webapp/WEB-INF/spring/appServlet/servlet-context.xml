@@ -46,8 +46,8 @@
 	</beans:bean>
 	
 	
-	<!-- <beans:bean id="authInterceptor" class="com.practice.AuthInterceptor"/>
-	<beans:bean id="loginInterceptor" class="com.practice.LoginInterceptor"/>
+	<beans:bean id="loginInterceptor" class="web.portfolio.interceptor.LoginInterceptor"/>
+	<beans:bean id="authorityInterceptor" class="web.portfolio.interceptor.AuthorityInterceptor"/>
 	
 	<interceptors>
 		<interceptor>
@@ -56,12 +56,10 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/sboard/register"/>
-			<mapping path="/sboard/modifyPage"/>
-			<mapping path="/sboard/removePage"/>
-			<beans:ref bean="authInterceptor"/>
+			<mapping path="/main/register"/>
+			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
-	</interceptors> -->
+	</interceptors>
 	
 	
 </beans:beans>

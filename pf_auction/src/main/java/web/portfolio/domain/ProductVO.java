@@ -23,17 +23,16 @@ public class ProductVO {
 	private Date createdate;
 	private Date enddate;
 	
+	private String seller;
+	private String buyer;
+	private boolean finished;
+	
 	private String[] imgs;
-
-
-
-	public Date getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
-	}
+	
+	
+	
+	
+	
 
 	public Integer getPno() {
 		return pno;
@@ -131,6 +130,38 @@ public class ProductVO {
 		this.createdate = createdate;
 	}
 
+	public Date getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+
+	public String getSeller() {
+		return seller;
+	}
+
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+
+	public String getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 	public String[] getImgs() {
 		return imgs;
 	}
@@ -147,19 +178,12 @@ public class ProductVO {
 		return "ProductVO [pno=" + pno + ", pname=" + pname + ", title=" + title + ", category=" + category
 				+ ", i_price=" + i_price + ", startprice=" + startprice + ", nowprice=" + nowprice + ", buytype="
 				+ buytype + ", tendercnt=" + tendercnt + ", quantity=" + quantity + ", desc_product=" + desc_product
-				+ ", createdate=" + createdate + ", enddate=" + enddate + ", imgs=" + Arrays.toString(imgs) + "]";
+				+ ", createdate=" + createdate + ", enddate=" + enddate + ", seller=" + seller + ", buyer=" + buyer
+				+ ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
 	}
 
-	
-	
-
-	
 
 
 	
-
-
-
-
 
 }

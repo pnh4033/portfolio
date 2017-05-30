@@ -31,6 +31,18 @@
 	float: left;
 	} 
 	
+	#homeImg {
+	text-align: center;
+	vertical-align: middle;
+	}
+	
+	#homeImg td {
+	width: 100%;
+	height: 148px;
+	text-align: center;
+	vertical-align: bottom;
+	}
+	
 </style>
 
 <title>Insert title here</title>
@@ -39,7 +51,11 @@
   
   <div id="wrap">	
 	<div id="top_left">
-	<a href="/main/listProduct" target="_parent">main</a>
+	<table id="homeImg"><tr>
+	<td><a href="/main/listProduct" target="_parent">
+	<img src="/resources/image/home-1194442_1280.jpg" style="width: auto; height: 100%;"></a></td>
+	</tr>
+	</table>
 	</div>
 	<div id="top_center"></div>
 	<div id="top_right">

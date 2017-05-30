@@ -9,7 +9,6 @@ public class UserVO {
 	private String userName;
 	private String userEmail;
 	private int userCell;
-	private String userAddress;
 	private Date createdDate;
 	private int userPoint;
 
@@ -44,12 +43,6 @@ public class UserVO {
 	public void setUserCell(int userCell) {
 		this.userCell = userCell;
 	}
-	public String getUserAddress() {
-		return userAddress;
-	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
-	}
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -67,7 +60,7 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [userID=" + userID + ", userPassword=" + userPassword + ", userName=" + userName + ", userEmail="
-				+ userEmail + ", userCell=" + userCell + ", userAddress=" + userAddress + ", createdDate=" + createdDate
+				+ userEmail + ", userCell=" + userCell + ", userAddress=" + ", createdDate=" + createdDate
 				+ ", userPoint=" + userPoint + "]";
 	}
 	
