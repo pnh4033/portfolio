@@ -32,7 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			Object dest=session.getAttribute("dest");
 			
-			response.sendRedirect(dest != null ? (String)dest : "/");
+			response.sendRedirect(dest != null ? (String)dest : "/main/listProduct");
 		}
 		
 	}

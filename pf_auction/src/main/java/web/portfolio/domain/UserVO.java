@@ -2,6 +2,9 @@ package web.portfolio.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UserVO {
 	
 	private String userID;
