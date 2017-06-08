@@ -7,12 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createProduct">
 	insert into product_tbl 
-<<<<<<< HEAD
 	(title, pname, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate, seller)
-=======
-	(title, pname, i_price, startprice, nowprice, 
-	buytype, tendercnt, quantity, desc_product, createdate, enddate, seller)
->>>>>>> branch 'master' of https://github.com/pnh4033/portfolio.git
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
