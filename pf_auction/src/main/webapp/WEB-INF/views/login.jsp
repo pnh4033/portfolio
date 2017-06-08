@@ -5,6 +5,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Login</title>
 
@@ -27,7 +28,7 @@ width: 300px;
 
 table {
 margin: 0 auto;
-width:60%;
+width:500px;
 text-align: center;
 vertical-align: middle;
 }
@@ -39,6 +40,7 @@ height: 28px;
 .login_td {
 display: table-cell;
 height: 27px;
+width:150px;
 font-size: 25px;
 color: #0051A8;
 vertical-align: middle;
@@ -66,7 +68,7 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 </head>
 <body>
 
-<p><p><p><p><p>
+<div style="height: 300px;"></div>
 
 	<form action="/user/loginPost" id="idpwForm" method="post">
 	
@@ -135,7 +137,7 @@ $("#ok").click(function(event) {
 	
 		
 	
-	$.ajax({
+	$.ajax({                   /* 로그인 정보를 ajax로 확인 */
 		type:"post",
 		url:"/user/loginAjax",
 		headers:{
@@ -151,16 +153,12 @@ $("#ok").click(function(event) {
 
 		success:function(result) {
 			
-			var result_chk=/^[userID]/g;
-			var res=result_chk.test(result);
-         	
-			
 			if(result) {
 				
-         	self.location="/user/loginSuccess";
+         	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
          	$("#idpwForm").submit(); 
      	
-        	opener.location.reload(); 
+        	opener.location.reload();     /* 부모창 리로드 */
 			
 			}
 				
@@ -199,7 +197,7 @@ $("#ok").click(function(event) {
 
 
 
-$("#cancel").click(function(event) {
+$("#cancel").click(function(event) {       /* 창닫기 */
 	event.preventDefault(); 
 	
 	window.close();
@@ -214,10 +212,6 @@ $("#cancel").click(function(event) {
 
 </body>
 </html>
-
-
-
-
 
 
 
