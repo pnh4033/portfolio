@@ -200,6 +200,8 @@
 		<textarea class="form_desc" name="desc_product" id="form_desc_product" rows="10" cols="100">${ productVO.desc_product }</textarea>
 		</div>
 		
+		<input type="hidden" name="seller" value="${login.userID}">
+		
 <p></p>		
 
 	  </div>  <!-- inner form -->

@@ -7,11 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="createProduct">
 	insert into product_tbl 
-	(title, pname, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate)
+	(title, pname, i_price, startprice, nowprice, 
+	buytype, tendercnt, quantity, desc_product, createdate, enddate, seller)
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
-	(select addtime((select date_format(now(), "%Y%m%d%h%i%s")), '2 23:59:59')))
+	(select addtime((select date_format(now(), "%Y%m%d%h%i%s")), '2 23:59:59')),
+	#{seller})
 	<!-- now() + interval 72 hour) -->
 	</insert>
 	
