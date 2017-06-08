@@ -141,7 +141,11 @@ margin: 0 auto;
   <table>
   <tbody id="tbd">
   <tr><td style="width:140px">상품명</td><td>${productVO.pname}</td></tr>
+<<<<<<< HEAD
   <tr><td>판매자</td><td>${productVO.seller}</td></tr>
+=======
+  <tr><td>판매자 ID</td><td>${productVO.seller}</td></tr>
+>>>>>>> branch 'master' of https://github.com/pnh4033/portfolio.git
   <tr><td>구매타입</td><td>${productVO.buytype}</td></tr>
   <tr><td>즉시구입가</td><td>${productVO.i_price}</td></tr>
   <tr><td>시작가</td><td>${productVO.startprice}</td></tr>
