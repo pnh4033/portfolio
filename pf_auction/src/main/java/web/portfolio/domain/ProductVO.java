@@ -12,27 +12,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ProductVO {
 	
-	private Integer pno;
-	private String pname;
-	private String title;
-	private String category;
-	private int i_price;
-	private int startprice;
-	private int nowprice;
-	private String buytype;
-	private int tendercnt;
-	private int quantity;
-	private String desc_product;
-	private Date createdate;
-	private Date enddate;
+	private Integer pno;               /*일련번호*/
+	private String pname;              /*상품명*/
+	private String title;              /*제목*/
+	private String category;    
+	private int i_price;               /*즉구가*/
+	private int startprice;            /*시작가*/
+	private int nowprice;              /*현재가*/
+	private String buytype;            /*판매방식*/
+	private int tendercnt;             /*입찰자수*/
+	private int quantity;              /*수량*/
+	private String desc_product;       /*상품설명*/
+	private Date createdate;           /*등록일*/
+	private Date enddate;              /*종료일*/
 	
-	private String seller;
-	private String buyer;
-	private boolean finished;
+	private String userID;       
+	private String seller;             /*판매자*/
+	private String buyer;              /*구매자*/
+	private boolean finished;          /*진행여부*/
 	
-	private String[] imgs;
-	
-	
+	private String[] imgs;             /*등록한 이미지 목록*/
 	
 	
 	
@@ -141,6 +140,14 @@ public class ProductVO {
 		this.enddate = enddate;
 	}
 
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
 	public String getSeller() {
 		return seller;
 	}
@@ -181,10 +188,16 @@ public class ProductVO {
 		return "ProductVO [pno=" + pno + ", pname=" + pname + ", title=" + title + ", category=" + category
 				+ ", i_price=" + i_price + ", startprice=" + startprice + ", nowprice=" + nowprice + ", buytype="
 				+ buytype + ", tendercnt=" + tendercnt + ", quantity=" + quantity + ", desc_product=" + desc_product
-				+ ", createdate=" + createdate + ", enddate=" + enddate + ", seller=" + seller + ", buyer=" + buyer
-				+ ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
+				+ ", createdate=" + createdate + ", enddate=" + enddate + ", userID=" + userID + ", seller=" + seller
+				+ ", buyer=" + buyer + ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
 	}
+	
+	
+	
+	
+	
 
+	
 
 
 	

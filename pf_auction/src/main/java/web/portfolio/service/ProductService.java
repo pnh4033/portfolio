@@ -24,4 +24,6 @@ public interface ProductService {
     
 	public List<ProductVO> searchedList(Criteria criteria) throws Exception;
 	public int searchedCount(Criteria criteria) throws Exception;
+	
+	public List<ProductVO> mySelling(String userID) throws Exception;
 }

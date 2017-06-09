@@ -54,7 +54,7 @@ height: 35px;
 <title>Insert title here</title>
 </head>
 <body>
-<div style="height: 300px;"></div>
+<div style="height: 50px;"></div>
 
 
 
@@ -79,6 +79,12 @@ height: 35px;
 
 
 <script>
+
+$(document).ready(function() {
+	opener.location.reload();
+});
+
+
 $("#close_a").click(function(event) {
 	event.preventDefault();
 	window.close();
@@ -87,3 +93,16 @@ $("#close_a").click(function(event) {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

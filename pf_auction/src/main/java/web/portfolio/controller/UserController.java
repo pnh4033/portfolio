@@ -24,7 +24,7 @@ import web.portfolio.dto.LoginDTO;
 import web.portfolio.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/*")
 public class UserController {
 	
 	@Inject
@@ -34,6 +34,13 @@ public class UserController {
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto) throws Exception {
 		
 		return "login";
+		
+	}
+	
+	@RequestMapping(value="/login2", method=RequestMethod.GET)
+	public String login2GET(@ModelAttribute("dto") LoginDTO dto) throws Exception {
+		
+		return "login2";
 		
 	}
 	

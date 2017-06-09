@@ -24,7 +24,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 			
 			saveDest(request);
 			
-			response.sendRedirect("/user/login");
+			response.sendRedirect("/user/login2");
 			
 			return false;
 			

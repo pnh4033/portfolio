@@ -110,12 +110,13 @@ vertical-align: middle;
 table {
 text-align: center;
 vertical-align: middle;
+
 }
 
 #table_menu td {
 padding: 2px;
 margin: 20px;
-
+border-right: solid #061559 10px;
 }
 
 #listImg {
@@ -192,11 +193,11 @@ border:0px;
 margin: 3px;
 }
 
-#table_img {
+.table_img {
 border:0px;
 }
 
-#table_title {
+.table_title {
 border:0px;
 color: white;
 font-weight: bold;
@@ -226,7 +227,7 @@ width: 100%;
 
 <title>Insert title here</title>
 </head>
-<body id="top">
+<body id="listBody">
 
 <div class="wrap" align="center"><!-- wrap -->
   
@@ -263,14 +264,21 @@ width: 100%;
 	
 		<div id="center_menu">
 		<table id="table_menu">
+		
 		<tr>
-		<td id="table_img">
+		<td class="table_img">
 		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
 		</td>
+		<td class="table_img">
+		<a href="myPage"><img src="/resources/image/home.png"/></a>
+		</td>
 		</tr>
+		
 		<tr>
-		<td id="table_title">상품등록</td>
+		<td class="table_title">상품등록</td>
+		<td class="table_title">My Page</td>
 		</tr>
+		
 		</table>
 		
 		</div><p></p>
@@ -409,9 +417,11 @@ width: 100%;
 
 <script>
 
+window.name="listWindow";
+
 $(document).ready(function () {
 $("html body").animate({
-scrollTop: $("#top").offset().top
+scrollTop: $("#listBody").offset().top
 }, 'slow');
 });
 

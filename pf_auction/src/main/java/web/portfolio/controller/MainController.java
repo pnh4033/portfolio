@@ -1,16 +1,12 @@
 package web.portfolio.controller;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
-import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,14 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.SampleVO;
+import web.portfolio.domain.UserVO;
 import web.portfolio.service.ProductService;
 
 @Controller
@@ -121,6 +115,21 @@ public class MainController {
 
 		model.addAttribute("paging", paging);
 
+	}
+	
+	
+	
+	@RequestMapping(value="/myPage")
+	public void myPage(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
+		
+		List<ProductVO> list=new ArrayList<ProductVO>();
+		list=prod_service.mySelling(userID);
+		
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("userVO", userVO);
+		model.addAttribute("myList", list);
+		
+		
 	}
 	
 	

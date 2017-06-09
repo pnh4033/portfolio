@@ -59,6 +59,11 @@
 			<mapping path="/main/register"/>
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/main/myPage"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	

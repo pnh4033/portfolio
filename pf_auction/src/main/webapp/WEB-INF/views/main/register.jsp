@@ -201,6 +201,7 @@
 		</div>
 		
 		<input type="hidden" name="seller" value="${login.userID}">
+		<input type="hidden" name="userID" value="${login.userID}">
 		
 <p></p>		
 

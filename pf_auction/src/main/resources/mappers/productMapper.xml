@@ -127,6 +127,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	pname like CONCAT('%', #{keyWord}, '%') OR
 	category like CONCAT('%', #{keyWord}, '%'))
 	</select>
+	
+	
+	<select id="mySelling" resultType="ProductVO">
+	select * from product_tbl
+	where userID = #{userID} and user_tbl.userID = #{userID}
+	</select>
 
 </mapper>
 

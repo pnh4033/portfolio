@@ -119,4 +119,11 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public List<ProductVO> mySelling(String userID) throws Exception {
+		return dao.mySelling(userID);
+	}
+
+
+
 }

@@ -164,8 +164,8 @@
 		var dispWid=screen.availWidth;
 		var dispHei=screen.availHeight;
 		
-		var winWid=400;
-		var winHei=220;
+		var winWid=450;
+		var winHei=300;
 		
 		var xloc=(dispWid-winWid)/2;
 		var yloc=(dispHei-winHei)/2;

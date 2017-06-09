@@ -111,6 +111,11 @@ public class ProductDAOImpl implements ProductDAO {
 		return session.selectOne(NAMESPACE+"getCreateDate", pno);
 	}
 
+	@Override
+	public List<ProductVO> mySelling(String userID) throws Exception {
+		return session.selectList(NAMESPACE+"mySelling");
+	}
+
 }
 
 

@@ -28,7 +28,7 @@ width: 300px;
 
 table {
 margin: 0 auto;
-width:500px;
+width:300px;
 text-align: center;
 vertical-align: middle;
 }
@@ -40,7 +40,7 @@ height: 28px;
 .login_td {
 display: table-cell;
 height: 27px;
-width:150px;
+width:70px;
 font-size: 25px;
 color: #0051A8;
 vertical-align: middle;
@@ -68,7 +68,8 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 </head>
 <body>
 
-<div style="height: 300px;"></div>
+<div style="height: 50px;"></div>
+
 
 	<form action="/user/loginPost" id="idpwForm" method="post">
 	
