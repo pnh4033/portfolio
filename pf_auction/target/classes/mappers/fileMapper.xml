@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.portfolio.mapper.FileMapper">
+
+	<insert id="saveFile">
+	insert into file_tbl
+	(filename, path, isdir)
+    values
+    (#{filename}, #{path}, #{isdir})
+	</insert>
+	
+	<select id="readFile" resultType="FileVO">
+	select * from file_tbl
+	<!-- where path like concat('%',#{path},'%') -->
+	
+	where fno=#{fno}
+	</select>
+	
+	<select id="readPath" resultType="String">
+	select path from file_tbl
+	where
+	fno=#{fno}
+	</select>
+	
+	<select id="listFile" resultType="FileVO">
+	select distinct fno, filename, path, isdir from file_tbl
+	order by path
+	</select>
+	
+	<select id="pathList" resultType="String">
+	select path from file_tbl
+	order by path
+	</select>
+	
+	<select id="selectFile" resultType="FileVO">
+	select DISTINCT fno, filename, path, isdir
+	from file_tbl
+	where path like concat(#{path}, '%')
+	</select>
+	
+	<delete id="deleteAll">
+	truncate table file_tbl
+	</delete>
+	
+	<delete id="deleteFile">
+	delete from file_tbl
+	where fno=#{fno}
+	</delete>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.portfolio.mapper.ProductMapper">
+
+	<insert id="createProduct">
+	insert into product_tbl 
+	(title, pname, i_price, startprice, nowprice, buytype, tendercnt, quantity, desc_product, createdate, enddate, seller)
+	values
+	(#{title}, #{pname}, #{i_price}, #{startprice}, #{nowprice}, 
+	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
+	(select addtime((select date_format(now(), "%Y%m%d%h%i%s")), '2 23:59:59')),
+	#{seller})
+	<!-- now() + interval 72 hour) -->
+	</insert>
+	
+	<select id="readProduct" resultType="ProductVO">
+	select * from product_tbl
+	where pno=#{pno}
+	</select>
+	
+	<update id="modifyProduct">
+	update product_tbl set
+	title=#{title},
+	i_price=#{i_price},
+	startprice=#{startprice},
+	buytype=#{buytype},
+	quantity=#{quantity}
+	desc_product=#{desc_product},
+	where pno=#{pno}
+	</update>
+	
+	<delete id="deleteProduct">
+	delete from product_tbl
+	where pno=#{pno}
+	</delete>
+	
+	<select id="listAll" resultType="ProductVO">
+	select * from product_tbl
+	<![CDATA[
+	where pno>0
+	]]>
+	order by pno desc, createdate desc
+	</select>
+	
+	<select id="listPage" resultType="ProductVO">
+	select * from product_tbl
+	<![CDATA[
+	where pno>0
+	]]> 
+	order by pno desc, createdate desc 
+	limit #{page},20
+	</select>
+	
+	<select id="listCriteria" resultType="ProductVO">
+	<!-- select pno, title, i_price, startprice, nowprice, buytype, tendercnt,
+	quantity, createdate, desc_product, pname, 
+	date_format(enddate, "%Y/%c/%e %T") -->
+	select *
+	 from product_tbl
+	<![CDATA[
+	where pno>0
+	]]> 
+	order by pno desc, createdate desc 
+	limit #{startPage},#{perPageNum}
+	</select>
+	
+	<select id="countPaging" resultType="int">
+	<![CDATA[
+	select count(pno) from product_tbl
+	where pno>0
+	]]>
+	</select>
+	
+	<select id="getPno" resultType="int">
+	select max(pno) from product_tbl
+	</select>
+	
+	<insert id="addAttach">
+	insert into prod_attach (fullName, pno)
+	<!-- values (#{fullName}, (select max(pno) from product_tbl)) -->
+	values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getOneImg" resultType="string">
+	select fullName from prod_attach 
+	where pno=#{pno} 
+	order by regdate desc
+	limit 1
+	</select>
+	
+	<select id="getAllImg" resultType="string">
+	select fullName from prod_attach
+	where pno=#{pno}
+	</select>
+	
+	<select id="getExpdate" resultType="String">
+	select date_format(enddate, "%Y%m%d%h%i%s") from product_tbl
+	where pno=#{pno}
+	</select>
+	
+	<select id="getCreateDate" resultType="String">
+	select date_format(createdate, "%Y%m%d%h%i%s") from product_tbl
+	where pno=#{pno}
+	</select>
+	
+	<select id="searchedList" resultType="ProductVO">
+	select * from product_tbl
+	where
+	<![CDATA[
+	pno > 0
+	]]>
+	and (title like CONCAT('%', #{keyWord}, '%') OR
+	pname like CONCAT('%', #{keyWord}, '%') OR
+	category like CONCAT('%', #{keyWord}, '%'))
+	</select>
+	
+	<select id="searchedCount" resultType="int">
+	select count(pno) from product_tbl
+	where
+	<![CDATA[
+	pno > 0
+	]]>
+	and (title like CONCAT('%', #{keyWord}, '%') OR
+	pname like CONCAT('%', #{keyWord}, '%') OR
+	category like CONCAT('%', #{keyWord}, '%'))
+	</select>
+	
+	
+	<select id="mySelling" resultType="ProductVO">
+	select * from product_tbl
+	where userID = #{userID} and user_tbl.userID = #{userID}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
