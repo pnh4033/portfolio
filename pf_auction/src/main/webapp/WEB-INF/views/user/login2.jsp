@@ -158,7 +158,6 @@ $("#ok").click(function(event) {
          	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
          	$("#idpwForm").submit(); 
      	
-        	$("#listWindow").reload();     /* 부모창 리로드 */
 			
 			}
 				

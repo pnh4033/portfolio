@@ -81,7 +81,7 @@ height: 35px;
 <script>
 
 $(document).ready(function() {
-	opener.location.reload();
+	opener.location=("/main/listProduct");
 });
 
 

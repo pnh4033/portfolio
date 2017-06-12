@@ -119,15 +119,28 @@ public class MainController {
 	
 	
 	
-	@RequestMapping(value="/myPage")
-	public void myPage(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public void myPageGET(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
-		List<ProductVO> list=new ArrayList<ProductVO>();
-		list=prod_service.mySelling(userID);
+		System.out.println("userID : "+userID);
 		
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("userVO", userVO);
-		model.addAttribute("myList", list);
+		model.addAttribute("myList", prod_service.mySelling(userID));
+		
+		
+	}
+	
+	
+	@RequestMapping(value="/myPage", method=RequestMethod.POST)
+	public void myPagePOST(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
+		
+		System.out.println("userID : "+userID);
+		
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("userVO", userVO);
+		model.addAttribute("myList", prod_service.mySelling(userID));
+		
 		
 		
 	}
