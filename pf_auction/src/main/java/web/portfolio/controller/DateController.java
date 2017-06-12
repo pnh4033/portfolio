@@ -28,7 +28,7 @@ public class DateController {
 		try{
 			
 			String str=service.getCreateDate(pno);
-			System.out.println("createDate : "+str);
+			/*System.out.println("createDate : "+str);*/
 
 			SimpleDateFormat sdf;
 			sdf=new SimpleDateFormat("yyyyMMddHHmmss");
@@ -42,28 +42,28 @@ public class DateController {
 			long now=cal.getTimeInMillis();
 			long end=calEnd.getTimeInMillis()+(1000*60*60*24*3);
 			
-			System.out.println("before : "+now);
-			System.out.println("after : "+end);
+			/*System.out.println("before : "+now);
+			System.out.println("after : "+end);*/
 			
 			long diff=end-now;
-			System.out.println("diff : "+diff);
+			/*System.out.println("diff : "+diff);*/
 			
 				
 			
 			int day= (int)(diff/(1000*60*60*24));    
-			System.out.println("day : "+day);
+			/*System.out.println("day : "+day);*/
 			
 			int hour=(int)((diff / (1000*60*60)) - (24*day));    
 			int hourFloor=(int) Math.floor((double)hour);
-			System.out.println("hour : "+hourFloor);
+			/*System.out.println("hour : "+hourFloor);*/
 			
 			int minute = (int)(diff / 1000/60 - (24*60*day) - (60*hourFloor));    
 			int minuteFloor=(int) Math.floor((double)minute);
-			System.out.println("minute : "+minuteFloor);
+			/*System.out.println("minute : "+minuteFloor);*/
 			
 			int second = (int)(diff / 1000 - (24*60*60*day) - (60*60*hourFloor) - (60*minuteFloor)); 
 			int secondRound=Math.round(second);
-			System.out.println("second : "+secondRound);
+			/*System.out.println("second : "+secondRound);*/
 			
 			String remainTime="";
 			
@@ -106,7 +106,7 @@ public class DateController {
 				remainTime=null;
 			}
 			
-			System.out.println("remainTime : "+remainTime);
+			/*System.out.println("remainTime : "+remainTime);*/
 			
 			
 

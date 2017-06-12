@@ -113,7 +113,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public List<ProductVO> mySelling(String userID) throws Exception {
-		return session.selectList(NAMESPACE+"mySelling");
+		return session.selectList(NAMESPACE+"mySelling", userID);
 	}
 
 }

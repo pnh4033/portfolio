@@ -11,4 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where userID=#{userID} and userPassword=#{userPassword}
 	</select>
 	
+	<select id="userInfo" resultType="UserVO">
+	select * from user_tbl where userID=#{userID}
+	</select>
+	
+
+	
 </mapper>

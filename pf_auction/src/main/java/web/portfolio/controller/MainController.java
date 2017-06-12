@@ -22,6 +22,7 @@ import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.SampleVO;
 import web.portfolio.domain.UserVO;
 import web.portfolio.service.ProductService;
+import web.portfolio.service.UserService;
 
 @Controller
 @RequestMapping(value="/main/*")
@@ -34,6 +35,7 @@ public class MainController {
 	
 	@Inject
 	private ProductService prod_service;
+	private UserService user_service;
 	
 
 	
@@ -120,12 +122,8 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public void myPageGET(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
+	public void myPageGET(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
-		System.out.println("userID : "+userID);
-		
-		model.addAttribute("productVO", productVO);
-		model.addAttribute("userVO", userVO);
 		model.addAttribute("myList", prod_service.mySelling(userID));
 		
 		
@@ -133,12 +131,10 @@ public class MainController {
 	
 	
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
-	public void myPagePOST(@RequestParam("userID") String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
+	public void myPagePOST(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
-		System.out.println("userID : "+userID);
+		/*userVO=user_service.userInfo(userID);*/
 		
-		model.addAttribute("productVO", productVO);
-		model.addAttribute("userVO", userVO);
 		model.addAttribute("myList", prod_service.mySelling(userID));
 		
 		

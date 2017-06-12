@@ -1,5 +1,7 @@
 package web.portfolio.controller;
 
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withUnauthorizedRequest;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,13 +51,15 @@ public class UserController {
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 		
 		UserVO vo=service.login(dto);
+		UserVO userInfo=service.userInfo(dto.getUserID());
 		
 		if(vo==null) {
 			return;
 		}
 		
 			model.addAttribute("userVO", vo);
-			System.out.println("userVO : "+vo.toString());
+			model.addAttribute("userInfo", userInfo);
+			System.out.println("userInfo : "+userInfo.toString());
 			
 		
 	}
@@ -78,8 +82,8 @@ public class UserController {
 		
 
 
-		System.out.println("uid : "+dto.getUserID());
-		System.out.println("upw : "+dto.getUserPassword());
+		/*System.out.println("uid : "+dto.getUserID());
+		System.out.println("upw : "+dto.getUserPassword());*/
 		
 		/*dto.setUserID(userID);
 		dto.setUserPassword(userPassword);*/
@@ -89,7 +93,7 @@ public class UserController {
 		try {
 
 			UserVO vo=service.login(dto);
-			System.out.println("userVO : "+vo.toString());
+			/*System.out.println("userVO : "+vo.toString());*/
 			
 			HttpSession session=request.getSession();
 			

@@ -1,5 +1,6 @@
 package web.portfolio.persistence;
 
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -20,5 +21,11 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO login(LoginDTO dto) throws Exception {
 		return session.selectOne(NAMESPACE+"login", dto);
 	}
+
+	@Override
+	public UserVO userInfo(String userID) throws Exception {
+		return session.selectOne(NAMESPACE+"userInfo", userID);
+	}
+
 
 }

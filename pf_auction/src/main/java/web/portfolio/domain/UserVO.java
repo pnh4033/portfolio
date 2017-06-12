@@ -11,7 +11,7 @@ public class UserVO {
 	private String userPassword;
 	private String userName;
 	private String userEmail;
-	private int userCell;
+	private String userCell;
 	private Date createdDate;
 	private int userPoint;
 
@@ -40,10 +40,10 @@ public class UserVO {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public int getUserCell() {
+	public String getUserCell() {
 		return userCell;
 	}
-	public void setUserCell(int userCell) {
+	public void setUserCell(String userCell) {
 		this.userCell = userCell;
 	}
 	public Date getCreatedDate() {
