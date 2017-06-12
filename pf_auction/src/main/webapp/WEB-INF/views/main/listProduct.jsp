@@ -260,7 +260,10 @@ width: 100%;
 		</table>
 		<p></p>
 	  </div>
-	
+	    
+	    <form name="form1" id="formUser" action="/main/myPagePOST" method="post">
+	    <input type="hidden" name="userID" value="${login.userID}">
+	    </form>
 	
 		<div id="center_menu">
 		<table id="table_menu">
@@ -270,7 +273,7 @@ width: 100%;
 		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
 		</td>
 		<td class="table_img">
-		<a href="myPage"><img src="/resources/image/home.png"/></a>
+		<a href="myPage?userID=${login.userID}" id="myPage_a"><img src="/resources/image/home.png"/></a>
 		</td>
 		</tr>
 		
@@ -445,6 +448,11 @@ $("#search_btn").click(function(event) {
 	    + $("#keyWord_input").val();
 });
 
+
+
+$("#myPage_a").click(function() {
+	$("#formUser")[0].submit();
+});
 
 
 

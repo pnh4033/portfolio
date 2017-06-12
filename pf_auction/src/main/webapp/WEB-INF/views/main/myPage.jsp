@@ -19,5 +19,8 @@ ${productVO}
 <p>
 ${userVO}
 </p>
+<p>
+${myList}
+</p>
 </body>
 </html>
