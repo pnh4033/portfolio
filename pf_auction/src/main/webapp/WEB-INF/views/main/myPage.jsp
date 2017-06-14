@@ -33,11 +33,12 @@ width:70%;
 text-align: center;
 display: table-cell;
 vertical-align: middle;
+border-collapse: collapse;
 }
 
 td {
-border: solid gray 2px;
-border-collapse: collapse;
+border: solid #6397CE 2px;
+padding: 2px;
 }
 
 
@@ -67,11 +68,12 @@ border-collapse: collapse;
     <div>
          가입일 : <fmt:formatDate value="${userInfo.createdDate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/> 
     </div>
-    
+    <div style="height: 40px; width: 100%"></div>
     
     <div>
          나의 거래 내역
     </div>
+    <div style="height: 20px; width: 100%"></div>
     
     <table>
       <c:forEach items="${myList}" var="list">
@@ -96,9 +98,9 @@ border-collapse: collapse;
   		<td>종료일 : <fmt:formatDate value="${list.enddate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/></td>
   		<td>구매자 : ${list.buyer}</td>
   		<td>입찰자수 : ${list.tendercnt}</td>
-  		<td>${list.finished}</td>
+  		<td colspan="2">${list.finished}</td>
       </tr>
-  
+  	  <tr><td style="border:0; height: 40px;"></td></tr>
       </c:forEach>
     </table>
     

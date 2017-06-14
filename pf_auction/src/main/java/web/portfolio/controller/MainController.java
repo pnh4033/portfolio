@@ -138,7 +138,6 @@ public class MainController {
 		model.addAttribute("myList", prod_service.mySelling(userID));
 		
 		
-		
 	}
 	
 	
