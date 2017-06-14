@@ -133,9 +133,7 @@ public class MainController {
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public void myPagePOST(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
-		/*userVO=user_service.userInfo(userID);*/
 		
-		model.addAttribute("myList", prod_service.mySelling(userID));
 		
 		
 	}

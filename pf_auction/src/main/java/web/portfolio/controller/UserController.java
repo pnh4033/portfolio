@@ -72,7 +72,7 @@ public class UserController {
 	}
 	
 	
-	
+	@ResponseBody
 	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
 	public ResponseEntity<UserVO> loginAjaxPOST(@RequestBody LoginDTO dto,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -82,26 +82,21 @@ public class UserController {
 		
 
 
-		/*System.out.println("uid : "+dto.getUserID());
-		System.out.println("upw : "+dto.getUserPassword());*/
-		
-		/*dto.setUserID(userID);
-		dto.setUserPassword(userPassword);*/
-		
 		System.out.println(dto.toString());
 		
 		try {
 
 			UserVO vo=service.login(dto);
-			/*System.out.println("userVO : "+vo.toString());*/
 			
 			HttpSession session=request.getSession();
 			
 			if(vo != null) {
 				session.setAttribute("dest", "/user/loginSuccess");
+				entity=new ResponseEntity(vo, HttpStatus.OK);
+			}else{
+				entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 			
-			entity=new ResponseEntity(vo, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);

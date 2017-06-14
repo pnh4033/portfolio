@@ -124,6 +124,8 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 
 
 <script type="text/javascript">
+
+
 $(document).ready(function() {
 	
 	$("#uid").focus();
@@ -154,12 +156,9 @@ $("#ok").click(function(event) {
 		success:function(result) {
 			
 			if(result) {
-				
-         	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
-         	$("#idpwForm").submit(); 
-     	
+
         	opener.location.reload();     /* 부모창 리로드 */
-			
+        	
 			}
 				
 		},
@@ -175,20 +174,6 @@ $("#ok").click(function(event) {
 
 });
 
-
-	
-/* $("#upw").keydown(function(key) {
-	
-	if(key.keycode == 13) {
-		loginChk();
-	}
-	
-}); */
-
-
-/* $("#ok").cilck(function(event) {
-	loginChk();
-}); */
 
 
 

@@ -27,10 +27,7 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 
 
 
-#close {
-margin:0 auto;
-height: 30px;
-width: 40px;
+#close_a {
 font-size: 24px;
 }
 
@@ -69,7 +66,7 @@ height: 35px;
 	<tr><td></td></tr>
 	<tr>
       <td id="close_td">
-    	<div id="close"><a href="#" id="close_a" >CLOSE</a></div>
+    	<a href="#" id="close_a" >확인</a>
       </td>
 	</tr>
 	</table>
@@ -81,13 +78,19 @@ height: 35px;
 <script>
 
 $(document).ready(function() {
-	opener.location=("/main/listProduct");
+	if(opener) {
+	opener.location="/main/listProduct";
+	}
 });
 
 
 $("#close_a").click(function(event) {
 	event.preventDefault();
-	window.close();
+	if(opener) {
+    	window.close();
+	}else{
+		self.location="/main/listProduct";
+	}
 });
 </script>
 

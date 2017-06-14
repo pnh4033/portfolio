@@ -68,7 +68,7 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 </head>
 <body>
 
-<div style="height: 300px;"></div>
+<div style="height: 300px;" id="div_input"></div>
 
 	<form action="/user/loginPost" id="idpwForm" method="post">
 	
@@ -124,13 +124,8 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#uid").focus();
-	
-	
-$("#ok").click(function(event) {
-	event.preventDefault(); 
+
+function loginChk() {
 	
 	var userID=$("#uid").val();
 	var userPassword=$("#upw").val();
@@ -152,10 +147,61 @@ $("#ok").click(function(event) {
 		}), 
 
 		success:function(result) {
+			alert(result);
+			if(result) {
+				
+         	self.location="/main/listProduct";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
+         	/* $("#idpwForm").submit();  */
+     	
+			
+			}
+				
+		},
+		
+		error:function() {
+		  
+			alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+			
+		}
+		
+	});
+}
+
+
+
+$(document).ready(function() {
+	
+	$("#uid").focus();
+	
+
+
+	
+ $("#ok").click(function(event) {
+	event.preventDefault(); 
+	
+	var userID=$("#uid").val();
+	var userPassword=$("#upw").val();
+	
+		
+	
+	$.ajax({                   
+		type:"post",
+		url:"/user/loginAjax",
+		headers:{
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType:"text",
+		data:JSON.stringify({
+			userID:userID,
+			userPassword:userPassword,
+		}), 
+
+		success:function(result) {
 			
 			if(result) {
 				
-         	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
+         	self.location="/user/loginSuccess";          
          	$("#idpwForm").submit(); 
      	
 			
@@ -172,22 +218,7 @@ $("#ok").click(function(event) {
 	});
 	
 
-});
-
-
-	
-/* $("#upw").keydown(function(key) {
-	
-	if(key.keycode == 13) {
-		loginChk();
-	}
-	
-}); */
-
-
-/* $("#ok").cilck(function(event) {
-	loginChk();
-}); */
+}); 
 
 
 

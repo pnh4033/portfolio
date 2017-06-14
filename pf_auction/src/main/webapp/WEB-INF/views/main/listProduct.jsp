@@ -480,7 +480,6 @@ $(".expDate").each(function() {
 		}
 	});	 
 	
-
 	
 	
   }); 
