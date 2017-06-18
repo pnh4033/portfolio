@@ -1,5 +1,6 @@
 package web.portfolio.controller;
 
+import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withUnauthorizedRequest;
 
 import javax.inject.Inject;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -102,6 +104,77 @@ public class UserController {
 			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		
+		
+		return entity;
+		
+	}
+	
+	
+	@RequestMapping(value="/signIn", method=RequestMethod.GET)
+	public void signInGET() throws Exception {
+		
+	}
+	
+	@RequestMapping(value="/signIn", method=RequestMethod.POST)
+	public String signInPOST(UserVO vo) throws Exception {
+		
+		service.userSignIn(vo);
+		
+		String result="";
+		int tempId=service.idChk(vo.getUserID());
+		
+		if(tempId == 1) {
+			
+			result="redirect:/user/signInOK";
+			
+		}else{
+			
+			result="redirect:/user/signInERR";
+			
+		}
+		
+		return result;
+	}
+	
+	
+	
+	@RequestMapping("/signInOK")
+	public void singInOK() throws Exception {
+		
+	}
+	
+	
+	@RequestMapping("/signInERR")
+	public void singInERR() throws Exception {
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/idChk", method=RequestMethod.GET)
+	public void idChkGET(String userID) throws Exception {
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/idChk", method=RequestMethod.POST)
+	public ResponseEntity<Integer> idChkPOST(@RequestBody LoginDTO dto) throws Exception {
+		
+		ResponseEntity<Integer> entity=null;
+		String userID=dto.getUserID();
+		
+		Integer val=service.idChk(userID);
+		
+		try {
+			
+			entity=new ResponseEntity<Integer>(val, HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
 		
 		return entity;
 		

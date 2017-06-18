@@ -137,7 +137,7 @@
 	    <div class="login_list"><a href="/user/logout" id="a_logout">
 	    <img class="loginImg" src="/resources/image/undo.png"> 로그아웃 </a></div>
 	    
-	    <div class="login_list"><a href="/user/signin" id="a_signin">
+	    <div class="login_list"><a href="/user/signIn" id="a_signIn">
 	    <img class="loginImg" src="/resources/image/add_row.png"> 회원 가입 </a></div>
 	  </div>
 	  </c:if>

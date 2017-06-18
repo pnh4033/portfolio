@@ -27,5 +27,16 @@ public class UserServiceImpl implements UserService {
 		return dao.userInfo(userID);
 	}
 
+	@Override
+	public int idChk(String userID) throws Exception {
+		return dao.idChk(userID);
+	}
+
+	@Override
+	public void userSignIn(UserVO vo) throws Exception {
+		dao.userSignIn(vo);
+		
+	}
+
 
 }

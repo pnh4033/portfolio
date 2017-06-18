@@ -27,5 +27,15 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(NAMESPACE+"userInfo", userID);
 	}
 
+	@Override
+	public int idChk(String userID) throws Exception {
+		return session.selectOne(NAMESPACE+"idChk", userID);
+	}
+
+	@Override
+	public void userSignIn(UserVO vo) throws Exception {
+		session.insert(NAMESPACE+"userSignIn", vo);
+	}
+
 
 }

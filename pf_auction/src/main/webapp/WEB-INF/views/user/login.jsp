@@ -10,6 +10,7 @@
 <title>Login</title>
 
 <script type="text/javascript" src="/resources/plugins/jquery/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="http://api.jquery.com/scripts/events.js"></script>
 
 <style>
 
@@ -63,6 +64,10 @@ a:LINK {color: #0051A8; text-decoration: none;}
 a:VISITED {color: #0051A8; text-decoration: none;}
 a:HOVER {color: #CC2647; text-decoration: none;}
 
+#upw {
+ime-mode:disabled;
+}
+
 </style>
 
 </head>
@@ -77,7 +82,7 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 	  </div>
 	  
 	  <div>
-	    <input type="password" name="userPassword"  id="upw" class="login_input" placeholder="PASSWORD"/>
+	    <input type="password" name="userPassword" id="upw" class="login_input" placeholder="PASSWORD"/>
 	  </div>
 	  
 	  <p></p>
@@ -123,6 +128,10 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 	</form>
 
 
+
+
+
+
 <script type="text/javascript">
 
 
@@ -130,6 +139,7 @@ $(document).ready(function() {
 	
 	$("#uid").focus();
 	
+
 	
 $("#ok").click(function(event) {
 	event.preventDefault(); 
@@ -173,6 +183,7 @@ $("#ok").click(function(event) {
 	
 
 });
+
 
 
 

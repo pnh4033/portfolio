@@ -15,6 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from user_tbl where userID=#{userID}
 	</select>
 	
+	<select id="idChk" resultType="int">
+	select count(userID) from user_tbl where userID=#{userID}
+	</select>
+	
+	<insert id="userSignIn">
+	insert into user_tbl
+	(userID, userPassword, userName, userEmail, userCell, createdDate)
+	values (#{userID}, #{userPassword}, #{userName}, #{userEmail}, #{userCell}, current_timestamp)
+	</insert>
+	
 
 	
 </mapper>
