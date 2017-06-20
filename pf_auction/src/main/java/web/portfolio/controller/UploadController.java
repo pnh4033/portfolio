@@ -42,6 +42,8 @@ import web.portfolio.service.ProductService;
 import web.portfolio.utils.MediaUtil;
 import web.portfolio.utils.UploadImageUtils;
 
+
+
 @RestController
 public class UploadController {
 	
@@ -56,24 +58,33 @@ public class UploadController {
 	@Inject
 	private ProductService service;
 	
+	
+	
+	
+	
 	@RequestMapping(value="/main/upload", method=RequestMethod.GET)
 	public void upload() {
 		
 	}
+	
+	
 	
 	@Transactional
 	@ResponseBody
 	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
 	public ResponseEntity<List<String>> upload(@RequestPart List<MultipartFile> mFile,
 			ProductVO vo) throws Exception {
+		
+		
 		ResponseEntity<List<String>> entity=null;
 		
-		System.out.println(mFile.toString());
+		logger.info("MultipartFile : "+mFile.toString());
 		List<String> list=new ArrayList<>();
 		
 		try{
 			
 			Iterator<MultipartFile> it=mFile.iterator();
+			
 			String fileName="";
 			String oriName="";
 			
@@ -84,13 +95,16 @@ public class UploadController {
 				file=it.next();
 				imgData=file.getBytes();
 				oriName=file.getOriginalFilename();
-				System.out.println("originalName : "+oriName);
 				
+				
+				/*이미지를 uploadPath에 저장하고 전체 경로를 포함한 파일명을 반환*/
 				fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
-				System.out.println("fileName : "+fileName);
+				logger.info("fileName : "+fileName);
 				
-				/*dao.addAttach(fileName);*/
+				
+				/*저장된 이미지 리스트*/
 				list.add(fileName);
+				
 			}
 
 			
@@ -106,15 +120,17 @@ public class UploadController {
 			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		/*String savedName=uploadImg(file.getOriginalFilename(), file.getBytes());
-		
-		model.addAttribute("savedName", savedName);*/
+
 		
 		return entity;
 	}
 
 	
 	
+	
+	
+	
+	/*readProduct.jsp 로부터 원본 이미지 경로를 받아 원본 이미지 출력*/
 	@ResponseBody
 	@RequestMapping(value="/main/listImgs")
 	public ResponseEntity<byte[]> listImgs(@RequestParam("fileName") String fileName) throws Exception {
@@ -123,25 +139,32 @@ public class UploadController {
 		ResponseEntity<byte[]> entity=null;
 		
 		try{
-			/*imgList=vo.getImgList();
-			Iterator<String> it=imgList.iterator();*/
 			
+			/*파일 타입이 이미지 인지 검사*/
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtil.getMediaType(formatName);
+			
 			HttpHeaders headers=new HttpHeaders();
 			String path=uploadPath+fileName;
 			path.replace("\\\\", "/");
 			path.replace("\\", "/");
-			System.out.println("uploadPath+fileName : "+path);
+			
+			
+			logger.info("uploadPath+fileName : "+path);
 			inputStream=new FileInputStream(path);
 			
 			if(mType != null) {
+				
 				headers.setContentType(mType);
+				
 			}else{
+				
+				/*이미지가 아닌 경우*/
 				fileName=fileName.substring(fileName.lastIndexOf("_")+1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition", "attachment; fileName=\""+
 						new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+				
 			}
 			
 			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream)
@@ -150,17 +173,26 @@ public class UploadController {
 			
 			
 		}catch(Exception e) {
+
 			e.printStackTrace();
-			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
+			
 		}finally{
+			
 			inputStream.close();
+			
 		}
 		
+		
+		
 		return entity;
+		
 	}
 	
 	
 	
+	
+	
+	/*pno에 해당하는 이미지 출력*/
 	@ResponseBody
 	@RequestMapping(value="/main/listImgsPno")
 	public ResponseEntity<byte[]> listImgsPno(@RequestParam("pno") Integer pno) throws Exception {
@@ -169,27 +201,35 @@ public class UploadController {
 		ResponseEntity<byte[]> entity=null;
 		
 		try{
-			String fileName=service.getOneImg(pno);
-			System.out.println("filename : "+fileName);
 			
+			
+			String fileName=service.getOneImg(pno);
+			
+			/*파일 타입이 이미지 인지 검사*/
 			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
 			MediaType mType=MediaUtil.getMediaType(formatName);
+			
 			HttpHeaders headers=new HttpHeaders();
 			String path=uploadPath+fileName;
-			
 			path.replace("\\\\", "/");
 			path.replace("\\", "/");
-			System.out.println("uploadPath+fileName : "+path);
+
+			logger.info("uploadPath+fileName : "+path);
+			
 			inputStream=new FileInputStream(path);
-			/*inputStream=new FileInputStream(path);*/
 			
 			if(mType != null) {
+				
 				headers.setContentType(mType);
+				
 			}else{
+				
+				/*이미지가 아닌 경우*/
 				fileName=fileName.substring(fileName.lastIndexOf("_")+1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition", "attachment; fileName=\""+
 						new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
+				
 			}
 			
 			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream)
@@ -198,81 +238,26 @@ public class UploadController {
 			
 			
 		}catch(Exception e) {
+			
 			e.printStackTrace();
-			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
+			
 		}finally{
+			
 			inputStream.close();
+			
 		}
+		
+		
 		
 		return entity;
+		
 	}
 	
 	
 	
-	@ResponseBody
-	@RequestMapping(value="/main/listImgsPnoAll")
-	public ResponseEntity<byte[]> listImgsPnoAll(@RequestParam("pno") Integer pno) throws Exception {
-		
-		InputStream inputStream=null;
-		ResponseEntity<byte[]> entity=null;
-		List<String> list=new ArrayList<>();
-		
-		list=service.getAllImg(pno);
-		System.out.println("list=service.getAllImg(pno) : "+list.toString());
-		Iterator<String> it=list.iterator();
 
-			
-			while(it.hasNext()) {
-			
-			try{
-				
-				String fileName=it.next();
-				String front=fileName.substring(1,12);
-				String rear=fileName.substring(14);
-				fileName=front+rear;
-				
-				System.out.println("fileName=front+rear : "+fileName);
-				
-			System.out.println("filename : "+fileName);
-			
-			String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
-			MediaType mType=MediaUtil.getMediaType(formatName);
-			HttpHeaders headers=new HttpHeaders();
-			String path=uploadPath+File.separator+fileName;
-			
-			path.replace("\\\\", "/");
-			path.replace("\\", "/");
-			System.out.println("uploadPath+fileName : "+path);
-			inputStream=new FileInputStream(path);
-			/*inputStream=new FileInputStream(path);*/
-			
-			if(mType != null) {
-				headers.setContentType(mType);
-			}else{
-				fileName=fileName.substring(fileName.lastIndexOf("_")+1);
-				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition", "attachment; fileName=\""+
-						new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
-			}
-			
-			entity=new ResponseEntity<byte[]>(IOUtils.toByteArray(inputStream)
-					, headers, HttpStatus.CREATED);
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			/*entity=new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);*/
-		}finally{
-			inputStream.close();
-		}
-			}    /*while end*/
-		
-			return entity;
-
-	}
 	
-	
-	
+	/*readProduct.jsp 로부터 pno에 해당하는 attach된 파일들을 db에서 읽어온 후 이미지 경로들을 리스트 형태로 반환*/ 
 	@RequestMapping("/main/listImgsString/{pno}")
 	@ResponseBody
 	public ResponseEntity<List<String>> listImgsString(@PathVariable Integer pno) throws Exception {
@@ -280,6 +265,7 @@ public class UploadController {
 		ResponseEntity<List<String>> entity=null;
 		
 		List<String> list=new ArrayList<>();
+		
 		try{
 
 			list=service.getAllImg(pno);
@@ -287,28 +273,18 @@ public class UploadController {
 			
 			
 		}catch(Exception e) {
+			
 			e.printStackTrace();
 			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
 		}
 		
 		return entity;
 		
 	}
 	
-	
-	
-/*	private String uploadImg(String oriName, byte[] imgData) throws Exception {
-		
-		UUID uid=UUID.randomUUID();
-		String savedName=uid.toString() + "_" + oriName;
-		
-		File target=new File(uploadPath, savedName);
-		FileCopyUtils.copy(imgData, target);
-		
-		return savedName;
-	}*/
-
 }
+
 
 
 

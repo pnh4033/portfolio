@@ -9,6 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import web.portfolio.domain.FileVO;
 
+
+
+
+/////////////////
+//현재 사용하지 않음 //
+//개인 참고용           //
+/////////////////
+
+
+
 @Repository
 public class FileDAOImple implements FileDAO {
 	
