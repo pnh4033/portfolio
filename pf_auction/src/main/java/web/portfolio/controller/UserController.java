@@ -1,14 +1,12 @@
 package web.portfolio.controller;
 
-import static org.junit.Assert.assertNull;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withUnauthorizedRequest;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.aspectj.lang.annotation.SuppressAjWarnings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,23 +15,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import web.portfolio.domain.UserVO;
 import web.portfolio.dto.LoginDTO;
 import web.portfolio.service.UserService;
 
+
+
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
 	
+	static final Logger logger=LoggerFactory.getLogger(UserController.class);
+	
+	
 	@Inject
 	private UserService service;
 	
+	
+	
+	/*새창*/
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(@ModelAttribute("dto") LoginDTO dto) throws Exception {
 		
@@ -41,12 +43,17 @@ public class UserController {
 		
 	}
 	
+	
+	/*_self*/
 	@RequestMapping(value="/login2", method=RequestMethod.GET)
 	public String login2GET(@ModelAttribute("dto") LoginDTO dto) throws Exception {
 		
 		return "login2";
 		
 	}
+	
+	
+	
 	
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST, produces="application/text;charset=UTF-8")
@@ -61,19 +68,23 @@ public class UserController {
 		
 			model.addAttribute("userVO", vo);
 			model.addAttribute("userInfo", userInfo);
-			System.out.println("userInfo : "+userInfo.toString());
+			logger.info("userInfo : "+userInfo.toString());
 			
 		
 	}
 	
 	
 	
+	
+	/*ID check*/
 	@RequestMapping(value="/loginAjax", method=RequestMethod.GET)
 	public void loginAjaxGET(String uid, String upw) throws Exception {
 		
 	}
 	
 	
+	
+	/*ID check*/
 	@ResponseBody
 	@RequestMapping(value="/loginAjax", method=RequestMethod.POST)
 	public ResponseEntity<UserVO> loginAjaxPOST(@RequestBody LoginDTO dto,
@@ -82,9 +93,6 @@ public class UserController {
 		
 		ResponseEntity<UserVO> entity=null;
 		
-
-
-		System.out.println(dto.toString());
 		
 		try {
 
@@ -93,16 +101,26 @@ public class UserController {
 			HttpSession session=request.getSession();
 			
 			if(vo != null) {
+				
+				/*세션에 목적경로 저장*/
 				session.setAttribute("dest", "/user/loginSuccess");
 				entity=new ResponseEntity(vo, HttpStatus.OK);
+				
 			}else{
+				
+				/*유저 정보가 없으면 BAD_REQUEST 를 반환*/
 				entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				
 			}
 			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			entity=new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+			
 		}
+		
+		
 		
 		
 		return entity;
@@ -110,17 +128,25 @@ public class UserController {
 	}
 	
 	
+	
+	
+	/*회원 가입*/
 	@RequestMapping(value="/signIn", method=RequestMethod.GET)
 	public void signInGET() throws Exception {
 		
 	}
 	
+	
+	/*회원 가입*/
 	@RequestMapping(value="/signIn", method=RequestMethod.POST)
 	public String signInPOST(UserVO vo) throws Exception {
 		
+		/*회원 가입 쿼리*/
 		service.userSignIn(vo);
 		
 		String result="";
+		
+		/*정상 가입 여부 확인*/
 		int tempId=service.idChk(vo.getUserID());
 		
 		if(tempId == 1) {
