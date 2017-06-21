@@ -114,8 +114,11 @@ margin: 0 auto;
 
 </style>
 
-<title>Insert title here</title>
+<title>상품 조회</title>
+
 </head>
+
+
 <body>
 
 <div id="desc">

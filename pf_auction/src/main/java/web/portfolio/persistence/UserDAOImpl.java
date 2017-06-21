@@ -12,30 +12,55 @@ import web.portfolio.dto.LoginDTO;
 @Repository
 public class UserDAOImpl implements UserDAO {
 	
+	
 	@Inject
 	private SqlSession session;
 	
+	
 	private static String NAMESPACE="web.portfolio.mapper.UserMapper.";
 
+	
+	
+	
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
+		
 		return session.selectOne(NAMESPACE+"login", dto);
+		
 	}
+	
 
 	@Override
 	public UserVO userInfo(String userID) throws Exception {
+		
 		return session.selectOne(NAMESPACE+"userInfo", userID);
+		
 	}
+	
 
 	@Override
 	public int idChk(String userID) throws Exception {
+		
 		return session.selectOne(NAMESPACE+"idChk", userID);
+		
 	}
+	
 
 	@Override
 	public void userSignIn(UserVO vo) throws Exception {
+		
 		session.insert(NAMESPACE+"userSignIn", vo);
+		
 	}
 
 
 }
+
+
+
+
+
+
+
+
+

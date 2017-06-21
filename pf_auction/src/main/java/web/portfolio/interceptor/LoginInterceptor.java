@@ -10,7 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+
 public class LoginInterceptor extends HandlerInterceptorAdapter {
+
 	
 	private static final String LOGIN="login";
 	private static final Logger logger=LoggerFactory.getLogger(LoginInterceptor.class);
@@ -28,6 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		Object userInfo=modelMap.get("userInfo");
 		
 		if(userVO != null) {
+			
 			logger.info("login success!");
 			session.setAttribute(LOGIN, userVO);
 			session.setAttribute("userInfo", userInfo);
@@ -35,9 +38,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			Object dest=session.getAttribute("dest");
 			
 			response.sendRedirect(dest != null ? (String)dest : "/main/listProduct");
+			
 		}
 		
 	}
+	
 	
 	
 	
@@ -48,11 +53,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session=request.getSession();
 		
 		if(session.getAttribute(LOGIN) != null) {
+			
 			logger.info("now login data exists and will be removed!");
 			session.removeAttribute(LOGIN);
+			
 		}
 		
 		return true;
+		
 	} 
 	
 	

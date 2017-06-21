@@ -128,19 +128,24 @@ vertical-align: middle;
 <div id="selectFile"><input type="button" id="sel_btn" value="이미지 선택"/>
 <input type="button" id="all_reset" value="초기화"/>
 </div>
+
+
 <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data"
       target="ifrm">
 <input type="submit" id="send_btn" value="등록하기"/>
 <input type="file" class="mFile" name="mFile" id="mFile" />
 </form>
 
+
+<!-- 파일 목록 -->
 <div id="left2">
 <ul id="fileLi">
 <c:forEach var="i" items="${list}" varStatus="st">
 <c:choose>
 
+<!-- 파일/디렉토리 구분 -->
 <c:when test="${i.isdir != 'file'}">
-<li data-path="${i.path}" data-isdir="${i.isdir}" 
+<li data-path="${i.path}" data-isdir="${i.isdir}"         
     id="${i.path}" class="firstLi"><img id="f_img" src="/resources/image/g.png"/>
 <span>${i.filename}</span></li>
 </c:when>
@@ -169,6 +174,14 @@ vertical-align: middle;
 
 <iframe name="ifrm"></iframe>
 
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 
 function addImg(msg) {
@@ -176,13 +189,20 @@ function addImg(msg) {
 	$("#form1").reset();
 }
 
-function ext(t) {                       /* 크롬 보안문제로 이미지 로드 불가 */
+
+
+
+/*브라우저에서 로컬 이미지 로드 불가 */
+function ext(t) {                       
 	var loc=t.attr("data-path");
 	var sub=loc.substr(-3, 3).toLowerCase();
 	if((sub == 'jpg') || (sub == 'gif') || (sub == 'png')) {
 		$("#right").html("<div class='preImg'><img src='"+t.attr("data-path")+"'></div>");
 	}
 }
+
+
+
 
 $(document).ready(function() {
 	$(".firstLi").on("mouseover", function() {
@@ -209,8 +229,7 @@ $(document).ready(function() {
 	
 
 
-
-
+         /* 히스토리 구성 */
 	var top=0;
 	var history = new Array();
 	var p="<li class='history_li'>C:\\</li>";
@@ -220,6 +239,9 @@ $(document).ready(function() {
 	$("#history").append(history[top]);
 	top++;
 
+	
+	
+	
 	$(".firstLi").on("click", function() {
 		var ts=$(this);
 		/* var path=$(this).attr("id"); */ 
@@ -230,12 +252,15 @@ $(document).ready(function() {
 		var next="";
 		var dir="";
 		
+		
+		
 		if(isdir=='dir') {
 		
 		history[top]=path;	
 		$("#history").append("<li class='history_li'>"
 				+"<img id='f_img' src='/resources/image/g.png'/>"+path+"</li>");
 		top++;
+	
 		
 		$.ajax({
 			type : "post",
@@ -245,24 +270,29 @@ $(document).ready(function() {
 				"X-HTTP-Method-Override" : "POST"
 			}, 
 			dataType : "text",
-			    /* data : JSON.stringify({
-			    /* fno : fno,  */	
-				/* filename : filename, 
-				path : path
-				/* isdir : isdir 
-			}),  */
 			data:path,
 			success : function(data) {
+				
 				var dt=JSON.parse(data);
+				
+				
+				/* 디렉토리가 아니면 파일명 앞에 체크박스 붙임 */
 				$(dt).each(function() {
+				
 					str += "<li data-path='"+this.path+"' data-isdir='"
 					    +this.isdir+"' id='"+this.path+"' class='targetLi'>";
 					    
 					if(this.isdir != 'file') {
-					    str +=	"<img id='f_img' src='/resources/image/g.png'/>"+ this.filename  
+						
+					    str +=	"<img id='f_img' src='/resources/image/g.png'/>"+ this.filename
+					    
 					    }else{
+					    	
 					    str += "<input type='checkbox' name='fileCheck' />"+ this.filename
+					    
 					    }
+					
+					
 					   str += "</li>";
 					 
 				
@@ -303,15 +333,20 @@ $(document).ready(function() {
 					    history=[];
 					    top=0;
 						if(history[0] != 'c:\\') {
+							
 						$("#history").append("<li class='history_li'>"+"C:\\"+"</li>");
 						top++;
+						
 						}
 					}
 					
 					nextFile(his_path);
+					
 				});
 				
 				
+				
+				/* 디렉토리를 선택한 경우 하위 파일 목록 조회 */ 
 				$(".targetLi").click(function() {
 				dir=$(this).attr("data-isdir");
 			    next=$(this).attr("data-path");	
@@ -348,9 +383,7 @@ $(document).ready(function() {
 	
 	
 
-
-	  
-	  
+/* 선택한 디렉토리의 하위 파일 목록 조회 */
 function nextFile(next) {
 		
 	var ts=$(this);
@@ -358,12 +391,16 @@ function nextFile(next) {
 	var str='';
 	
 	if(next=='C:\\') {
+		
 		top=0;
 		history=[];
 		$("#history").empty();
 		if(history[0] != 'C:\\') {
-		$("#history").append("<li class='history_li'>"+"C:\\"+"</li>");
+		
+			$("#history").append("<li class='history_li'>"+"C:\\"+"</li>");
+			
 		}
+		
 	}
 	
 
@@ -377,8 +414,11 @@ function nextFile(next) {
 		dataType : "text",
 		    data : path, 
 		success: function(data) {
+			
 			var dt=JSON.parse(data);
+			
 			$(dt).each(function() {
+				
 				/* str += "<li data-path='"+this.path+"' data-isdir='"+this.isdir+"' id='"+this.path+"' class='targetLi'>"
 				    + this.filename + "<input type='checkbox' name='"+this.path+"' />"
 				    + "</li>"; */
@@ -392,6 +432,8 @@ function nextFile(next) {
 				    }
 				   str += "</li>";
 			});
+			
+			
 			
 			$("#left2").empty();
 				$("#left2").html("<ul>"+str+"</ul>"); 
@@ -419,6 +461,7 @@ function nextFile(next) {
 			
 			
 			$(".history_li").click(function() {
+				
 				var his_path=$(this).text();
 				
 				if(his_path=='C:\\') {
@@ -434,10 +477,12 @@ function nextFile(next) {
 				}
 				
 				nextFile(his_path);
+				
 			});
 			
 			
 			  $(".targetLi").click( function() {
+				  
 				  isdir=$(this).attr("data-isdir");
 				/* next=$(".targetLi").attr("data-path"); */
 				next=$(this).attr("data-path");
@@ -467,7 +512,11 @@ function nextFile(next) {
 
 
 
+
+
+/* 체크된 파일의 포맷이 이미지인지 검사, 이미지가 아니면 경고 후 체크 박스리셋 */
 $("#sel_btn").click(function() {
+	
 	$("input:checkbox[name='fileCheck']").each(function() {
 		
 
@@ -481,9 +530,12 @@ $("#sel_btn").click(function() {
 		$("#right_ul").append("<li id='rightLi'>"+$(this).parent().attr("data-path")+"</li>");
 		
 		}else{
+			
 			alert("jpg, gif, png 파일만 가능합니다.");
 			$("input:checkbox[name='fileCheck']").prop("checked", false);
+			
 		}  
+			
 		}
 		
 	});
@@ -493,8 +545,10 @@ $("#sel_btn").click(function() {
 
 
 $("#all_reset").click(function() {
+	
 	$("input:checkbox[name='fileCheck']").prop("checked", false);
 	$("#right_ul").empty();
+	
 });
 
 
@@ -506,9 +560,7 @@ $("#send_btn").submit(function() {
 	var form=$("#form1")[0];
 	var formData=new FormData(form);  
 	var inpFile=$("input[name='mFile']")[0];
- 	/* $(".multi").each(function() {
-	});  */ 
-	
+
 	
 	formData.append("mFile", inpFile).files[0]; 
 	
@@ -520,7 +572,9 @@ $("#send_btn").submit(function() {
 		processData: false,
 		contentType: false,
 		success: function() {
+			
 			$("#form1").reset();
+			
 		}
 	});
 	

@@ -24,7 +24,7 @@ import web.portfolio.service.UserService;
 
 
 @Controller
-@RequestMapping("/user/*")
+@RequestMapping("/user")
 public class UserController {
 	
 	static final Logger logger=LoggerFactory.getLogger(UserController.class);
@@ -164,6 +164,8 @@ public class UserController {
 	
 	
 	
+	
+	
 	@RequestMapping("/signInOK")
 	public void singInOK() throws Exception {
 		
@@ -177,12 +179,16 @@ public class UserController {
 	
 	
 	
+	
+	
+	
 	@RequestMapping(value="/idChk", method=RequestMethod.GET)
 	public void idChkGET(String userID) throws Exception {
 		
 	}
 	
 	
+	/*ID 존재 여부 확인*/
 	@ResponseBody
 	@RequestMapping(value="/idChk", method=RequestMethod.POST)
 	public ResponseEntity<Integer> idChkPOST(@RequestBody LoginDTO dto) throws Exception {
@@ -208,6 +214,9 @@ public class UserController {
 	
 	
 	
+	
+	
+	
 	@RequestMapping("/loginSuccess")
 	public String loginSuccess() throws Exception {
 		
@@ -216,6 +225,7 @@ public class UserController {
 	}
 	
 	
+	/*로그아웃 처리*/
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Exception {

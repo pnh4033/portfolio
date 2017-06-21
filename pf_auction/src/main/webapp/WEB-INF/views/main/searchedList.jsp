@@ -224,8 +224,11 @@ width: 100%;
 
 </style>
 
-<title>Insert title here</title>
+<title>MAIN PAGE</title>
+
 </head>
+
+
 <body id="top">
 
 <div class="wrap" align="center"><!-- wrap -->
@@ -297,62 +300,11 @@ width: 100%;
 	
 	<fmt:formatDate value="${vo.enddate}" type="both" pattern="yyyyMMddHHmmss" var="d"/>
 	
-    <%-- <jsp:useBean id="now" class="java.util.Date"/>
-    
-    <div id="timeCalc">
-    <c:set var="date" value="<%=new Date() %>"/>
-    <fmt:formatDate value="${date}" type="time" pattern="yyyyMMddHHmmss" var="nowd"/>
-    <fmt:formatDate value="${vo.enddate}" type="both" pattern="yyyyMMddHHmmss" var="d"/>
-    <fmt:parseDate var="end" value="${d}" pattern="yyyyMMddHHmmss"/>
-    
-    <c:set var="val" value="${end.time-now.time}"/>
-    <fmt:parseNumber var="pval" value="${val}" integerOnly="true"/>
-    
-    <c:set var="day" value="${val/1000/60/60/24}"/>
-    
-    <fmt:parseNumber var="pday" value="${val/(1000*60*60*24)}" integerOnly="true" scope="request"/>
-    
-    
-    <c:set var="hour" value="${val/1000/60/60-(24*pday)}"/>
-    <fmt:parseNumber var="phour" value="${hour}" integerOnly="true" scope="request"/>
-    
-    
-    <c:set var="min" value="${val/1000/60-(24*60*pday)-(60*phour)}"/>
-    <fmt:parseNumber var="pmin" value="${min}" integerOnly="true" scope="request"/>
-    
-    
-    <c:set var="sec" value="${val/1000-(24*60*60*pday)-(60*60*phour)-(60*pmin)}"/>
-    <fmt:parseNumber var="psec" value="${sec}" integerOnly="true" scope="request"/>
-    
-    
-    
-    </div>
-    
-    <li class="list_li" id="expDate" data-end="${vo.enddate}">남은시간&nbsp;&nbsp;&nbsp;
-    
-    <c:if test="${pday>0}">
-    ${pday}일
-    </c:if>
-    
-    <c:if test="${phour>0}">
-    ${pday}시간
-    </c:if>
-    
-    <c:if test="${pmin>0}">
-    ${pday}분
-    </c:if>
-    
-    ${psec}초
-    
-    </li>  --%>
-    
+  
     
     <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}">&nbsp;
     <img src="/resources/image/clock.png" width="18px" style="vertical-align: text-bottom;"/></li>
     
-<%--     <c:forEach var="entry" items="${expMap}" varStatus="st">
-    ${entry.key} - ${entry.value}
-    </c:forEach> --%>
     
     
     </ul>
@@ -410,10 +362,17 @@ width: 100%;
 <script>
 
 $(document).ready(function () {
-$("html body").animate({
-scrollTop: $("#top").offset().top
-}, 'slow');
+	
+  $("html body").animate({
+	  
+  scrollTop: $("#top").offset().top
+  
+  }, 'slow');
+  
 });
+
+
+
 
 
 $(".listItem").click(function(event) {
@@ -428,16 +387,25 @@ $(".listItem").click(function(event) {
 });
 
 
+
+
+
+
 $("#search_btn").click(function(event) {
+	
 	${paging.criteria.keyWord=null};
 	 self.location="/main/searchedList"
 	    + "${paging.makeSearchQuery(1)}"
 	    + $("#keyWord_input").val();
+	    
 });
 
 
 
 
+
+
+/* 각 상품 별 남은시간 표시 */ 
 $(document).ready(function() {
 	
 	
@@ -453,17 +421,20 @@ $(".expDate").each(function() {
 			var id="#expDate"+pno;
 			
 			if(result != null) {
+				
 				$(id).append("&nbsp;"+result);
+				
 			}else{
+				
 				$(id).append(result);
+				
 			}
 			
 		}
+	
 	});	 
 	
 
-	
-	
   }); 
 
 }); 

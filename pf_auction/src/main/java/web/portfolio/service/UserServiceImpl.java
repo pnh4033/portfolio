@@ -14,26 +14,39 @@ import web.portfolio.persistence.UserDAO;
 @Service
 public class UserServiceImpl implements UserService {
 	
+	
 	@Inject
 	private UserDAO dao;
+	
+	
 
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
+		
 		return dao.login(dto);
+		
 	}
+	
 
 	@Override
 	public UserVO userInfo(String userID) throws Exception {
+		
 		return dao.userInfo(userID);
+		
 	}
+	
 
 	@Override
 	public int idChk(String userID) throws Exception {
+		
 		return dao.idChk(userID);
+		
 	}
+	
 
 	@Override
 	public void userSignIn(UserVO vo) throws Exception {
+		
 		dao.userSignIn(vo);
 		
 	}

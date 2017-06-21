@@ -1,5 +1,6 @@
 package web.portfolio.domain;
 
+
 public class Criteria {
 	
 	private int page;
@@ -7,10 +8,13 @@ public class Criteria {
 	private String searchType;
 	private String keyWord;
 	
+	
+	
 	public int getPerPageNum() {
 		return perPageNum;
 	}
 
+	
 	public void setPerPageNum(int perPageNum) {
 		if(perPageNum <= 0 || perPageNum > 200) {
 			this.perPageNum=20;
@@ -19,15 +23,17 @@ public class Criteria {
 	}
 
 
-	
+	/*초기화*/
 	public Criteria() {
 		this.page=1;
 		this.perPageNum=20;
 	}
 	
+	
 	public int getPage() {
 		return page;
 	}
+	
 	
 	public void setPage(int page) {
 		if(page<=0) {
@@ -38,27 +44,31 @@ public class Criteria {
 		this.page=page;
 	}
 	
+	
 	public int getStartPage() {
 		return (this.page-1)*20;
 	}
 	
 	
-	
 	public String getSearchType() {
 		return searchType;
 	}
+
 	
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+
 	
 	public String getKeyWord() {
 		return keyWord;
 	}
 	
+	
 	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
 	}
+	
 	
 
 	@Override

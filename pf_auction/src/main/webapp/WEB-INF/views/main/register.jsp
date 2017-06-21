@@ -8,7 +8,7 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js'></script>
 <script src='/resources/plugins/jquery-validation-1.16.0/dist/jquery.validate.min.js'></script>
 
-<title>Insert title here</title>
+<title>상품 등록</title>
 
 <style>
 
@@ -146,7 +146,10 @@
 	}
 	
 </style>	
+
 </head>
+
+
 
 <body>
 
@@ -160,6 +163,8 @@
 	<input type="hidden" name="page" value="${ criteria.page }">
 	<input type="hidden" name="searchType" value="${ criteria.searchType }">
 	<input type="hidden" name="keyWord" value="${ criteria.keyWord }">
+	
+	
 	
 	<div class="form-title">
 	  <div class="inner-form">
@@ -200,6 +205,8 @@
 		<textarea class="form_desc" name="desc_product" id="form_desc_product" rows="10" cols="100">${ productVO.desc_product }</textarea>
 		</div>
 		
+		
+		<!-- 판매자 저장 -->
 		<input type="hidden" name="seller" value="${login.userID}">
 		<input type="hidden" name="userID" value="${login.userID}">
 		
@@ -227,12 +234,14 @@
 
 
 <div id="file_div" style="text-align: center;">
+
   <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data">
     <div style="margin:0; padding:0; width:100%; height:30px;"></div>
     <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
     <input type="button" id="send_btn" value="등록하기"/>
   </form>
   <br><br>
+  
 </div>  <!-- file_div -->
 
 <div id="img"></div>
@@ -267,33 +276,50 @@
 	
 <script>
 
+
+
+/* 선택한 판매 방식에 대한 입력 폼만 생성 */
 $("#form_buytype").change(function() {
+	
 	$("#opt_val").html("");
 	
 	if($("#form_buytype option:selected").val() == 'i') {
+		
 		$("#opt_val").append("즉시구매 가격 : <input type='text' name='i_price' id='form_i_price'"
 				+"class='reg_form' value='${productVO.i_price}'>원");
 		$("#opt_val").append("<p></p>");
+		
 	}
 	
+	
 	if($("#form_buytype option:selected").val() == 'a') {
+		
 		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice'"
 				+"class='reg_form' value='${productVO.startprice}'>원");
 		$("#opt_val").append("<p></p>");
+		
 	}
 	
+	
 	if($("#form_buytype option:selected").val() == 'ai') {
+		
 		$("#opt_val").append("즉시구매 가격 : <input type='text' name='i_price' id='form_i_price' class='reg_form' value='${productVO.i_price}'>원");
 		$("#opt_val").append("<p></p>");
 		
 		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice' class='reg_form' value='${productVO.startprice}'>원");
 		$("#opt_val").append("<p></p>");
+		
 	}
+	
 });
+
+
+
 
 
 //폼 입력 필드 유효성 검사
 function submit_chk() {
+	
 	var title_chk=/^[\w|\W]{2,50}$/g;
 	var pname_chk=/^[\w|\W]{1,50}$/g;
 	var i_price_chk=/\d{1,9}$/;
@@ -315,58 +341,87 @@ function submit_chk() {
 	var quantity_result=quantity_chk.test(quantity.val());
 	var buytype_result=buytype_chk.test(buytype.val());
 	
+	
+	
+	
 	if(!title_result) {
+		
 		alert("제목을 입력하세요.");
 		$("#form_title").focus();
 		return false;
+		
 	}else if(!pname_result) {
+		
 		alert("상품명을 입력하세요.");
 		$("#form_pname").focus();
 		return false;
+		
 	}else if($("input:checkbox[id='imm']").prop("checked") && !i_price_result){
+		
 		alert("즉구가를 입력하세요.");
 		$("#form_i_price").focus();
 		return false;
+		
 	}else if($("input:checkbox[id='auc']").prop("checked") && !startprice_result) {
+		
 		alert("시작가를 입력하세요.");
 		$("#form_startprice").focus();
 		return false;
+		
 	}else if(!buytype_result) {
+		
 		alert("판매방식을 선택하세요.");
 		$("#form_buytype").focus();
 		return false;
-	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {  //선택된 옵션에 대해서 검사
+		
+	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {      //선택된 옵션에 대해서 검사
+		
 		alert("즉구가를 입력하세요.");
 		$("#form_buytype").focus();
 		return false;
+		
 	}else if($("#form_buytype option:selected").val() == 'a' && !startprice_result) {
+		
 		alert("시작가를 입력하세요.");
 		$("#form_buytype").focus();
 		return false;
+		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !i_price_result) {
+		
 		alert("즉구가를 입력하세요.");
 		$("#form_buytype").focus();
 		return false;
+		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result) {
+		
 		alert("시작가를 입력하세요.");
 		$("#form_buytype").focus();
-		return false;	
+		return false;
+		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result && !i_price_result) {
+		
 		alert("즉구가 와 시작가를 입력하세요.");
 		$("#form_buytype").focus();
 		return false;
+		
 	}else if(!quantity_result) {
+		
 		alert("수량을 입력하세요.");
 		$("#form_quantity").focus();
 		return false;
+		
 	}else{
+		
 		return true;
+		
 	}
+	
 }
 
 
-
+/* 선택된 파일들의 사이즈 초기화 */
 var size=0;
+	
 	
 $("#mFile").on("change", function() {   
 
@@ -392,14 +447,18 @@ $("#mFile").on("change", function() {
 		
 		
 		if(size >= 1024*1024*1024) {
+			
 			alert("10MB 이상은 등록할 수 없습니다.");
 			$("#fileList_ul").empty();
 			size=0;
 			return;
+			
 		}else if(size <= 0){
+			
 			alert("등록할 파일이 없습니다.");
 			size=0;
 			return;
+			
 		}else if(submit_chk()){
      		
      		
@@ -415,19 +474,18 @@ $("#mFile").on("change", function() {
      			type:'POST',
      			success: function(result) {
      			
-     			var rep=result.replace(/\"/g,'');	
-     			rep=rep.replace(/\[/g,'');
-     			rep=rep.replace(/\]/g,'');
+     			/* 따옴표와 중괄호 제거 */
+     			var replacedResult=result.replace(/\"/g,'');	
+     			replacedResult=replacedResult.replace(/\[/g,'');
+     			replacedResult=replacedResult.replace(/\]/g,'');
      				
-     				/* $("#img").append(
-     						"<div>"+"<img src='/main/listImgs?fileName="+data+"'/>"+data+"</div>"); */
 				
      		var formObj=$("#regForm")[0];
-     		$(".inner-form").append("<input type='hidden' name='imgs' value='"+rep+"'/>");
+     		$(".inner-form").append("<input type='hidden' name='imgs' value='"+replacedResult+"'/>");
      		formObj.submit();        /* 등록폼 전송 */
      				
      				alert("등록되었습니다.");
-     	     		/* $("#fileList_ul").empty(); */ 
+     		
      	     		size=0; 
 
 
@@ -436,14 +494,9 @@ $("#mFile").on("change", function() {
      		});
      		
      		
-     		
-     		
-     		
 		}
 			
 
-	
-	
 	});   
 
 });  
