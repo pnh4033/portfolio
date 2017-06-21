@@ -11,12 +11,16 @@ public class Paging {
 	private boolean prev;
 	private boolean next;
 	
-	private int showPageNum=10;
+	private int showPageNum=10;   /*화면에 표시되는 페이지 갯수*/
 	private Criteria criteria;
+	
+	
+	
 	
 	public void setCriteria(Criteria criteria) {
 		this.criteria=criteria;
 	}
+	
 	
 	public void setTotalCount(int totalCount) {
 		this.totalCount=totalCount;
@@ -24,6 +28,8 @@ public class Paging {
 		CalcPaging();
 	}
 	
+	
+	/*페이지 계산*/
 	private void CalcPaging() {
 		endPage=(int)(Math.ceil(criteria.getPage()/(double)showPageNum)*showPageNum);
 		startPage=(endPage-showPageNum)+1;
@@ -91,6 +97,8 @@ public class Paging {
 	
 	
 	
+	
+	/*page를 포함하는 uri 생성*/
 	public String makeQuery(int page) {
 		UriComponents uriComponents=UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
@@ -99,6 +107,8 @@ public class Paging {
 		return uriComponents.toUriString();
 	}
 	
+	
+	/*page 와 keyword 를 포함하는 uri 생성*/
 	public String makeSearchQuery(int page) {
 		UriComponents uriComponents=UriComponentsBuilder.newInstance()
 				.queryParam("page", page)

@@ -22,6 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 import web.portfolio.domain.FileVO;
 import web.portfolio.service.FileService;
 
+
+
+
+/////////////////
+// 현재 사용하지 않음 //
+// 개인 참고용           //
+/////////////////
+
+
+
+
+
 @RestController
 @RequestMapping(value="/file")
 public class FileController {

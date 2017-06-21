@@ -3,6 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
+<!--ooooooooooooo-->
+<!-- 현재 사용하지 않음 -->
+<!-- 개인 참고용           -->
+<!--ooooooooooooo-->
+
+
+
 <mapper namespace="web.portfolio.mapper.FileMapper">
 
 	<insert id="saveFile">

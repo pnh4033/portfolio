@@ -225,8 +225,12 @@ width: 100%;
 
 </style>
 
-<title>Insert title here</title>
+<title>MAIN PAGE</title>
+
 </head>
+
+
+
 <body id="listBody">
 
 <div class="wrap" align="center"><!-- wrap -->
@@ -235,9 +239,6 @@ width: 100%;
   
   <div id="top_menu" align="center"><%@ include file="top.jsp" %>
   
-<!--   <div id="top_menu">
-    <div id="regist" align="right"><button type="button" class="btn" id="reg_btn">상품등록</button></div>
-  </div> -->
   
   </div>
   
@@ -251,7 +252,8 @@ width: 100%;
     <p></p>
 	<div id="body">
 	
-		
+	  
+	  <!-- 검색 -->	
 	  <div>
 		<table id="search_table">
 		<tr><td><input type="text" name="keyWord" id="keyWord_input" 
@@ -265,17 +267,22 @@ width: 100%;
 	    <input type="hidden" name="userID" value="${login.userID}">
 	    </form>
 	
+	
+	    <!-- 상단 메뉴 -->
 		<div id="center_menu">
 		<table id="table_menu">
 		
 		<tr>
+		
 		<td class="table_img">
 		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
 		</td>
+		
 		<td class="table_img">
 		<a href="myPage?userID=${login.userID}" id="myPage_a">
 		<img src="/resources/image/home.png"/></a>
 		</td>
+		
 		</tr>
 		
 		<tr>
@@ -308,6 +315,11 @@ width: 100%;
     <li class="list_li">&nbsp;즉구가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.i_price}</li>
 	
 	<fmt:formatDate value="${vo.enddate}" type="both" pattern="yyyyMMddHHmmss" var="d"/>
+	
+	
+	
+	
+	
 	
     <%-- <jsp:useBean id="now" class="java.util.Date"/>
     
@@ -359,8 +371,16 @@ width: 100%;
     </li>  --%>
     
     
+    
+    
+    
+    
+    
+    
+    <!-- 남은 시간 표시 -->
     <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}">&nbsp;
     <img src="/resources/image/clock.png" width="18px" style="vertical-align: text-bottom;"/></li>
+    
     
 <%--     <c:forEach var="entry" items="${expMap}" varStatus="st">
     ${entry.key} - ${entry.value}
@@ -419,15 +439,29 @@ width: 100%;
 <div id="footer"><%@ include file="footer.jsp" %></div>
 
 
+
+
+
+
+
+
+
 <script>
 
 window.name="listWindow";
 
 $(document).ready(function () {
-$("html body").animate({
-scrollTop: $("#listBody").offset().top
-}, 'slow');
+	
+  $("html body").animate({
+  
+	  scrollTop: $("#listBody").offset().top
+	  
+  }, 'slow');
+
 });
+
+
+
 
 
 $(".listItem").click(function(event) {
@@ -442,25 +476,37 @@ $(".listItem").click(function(event) {
 });
 
 
+
+
+
+/* 검색 쿼리 스트링 생성 */
 $("#search_btn").click(function(event) {
+	
 	${paging.criteria.keyWord=null};
 	 self.location="/main/searchedList"
 	    + "${paging.makeSearchQuery(1)}"
 	    + $("#keyWord_input").val();
+	    
 });
 
 
 
+
+/* 유저 정보 페이지로 ID 전송 */
 $("#myPage_a").click(function() {
+	
 	$("#formUser").submit();
+	
 });
 
 
 
+
+/* 각 상품 별 남은 시간 표시 */
 $(document).ready(function() {
 	
 	
-$(".expDate").each(function() {
+  $(".expDate").each(function() {
 	
 	var pno=$(this).attr("data-pno");
 	
@@ -472,9 +518,13 @@ $(".expDate").each(function() {
 			var id="#expDate"+pno;
 			
 			if(result != null) {
+				
 				$(id).append("&nbsp;"+result);
+				
 			}else{
+				
 				$(id).append(result);
+				
 			}
 			
 		}
@@ -485,6 +535,10 @@ $(".expDate").each(function() {
   }); 
 
 }); 
+
+
+
+
 
 </script>
 

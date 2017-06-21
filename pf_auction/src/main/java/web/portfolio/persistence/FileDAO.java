@@ -4,6 +4,15 @@ import java.util.List;
 
 import web.portfolio.domain.FileVO;
 
+
+
+/////////////////
+//현재 사용하지 않음 //
+//개인 참고용           //
+/////////////////
+
+
+
 public interface FileDAO {
 	
 	public void saveFile(FileVO vo) throws Exception;
