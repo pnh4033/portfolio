@@ -3,6 +3,15 @@ package web.portfolio.domain;
 import java.io.File;
 import java.util.List;
 
+
+
+/////////////////
+//현재 사용하지 않음 //
+//개인 참고용           //
+/////////////////
+
+
+
 public class FileVO {
 	private Integer fno;
 	private String filename;

@@ -95,8 +95,9 @@ width: 80%;
 height: 300px;
 border: solid #2487A0 4px;
 border-radius: 5px;
-text-align: center;
+text-align: left;
 margin: 0 auto;
+padding: 30px;
 opacity: 70%;
 }
 
@@ -113,8 +114,11 @@ margin: 0 auto;
 
 </style>
 
-<title>Insert title here</title>
+<title>상품 조회</title>
+
 </head>
+
+
 <body>
 
 <div id="desc">
@@ -129,23 +133,13 @@ margin: 0 auto;
   
   <div id="desc_right">
   
-  <%-- <div id="pname" class="attr">상품명</div><div id="pname_val" class="val">${productVO.pname}</div>
-  <div id="buytype" class="attr">구매타입</div><div id="buytype_val" class="val">${productVO.buytype}</div>
-  <div id="startprice" class="attr">시작가</div><div id="startprice_val" class="val">${productVO.startprice}</div>
-  <div id="nowprice" class="attr">현재가</div><div id="nowprice_val" class="val">${productVO.nowprice}</div>
-  <div id="tender" class="attr">입찰자수</div><div id="tender_val" class="val">${productVO.tendercnt}</div>
-  <div id="quantity" class="attr">수량</div><div id="quantity_val" class="val">${productVO.quantity}</div>
-  <div id="regdate" class="attr">등록일</div><div id="regdate_val" class="val">${productVO.createdate}</div>
-  <div id="remaintime" class="attr">남은시간</div><div id="remaintime_val" class="val"></div> --%>
+
   
   <table>
   <tbody id="tbd">
   <tr><td style="width:140px">상품명</td><td>${productVO.pname}</td></tr>
-<<<<<<< HEAD
   <tr><td>판매자</td><td>${productVO.seller}</td></tr>
-=======
   <tr><td>판매자 ID</td><td>${productVO.seller}</td></tr>
->>>>>>> branch 'master' of https://github.com/pnh4033/portfolio.git
   <tr><td>구매타입</td><td>${productVO.buytype}</td></tr>
   <tr><td>즉시구입가</td><td>${productVO.i_price}</td></tr>
   <tr><td>시작가</td><td>${productVO.startprice}</td></tr>
@@ -188,35 +182,39 @@ function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본
 
 
 
-
-
-
 var pno=${productVO.pno};
+
+
+
 
 $(document).ready(function() {
 	
-$.getJSON("/main/listImgsString/"+pno, function(list) {   /* pno 에 해당하는 attach 된 이미지들 로드 */ 
+  $.getJSON("/main/listImgsString/"+pno, function(list) {   /* pno 에 해당하는 attach 된 이미지들 로드 */ 
 	
-	$(list).each(function() {
-		var str="";
-		var fileName=this;
+	
+	
+     	$(list).each(function() {
+	     	var str="";
+		    var fileName=this;
 		
-		fileName=getImageLink(fileName);   /* 샘플파일 이름으로부터 원본파일 이름 추출 */
+	      	fileName=getImageLink(fileName);   /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 		
-		str="<div>"
-		+ "<img src='/main/listImgs?fileName="+fileName+"'/>"
-		+"</div>";
+	    	str="<div>"
+	    	+ "<img src='/main/listImgs?fileName="+fileName+"'/>"
+	    	+"</div>";
 		
-		$("#showImg").append(str);
+	    	$("#showImg").append(str);
 
-	});
+	    });
 	
-	$("#showImg").append("<br><br><hr><br><br><div id='descTitle'>상품 설명<div>");
-	$("#showImg").append("<br><br><div id='contents'>${productVO.desc_product}</div><br><br>");
-	$("#showImg").append("<div id='footer'></div>");
+	
+	
+	    $("#showImg").append("<br><br><hr><br><br><div id='descTitle'>상품 설명<div>");
+    	$("#showImg").append("<br><br><div id='contents'>${productVO.desc_product}</div><br><br>");
+	    $("#showImg").append("<div id='footer'></div>");
 	
 		
-});
+  });
 		
 });
 
@@ -228,14 +226,19 @@ $(document).ready(function() {
 	
 	var pno=$("#remain").attr("data-pno");
 	
+	
+	/* 남은시간 요청 */
 	$.ajax({
+		
 		url:'/getExpDate?pno='+pno,
 		dataType:'text',
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(result) {
 			
-			$("#remain").html("남은시간 &nbsp;&nbsp;&nbsp;"+result);
+			$("#remain").html(result);
+			
 		}
+		
 	});	 
 	
 

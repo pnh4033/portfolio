@@ -68,8 +68,11 @@
 	
 </style>
 
-<title>Insert title here</title>
+<title>MAIN PAGE</title>
+
 </head>
+
+
 <body>
 
   <div class="wrap" align="center"><!-- wrap -->

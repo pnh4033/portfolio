@@ -11,6 +11,15 @@ import org.springframework.stereotype.Service;
 import web.portfolio.domain.FileVO;
 import web.portfolio.persistence.FileDAO;
 
+
+
+/////////////////
+//현재 사용하지 않음 //
+//개인 참고용           //
+/////////////////
+
+
+
 @Service
 public class FileServiceImpl implements FileService {
 	

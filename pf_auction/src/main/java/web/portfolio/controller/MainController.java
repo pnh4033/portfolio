@@ -30,14 +30,16 @@ public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
 	
+	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
 	@Inject
 	private ProductService prod_service;
-	private UserService user_service;
 	
 
+	
+	
 	
 	@RequestMapping(value="/contents")
 	public void mainPage(ProductVO vo, Model model, Criteria criteria) throws Exception {
@@ -49,10 +51,13 @@ public class MainController {
 		model.addAttribute("list", prod_service.listCriteria(criteria));
 		model.addAttribute("paging", paging);
 		
-		System.out.println("vo.getEnddate() : "+vo.getEnddate());
 		
 	}
 	
+	
+	
+	
+	/*상품 등록*/
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String registProductGET(Model model) throws Exception {
 		logger.info("regist");
@@ -60,6 +65,9 @@ public class MainController {
 		return "/main/register";
 	}
 	
+	
+	
+	/*상품 등록*/
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public void registProductPOST(ProductVO vo) throws Exception {
 		logger.info(vo.toString());
@@ -73,6 +81,8 @@ public class MainController {
 	
 	
 	
+	
+	/*등록된 상품 보기*/
 	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pno, 
 			Model model,Criteria criteria, ProductVO vo) throws Exception {
@@ -81,12 +91,16 @@ public class MainController {
 		
 		model.addAttribute("productVO",vo);
 		
+		logger.info("productVO : "+vo.toString());
 		
 		
-		System.out.println("vo.toString : "+vo.toString());
+		
 	}
 	
 	
+	
+	
+	/*메인 페이지 품목 리스트*/
 	@RequestMapping(value="/listProduct")
 	public void listCriteria(@ModelAttribute("criteria") Criteria criteria,
 			Model model, ProductVO vo) throws Exception {
@@ -104,6 +118,9 @@ public class MainController {
 	
 	
 	
+	
+	
+	/*검색된 품목 리스트*/
 	@RequestMapping(value="/searchedList")
 	public void searchedList(@ModelAttribute("criteria") Criteria criteria,
 			Model model, ProductVO vo) throws Exception {
@@ -121,6 +138,9 @@ public class MainController {
 	
 	
 	
+	
+	
+	/*나의 정보 페이지*/
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public void myPageGET(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
@@ -130,9 +150,9 @@ public class MainController {
 	}
 	
 	
+	/*나의 정보 페이지*/
 	@RequestMapping(value="/myPage", method=RequestMethod.POST)
 	public void myPagePOST(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
-		
 		
 		
 		
@@ -142,17 +162,24 @@ public class MainController {
 	
 	
 	
+	/*샘플 이미지 한개 표시*/
 	@RequestMapping(value="/getOneImg")
 	public void getOneImg(Integer pno, Model model, SampleVO svo) throws Exception {
 		
 		String path=uploadPath;
+		
+		/*db에서 pno에 해당하는 샘플이미지 경로를 하나 가져온 후 sampleVO에  샘플이미지 경로 저장*/
 		svo.setSamplePath(path+prod_service.getOneImg(pno).replace("/", "\\\\"));
 		
 		try {
+			
 			model.addAttribute("sampleImg", svo.getSamplePath());
-			System.out.println(model.toString());
+			logger.info("sample image : "+model.toString());
+			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			
 		}
 		
 	}
