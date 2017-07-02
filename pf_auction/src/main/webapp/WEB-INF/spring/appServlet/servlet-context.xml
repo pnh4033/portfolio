@@ -50,6 +50,7 @@
 	<beans:bean id="authorityInterceptor" class="web.portfolio.interceptor.AuthorityInterceptor"/>
 	
 	<interceptors>
+	
 		<interceptor>
 			<mapping path="/user/loginPost"/>
 			<beans:ref bean="loginInterceptor"/>
@@ -64,6 +65,12 @@
 			<mapping path="/main/myPage"/>
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/main/tender"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
 	</interceptors>
 	
 	

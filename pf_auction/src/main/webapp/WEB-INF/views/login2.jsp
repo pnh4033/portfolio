@@ -123,6 +123,9 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 	</form>
 
 
+<div id="dest_div" data-dest="${dest}"></div>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -135,6 +138,7 @@ $("#ok").click(function(event) {
 	var userID=$("#uid").val();
 	var userPassword=$("#upw").val();
 	
+					var dest=$("#dest_div").attr("data-dest");
 		
 	
 	$.ajax({                   /* 로그인 정보를 ajax로 확인 */
@@ -153,9 +157,16 @@ $("#ok").click(function(event) {
 
 		success:function(result) {
 			
+			
 			if(result) {
 				
-         	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
+			        
+                	self.location="/main/listProduct";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
+		
+         	
+         	
+         	
+         	
          	$("#idpwForm").submit(); 
      	
         	$("#listWindow").reload();     /* 부모창 리로드 */

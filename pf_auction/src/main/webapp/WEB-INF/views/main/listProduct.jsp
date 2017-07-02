@@ -464,16 +464,15 @@ $(document).ready(function () {
 
 
 
-$(".listItem").click(function(event) {
+/* $(".listItem").click(function(event) {
 	
 	event.preventDefault();
 	
 	var t=$(this).attr("href");
 	
-	/* $("#body_con1").load(t); */
 	window.open(t);
 	
-});
+}); */
 
 
 

@@ -57,7 +57,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 		
 		if(request.getMethod().equals("GET")) {
 			
-			logger.info("destiny : "+(uri+query));
+			logger.info("destination : "+(uri+query));
 			
 			/*세션에 목적 경로 저장*/
 			request.getSession().setAttribute("dest", uri+query);

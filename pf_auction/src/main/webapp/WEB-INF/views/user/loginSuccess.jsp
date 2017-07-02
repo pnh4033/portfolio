@@ -75,11 +75,14 @@ height: 35px;
 </div>
 
 
+
 <script>
 
 $(document).ready(function() {
 	if(opener) {
+		
 	opener.location="/main/listProduct";
+	
 	}
 });
 

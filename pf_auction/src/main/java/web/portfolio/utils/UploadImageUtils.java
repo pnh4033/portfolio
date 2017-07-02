@@ -105,7 +105,7 @@ public class UploadImageUtils {
 		
 		BufferedImage sourceImg=ImageIO.read(new File(uploadPath + path, fileName));
 		BufferedImage destImg=Scalr.resize(
-				sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 150);
+				sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 300);
 		
 		/*썸네일 이미지는 파일명 앞에 's_' 로 시작*/
 		String thumbnailName=uploadPath + path + File.separator + "s_" + fileName;

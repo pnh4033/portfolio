@@ -35,6 +35,12 @@ public class ProductVO {
 	
 	
 	
+	
+	
+	
+	
+	
+	
 
 	public Integer getPno() {
 		return pno;
@@ -183,6 +189,8 @@ public class ProductVO {
 	
 	
 	
+	
+	
 	@Override
 	public String toString() {
 		return "ProductVO [pno=" + pno + ", pname=" + pname + ", title=" + title + ", category=" + category
@@ -191,15 +199,19 @@ public class ProductVO {
 				+ ", createdate=" + createdate + ", enddate=" + enddate + ", userID=" + userID + ", seller=" + seller
 				+ ", buyer=" + buyer + ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
 	}
-	
-	
-	
-	
-	
 
 	
-
-
 	
-
+	
+	
+	            
+	
+	
+	
+	
+	
+	
+	
 }
+
+	
