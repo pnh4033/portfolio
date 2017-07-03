@@ -80,32 +80,6 @@ height: 100%;
 font-size: 14px;
 }
 
-.pageA {
-font-size: 20px;
-color:gray;
-text-decoration: none;
-}
-
-
-#paging {
-list-style: none;
-display:inline-block; *display:inline; zoom:1;
-}
-
-#pagingDiv {
-margin: 0 auto;
-text-align: center;
-}
-
-#pageLi {
-margin: 4px;
-width: 26px;
-display: inline-block;
-font-size: 15px;
-border: solid #E888AA 2px;
-border-radius: 3px;
-vertical-align: middle;
-}
 
 table {
 text-align: center;
@@ -201,6 +175,32 @@ border:0px;
 border:0px;
 color: white;
 font-weight: bold;
+}
+
+#paging {
+list-style: none;
+display:inline-block; *display:inline; zoom:1;
+}
+
+#pagingDiv {
+margin: 0 auto;
+text-align: center;
+}
+
+#pageLi {
+margin: 4px;
+width: 26px;
+display: inline-block;
+font-size: 15px;
+border: solid #E888AA 2px;
+border-radius: 3px;
+vertical-align: middle;
+}
+
+.pageA {
+font-size: 20px;
+color:gray;
+text-decoration: none;
 }
 
 #search_table {
@@ -510,7 +510,7 @@ $(document).ready(function() {
 	var pno=$(this).attr("data-pno");
 	
 	$.ajax({
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		success: function(result) {
 			

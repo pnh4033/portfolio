@@ -226,7 +226,6 @@ border-radius: 2px;
 
 
 
-
 <div id="buy_menu_wrap">
   <div id="buy_menu">
     <table id="buy_menu_table">
@@ -315,7 +314,7 @@ $(document).ready(function() {
 	/* 남은시간 요청 */
 	$.ajax({
 		
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(result) {

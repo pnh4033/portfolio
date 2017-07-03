@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{startprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
-	(select addtime((select date_format(now(), "%Y%m%d%h%i%s")), '2 23:59:59')),
+	<!-- (select addtime((select date_format(now(), "%Y%m%d%H%i%s")), '2 23:59:59')), -->
+	now() + interval 2 day,
 	#{seller})
 	<!-- now() + interval 72 hour) -->
 	</insert>
@@ -97,12 +98,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getExpdate" resultType="String">
-	select date_format(enddate, "%Y%m%d%h%i%s") from product_tbl
+	<!-- select date_format(enddate, "%Y%m%d%h%I%s") from product_tbl
+	where pno=#{pno} -->
+	
+	select date_format(enddate, "%Y%m%d%H%i%s") from product_tbl 
 	where pno=#{pno}
 	</select>
 	
 	<select id="getCreateDate" resultType="String">
-	select date_format(createdate, "%Y%m%d%h%i%s") from product_tbl
+	select date_format(createdate, "%Y%m%d%H%i%s") from product_tbl
 	where pno=#{pno}
 	</select>
 	
@@ -141,7 +145,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	buyer=#{buyer} 
 	where pno=#{pno}
 	</update>
-
+	
+	<update id="approachExpire">
+	update product_tbl set
+	finished='finished'
+	where 
+	<![CDATA[
+	(finished is null) 
+	and
+	(enddate < current_timestamp())
+	]]>
+	</update>
+	
 </mapper>
 
 

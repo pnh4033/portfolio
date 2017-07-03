@@ -175,6 +175,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void approachExpire() throws Exception {
+
+		session.update(NAMESPACE+"approachExpire");
+		
+	}
+
 }
 
 

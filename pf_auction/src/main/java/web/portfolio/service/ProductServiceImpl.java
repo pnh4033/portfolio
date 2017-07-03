@@ -172,9 +172,16 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateNowPrice(Map map) throws Exception {
 		
-
-		
 		dao.updateNowPrice(map);
+		
+	}
+
+
+
+	@Override
+	public void approachExpire() throws Exception {
+		
+		dao.approachExpire();
 		
 	}
 

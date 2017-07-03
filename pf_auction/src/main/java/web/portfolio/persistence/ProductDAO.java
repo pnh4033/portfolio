@@ -32,5 +32,7 @@ public interface ProductDAO {
 	
 	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
 	
+	public void approachExpire() throws Exception;                 /*경매종료 처리*/
+	
 
 }

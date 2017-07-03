@@ -88,7 +88,6 @@ width: auto;
 </form>
 
 
-
 <div id="wrap">
 
 <table>
@@ -109,13 +108,15 @@ width: auto;
     </td>
   </tr>
   
+  
+  
   <tr>
     <td>
-      <c:if test="${productVO.finished == false}">
+      <c:if test="${productVO.finished != 'finished'}">
         <span style="color:blue; font-weight: bold;">입찰 가능</span>
       </c:if>
       
-      <c:if test="${productVO.finished == true}">
+      <c:if test="${productVO.finished == 'finished'}">
         <span style="color:red; font-weight: bold;">입찰 불가</span>
       </c:if>
     </td>
@@ -171,7 +172,7 @@ $(document).ready(function() {
 
 	
 	$.ajax({
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		success: function(result) {
 			
