@@ -81,6 +81,19 @@ border: solid #6397CE 2px;
 padding: 2px;
 }
 
+#auction {
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #007023;
+}
+
+#directBuy {
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #D32E5A;
+}
 
 </style>
 
@@ -133,7 +146,22 @@ padding: 2px;
   		<td class="list_class">즉구가 : ${list.i_price}</td>
   		<td class="list_class">시작가 : ${list.startprice}</td>
   		<td class="list_class">현재가 : ${list.nowprice}</td>
-  		<td class="list_class">판매방식 : ${list.buytype}</td>
+  		<%-- <td class="list_class">판매방식 : ${list.buytype}</td> --%>
+  		
+  		<td class="list_class">판매방식 : 
+            <c:if test="${list.buytype == 'a'}">
+              <span id="auction">경 매</span>
+            </c:if>
+    
+    		<c:if test="${list.buytype == 'i'}">
+      		  <span id="directBuy">즉시구매</span>
+    		</c:if>
+    
+    		<c:if test="${list.buytype == 'ai'}">
+      		  <span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+    		</c:if>
+  		</td>
+  		
   		<td class="list_class">수량 : ${list.quantity}</td>
   	  </tr>
   	  

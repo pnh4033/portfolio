@@ -228,6 +228,22 @@ height: 30px;
 width: 100%;
 }
 
+#auction {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #007023;
+}
+
+#directBuy {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #D32E5A;
+}
+
 </style>
 
 <title>MAIN PAGE</title>
@@ -315,7 +331,22 @@ width: 100%;
     <a href="/main/readProduct${paging.makeSearchQuery(paging.criteria.page)}&pno=${vo.pno}" class="listItem">
     <img src="/main/listImgsPno?pno=${vo.pno}" id="listImg"/></a></li>
     <li class="list_li" id="li_title">&nbsp;${vo.title}</li>
-    <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li>
+    <%-- <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li> --%>
+    
+    <li class="list_li">
+    <c:if test="${vo.buytype == 'a'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'i'}">
+      <span>&nbsp;</span><span id="directBuy">즉시구매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'ai'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+    </c:if>
+    </li>
+    
     <li class="list_li">&nbsp;현재가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.nowprice}</li>
     <li class="list_li">&nbsp;즉구가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.i_price}</li>
 	
@@ -549,9 +580,7 @@ $(document).ready(function() {
 	
   }); 
 
-}); 
-
-
+});
 
 
 

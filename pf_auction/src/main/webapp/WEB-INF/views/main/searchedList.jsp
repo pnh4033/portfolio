@@ -15,6 +15,12 @@
 
 <style type="text/css">
 
+html, body {
+height: 100%;
+font-size: 14px;
+}
+
+
 div {
 	margin:0px;
 	}
@@ -75,12 +81,8 @@ div {
 
 
 
-html, body {
-height: 100%;
-font-size: 14px;
-}
 
-.pageA {
+.search_pageA {
 font-size: 20px;
 color:gray;
 text-decoration: none;
@@ -97,7 +99,7 @@ margin: 0 auto;
 text-align: center;
 }
 
-#pageLi {
+#search_pageLi {
 margin: 4px;
 width: 26px;
 display: inline-block;
@@ -196,7 +198,7 @@ margin: 3px;
 border:0px;
 }
 
-#table_title {
+.table_title {
 border:0px;
 color: white;
 font-weight: bold;
@@ -220,6 +222,22 @@ border-radius: 5px;
 background-color: #EAF5FF;
 height: 30px;
 width: 100%;
+}
+
+#auction {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #007023;
+}
+
+#directBuy {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #D32E5A;
 }
 
 </style>
@@ -267,12 +285,20 @@ width: 100%;
 		<div id="center_menu">
 		<table id="table_menu">
 		<tr>
+		
 		<td id="table_img">
 		<a href="register" target="_blank"><img src="/resources/image/add_database.png"/></a>
 		</td>
+		
+		<td class="table_img">
+		<a href="myPage?userID=${login.userID}" id="myPage_a">
+		<img src="/resources/image/home.png"/></a>
+		</td>
+		
 		</tr>
 		<tr>
-		<td id="table_title">상품등록</td>
+		<td class="table_title">상품등록</td>
+		<td class="table_title">My Page</td>
 		</tr>
 		</table>
 		
@@ -294,7 +320,22 @@ width: 100%;
     <a href="/main/readProduct${paging.makeSearchQuery(paging.criteria.page)}&pno=${vo.pno}" class="listItem">
     <img src="/main/listImgsPno?pno=${vo.pno}" id="listImg"/></a></li>
     <li class="list_li" id="li_title">&nbsp;${vo.title}</li>
-    <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li>
+    
+   <%--  <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li> --%>
+   <li class="list_li">
+   <c:if test="${vo.buytype == 'a'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'i'}">
+      <span>&nbsp;</span><span id="directBuy">즉시구매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'ai'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+    </c:if>
+   </li>
+    
     <li class="list_li">&nbsp;현재가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.nowprice}</li>
     <li class="list_li">&nbsp;즉구가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.i_price}</li>
 	
@@ -322,19 +363,19 @@ width: 100%;
   <ul id="paging">
     
     <c:if test="${paging.prev}">
-      <li id="pageLi"><a href="listProduct${paging.makeSearchQuery(paging.startPage-1)}"
-          class="pageA">&laquo;</a></li>
+      <li id="search_pageLi"><a href="listProduct${paging.makeSearchQuery(paging.startPage-1)}"
+          class="search_pageA">&laquo;</a></li>
     </c:if>
     
     <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-      <li id="pageLi" <c:out value="${ paging.criteria.page == idx ? 'class=active' : '' }"/>>
+      <li id="search_pageLi" <c:out value="${ paging.criteria.page == idx ? 'class=active' : '' }"/>>
           <a href="listProduct${paging.makeSearchQuery(idx)}" class="pageA">${idx}</a>
       </li>
     </c:forEach>
     
     <c:if test="${paging.next && paging.endPage > 0 }">
-      <li id="pageLi"><a href="listProduct${paging.makeSearchQuery(paging.endPage+1)}" 
-          class="pageA">&raquo;</a></li>
+      <li id="search_pageLi"><a href="listProduct${paging.makeSearchQuery(paging.endPage+1)}" 
+          class="search_pageA">&raquo;</a></li>
     </c:if>
     
   </ul>
@@ -389,6 +430,28 @@ $(".listItem").click(function(event) {
 
 
 
+search_enter=function() {
+	
+	${paging.criteria.keyWord=null};
+	 self.location="/main/searchedList"
+	    + "${paging.makeSearchQuery(1)}"
+	    + $("#keyWord_input").val();
+	
+}
+
+
+
+$("input[name=keyWord]").keydown(function(key) {
+	
+	if(key.keyCode == 13) {
+		
+		search_enter();
+		
+	}
+	
+});
+
+
 
 
 $("#search_btn").click(function(event) {
@@ -414,7 +477,7 @@ $(".expDate").each(function() {
 	var pno=$(this).attr("data-pno");
 	
 	$.ajax({
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		success: function(result) {
 			
