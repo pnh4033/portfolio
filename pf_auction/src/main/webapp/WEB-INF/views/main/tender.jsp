@@ -112,11 +112,11 @@ width: auto;
   
   <tr>
     <td>
-      <c:if test="${productVO.finished != 'finished'}">
+      <c:if test="${productVO.finished != '종료'}">
         <span style="color:blue; font-weight: bold;">입찰 가능</span>
       </c:if>
       
-      <c:if test="${productVO.finished == 'finished'}">
+      <c:if test="${productVO.finished == '종료'}">
         <span style="color:red; font-weight: bold;">입찰 불가</span>
       </c:if>
     </td>

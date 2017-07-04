@@ -47,9 +47,9 @@
 	vertical-align: bottom;
 	}
 	
-	a:LINK {color: white; text-decoration: none;}
-	a:VISITED {color: white; text-decoration: none;}
-	a:HOVER {color: #00D8BB; text-decoration: none;}
+	.userA:LINK {color: white; text-decoration: none;}
+	.userA:VISITED {color: white; text-decoration: none;}
+	.userA:HOVER {color: #00D8BB; text-decoration: none;}
 	
 	#login_border {
 	width: 200px;
@@ -124,20 +124,20 @@
 	    <p></p>
 	    <img src="/resources/image/unlock.png" id="login_name_img"> ${login.userName} 님 접속됨</div>
 	    <p></p>
-	    <div class="login_list"><a href="/user/logout">
+	    <div class="login_list"><a href="/user/logout" class="userA">
 	    <img class="loginImg" src="/resources/image/undo.png"> 로그아웃 </a></div>
 	  </div>
 	  </c:if>
 	  
 	  <c:if test="${empty login}">
 	  <div id="login_wrap">
-	    <div class="login_list"><a href="/user/login" id="a_login">
+	    <div class="login_list"><a href="/user/login" id="a_login" class="userA">
 	    <img class="loginImg" src="/resources/image/ok.png"> 로그인 </a></div>
 	    
-	    <div class="login_list"><a href="/user/logout" id="a_logout">
+	    <div class="login_list"><a href="/user/logout" id="a_logout" class="userA">
 	    <img class="loginImg" src="/resources/image/undo.png"> 로그아웃 </a></div>
 	    
-	    <div class="login_list"><a href="/user/signIn" id="a_signIn">
+	    <div class="login_list"><a href="/user/signIn" id="a_signIn" class="userA">
 	    <img class="loginImg" src="/resources/image/add_row.png"> 회원 가입 </a></div>
 	  </div>
 	  </c:if>

@@ -15,6 +15,12 @@
 
 <style type="text/css">
 
+html, body {
+height: 100%;
+font-size: 14px;
+}
+
+
 div {
 	margin:0px;
 	}
@@ -74,11 +80,10 @@ div {
 
 
 
+a:LINK {color: gray; text-decoration: none;}
+a:VISITED {color: gray; text-decoration: none;}
+a:HOVER {color: red; text-decoration: none;}
 
-html, body {
-height: 100%;
-font-size: 14px;
-}
 
 
 table {
@@ -464,15 +469,26 @@ $(document).ready(function () {
 
 
 
-/* $(".listItem").click(function(event) {
+search_enter=function() {
 	
-	event.preventDefault();
+	${paging.criteria.keyWord=null};
+	 self.location="/main/searchedList"
+	    + "${paging.makeSearchQuery(1)}"
+	    + $("#keyWord_input").val();
 	
-	var t=$(this).attr("href");
+}
+
+
+
+$("input[name=keyWord]").keydown(function(key) {
 	
-	window.open(t);
+	if(key.keyCode == 13) {
+		
+		search_enter();
+		
+	}
 	
-}); */
+});
 
 
 

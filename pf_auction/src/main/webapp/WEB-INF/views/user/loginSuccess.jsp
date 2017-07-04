@@ -84,6 +84,9 @@ $(document).ready(function() {
 	opener.location="/main/listProduct";
 	
 	}
+	
+	$("#close_a").focus();
+	
 });
 
 
@@ -95,6 +98,35 @@ $("#close_a").click(function(event) {
 		self.location="/main/listProduct";
 	}
 });
+
+
+
+
+
+Func_close=function() {
+	
+	window.close();
+	
+}
+
+
+
+$("#close_a").keydown(function (key) {
+	
+	if(key.keyCode == 13) {
+		
+		Func_close();
+		
+	}
+	
+}); 
+
+
+
+
+
+
+
 </script>
 
 </body>

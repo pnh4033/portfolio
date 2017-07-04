@@ -125,13 +125,10 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#uid").focus();
-	
-	
-$("#ok").click(function(event) {
-	event.preventDefault(); 
+
+
+
+loginChk=function() {
 	
 	var userID=$("#uid").val();
 	var userPassword=$("#upw").val();
@@ -173,23 +170,45 @@ $("#ok").click(function(event) {
 		
 	});
 	
+}
 
-});
 
 
+
+
+
+
+
+$(document).ready(function() {
 	
-/* $("#upw").keydown(function(key) {
+	$("#uid").focus();
 	
-	if(key.keycode == 13) {
+	
+  $("#ok").click(function(event) {
+	  event.preventDefault(); 
+	
+	  loginChk();
+	
+  });
+
+  
+
+
+
+
+
+
+
+$("input[name=userPassword]").keydown(function (key) {
+	
+	if(key.keyCode == 13) {
+		
 		loginChk();
+		
 	}
 	
-}); */
+}); 
 
-
-/* $("#ok").cilck(function(event) {
-	loginChk();
-}); */
 
 
 
