@@ -18,7 +18,7 @@ import web.portfolio.service.ProductService;
 @RestController
 public class DateController {
 	
-	static final Logger logger=LoggerFactory.getLogger(DateController.class);
+	private static final Logger logger=LoggerFactory.getLogger(DateController.class);
 	
 	@Inject
 	private ProductService service;
@@ -26,31 +26,27 @@ public class DateController {
 	
 	
 	/*등록일을 계산하여 남은 시간을 반환*/
-	@RequestMapping(value="/getExpDate", produces="application/text;charset=UTF-8")
-	public ResponseEntity<String> getExpDate(Integer pno) throws Exception {
+	@RequestMapping(value="/getEndDate", produces="application/text;charset=UTF-8")
+	public ResponseEntity<String> getEndDate(Integer pno) throws Exception {
 		
 		ResponseEntity<String> entity=null;
 		
-		try{
+		try {
 			
-			String str=service.getCreateDate(pno);
-
-			SimpleDateFormat sdf;
-			sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-			
-			Calendar cal=Calendar.getInstance();    
-			Calendar calEnd=Calendar.getInstance();    
-			
-			Date date=sdf.parse(str);
-			calEnd.setTime(date);
+			String str=service.getExpdate(pno);
+			logger.info("enddate : "+str);
 			
 			
-			/*시간 차이를 구하기 위해 TimeInMillis 단위로 변환*/
-			long now=cal.getTimeInMillis();
-			long end=calEnd.getTimeInMillis()+(1000*60*60*24*3);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+			String today=sdf.format(new Date());
+			logger.info("today : "+today);
 			
-			long diff=end-now;
 			
+			Date begin=sdf.parse(today);
+			Date end=sdf.parse(str);
+			
+			/*시간 차이 계산*/
+			long diff=end.getTime()-begin.getTime();
 				
 			
 			int day= (int)(diff/(1000*60*60*24));    
@@ -65,6 +61,7 @@ public class DateController {
 			int secondRound=Math.round(second);
 			
 			String remainTime="";
+			
 			
 
 			
@@ -91,8 +88,9 @@ public class DateController {
 			}
 			
 			if(str == null) {
-				System.out.println("str : "+str);
+				
 				remainTime=null;
+				
 			}
 			
 			
@@ -102,20 +100,19 @@ public class DateController {
 			entity=new ResponseEntity<String>(remainTime, HttpStatus.OK);
 			
 			
-			
-			
-			
-			
-			
 		}catch(Exception e) {
+			
 			e.printStackTrace();
-			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			entity=new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			
 		}
 		
 		
 		return entity;
+		
 	}
-
+	
+	
 }
 
 

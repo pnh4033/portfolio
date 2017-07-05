@@ -123,14 +123,13 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 	</form>
 
 
+<div id="dest_div" data-dest="${dest}"></div>
+
+
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#uid").focus();
-	
-	
-$("#ok").click(function(event) {
-	event.preventDefault(); 
+
+
+loginChk=function() {
 	
 	var userID=$("#uid").val();
 	var userPassword=$("#upw").val();
@@ -158,7 +157,7 @@ $("#ok").click(function(event) {
          	self.location="/user/loginSuccess";          /* 로그인 성공시 loginSuccess 페이지로 이동 */
          	$("#idpwForm").submit(); 
      	
-        	$("#listWindow").reload();     /* 부모창 리로드 */
+        	opener.location.reload();     /* 부모창 리로드 */
 			
 			}
 				
@@ -172,29 +171,35 @@ $("#ok").click(function(event) {
 		
 	});
 	
+}
 
-});
+
+$(document).ready(function() {
+	
+	$("#uid").focus();
+	
+	
 
 
 	
-/* $("#upw").keydown(function(key) {
+$("input[name=userPassword]").keydown(function (key) {
 	
-	if(key.keycode == 13) {
+	if(key.keyCode == 13) {
+		
 		loginChk();
+		
 	}
 	
-}); */
+}); 
 
 
-/* $("#ok").cilck(function(event) {
+
+$("#ok").click(function(event) {
+	event.preventDefault(); 
+	
 	loginChk();
-}); */
 
-
-
-
-
-
+});
 
 
 $("#cancel").click(function(event) {       /* 창닫기 */

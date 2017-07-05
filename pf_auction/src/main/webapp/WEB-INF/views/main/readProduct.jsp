@@ -13,6 +13,7 @@
 
 html, body {
 height: 100%;
+width:100%;
 }
 
 img {
@@ -108,8 +109,48 @@ color: orange;
 margin: 0 auto;
 }
 
+#buy_menu_wrap {
+width: 100%;
+background-color: #FFEEDB;
+}
 
+#buy_menu {
+width:300px;
+margin: 0 auto;
+}
 
+#buy_menu_table {
+height: 100px;
+border-top: solid orange 2px;
+border-bottom: solid orange 2px;
+text-align: center;
+}
+
+#buy_menu_table td {
+border: 0px;
+width: 200px;
+}
+
+.buy_btn {
+width: 130px;
+height: auto;
+}
+
+#auction {
+padding: 2px;
+font-size: 14px;
+color: white;
+background-color: purple;
+border-radius: 2px;
+}
+
+#directBuy {
+padding: 2px;
+font-size: 14px;
+color: white;
+background-color: orange;
+border-radius: 2px;
+}
 
 
 </style>
@@ -134,13 +175,38 @@ margin: 0 auto;
   <div id="desc_right">
   
 
+  <!-- 새창으로 값 전달 -->
+  <form name="tenderForm" id="tender_form" action="/main/tender" target="tenderWindow" method="get">
+    <input type="hidden" name="pno" value="${productVO.pno}">
+  </form>
+
+
+
   
   <table>
   <tbody id="tbd">
   <tr><td style="width:140px">상품명</td><td>${productVO.pname}</td></tr>
-  <tr><td>판매자</td><td>${productVO.seller}</td></tr>
   <tr><td>판매자 ID</td><td>${productVO.seller}</td></tr>
-  <tr><td>구매타입</td><td>${productVO.buytype}</td></tr>
+  
+  <tr>
+  <td>구매방식</td>
+  
+  <td>
+    <c:if test="${productVO.buytype == 'a'}">
+      <span id="auction">경 매</span>
+    </c:if>
+    
+    <c:if test="${productVO.buytype == 'i'}">
+      <span id="directBuy">즉시구매</span>
+    </c:if>
+    
+    <c:if test="${productVO.buytype == 'ai'}">
+      <span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+    </c:if>
+  </td>
+  
+  </tr>
+  
   <tr><td>즉시구입가</td><td>${productVO.i_price}</td></tr>
   <tr><td>시작가</td><td>${productVO.startprice}</td></tr>
   <tr><td>현재가</td><td>${productVO.nowprice}</td></tr>
@@ -153,16 +219,34 @@ margin: 0 auto;
   
   </div>
 
+
+  
+
 </div>
 
 
 
+<div id="buy_menu_wrap">
+  <div id="buy_menu">
+    <table id="buy_menu_table">
+      <tr>
+      
+        <td><a href="/main/tender" id="tender"><img src="/resources/image/i1.png" class="buy_btn"></a></td>
+        <td><a href="#" id="direct"><img src="/resources/image/i2.png" class="buy_btn"></a></td>
+      
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div style="height: 100px;"></div>
 
 
+<!-- 로그인 값 저장 -->
+<div id="loginVal" data-login="${login}"></div>
 
 
-
-
+<!-- 이미지 목록 -->
 <div id="showImg" data-pno="${productVO.pno}">
 </div>
 
@@ -230,7 +314,7 @@ $(document).ready(function() {
 	/* 남은시간 요청 */
 	$.ajax({
 		
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(result) {
@@ -245,6 +329,45 @@ $(document).ready(function() {
 	
 	
 }); 
+
+
+var login=$("#loginVal").attr("data-login");
+
+
+$("#tender").click(function(event) {
+	
+	event.preventDefault(); 
+	
+	if(login) {
+		
+	
+	
+	var dispWid=screen.availWidth;
+	var dispHei=screen.availHeight;
+	
+	var winWid=700;
+	var winHei=800;
+	
+	var xloc=(dispWid-winWid)/2;
+	var yloc=(dispHei-winHei)/2;
+	
+	var openWindow=window.open("/main/tender", "tenderWindow", 'top='+yloc+', left='+xloc+', toolbar=no, location=no, status=no, menubar=no, resizable=no, directories=no, width='+winWid+', height='+winHei);
+
+	
+	$("#tender_form").target="tenderWindow";
+	$("#tender_form").submit();
+	
+	}else{
+		
+		self.location="/user/login2";
+		
+	}
+	
+	
+	
+	
+});
+
 
 </script>
 

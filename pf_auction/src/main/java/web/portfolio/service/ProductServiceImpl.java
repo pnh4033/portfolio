@@ -2,8 +2,10 @@ package web.portfolio.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -162,6 +164,24 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> mySelling(String userID) throws Exception {
 		
 		return dao.mySelling(userID);
+		
+	}
+
+
+
+	@Override
+	public void updateNowPrice(Map map) throws Exception {
+		
+		dao.updateNowPrice(map);
+		
+	}
+
+
+
+	@Override
+	public void approachExpire() throws Exception {
+		
+		dao.approachExpire();
 		
 	}
 

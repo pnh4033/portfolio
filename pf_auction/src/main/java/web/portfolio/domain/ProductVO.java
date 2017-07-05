@@ -29,9 +29,15 @@ public class ProductVO {
 	private String userID;       
 	private String seller;             /*판매자*/
 	private String buyer;              /*구매자*/
-	private boolean finished;          /*진행여부*/
+	private String finished;          /*진행여부*/
 	
 	private String[] imgs;             /*등록한 이미지 목록*/
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -164,11 +170,11 @@ public class ProductVO {
 		this.buyer = buyer;
 	}
 
-	public boolean isFinished() {
+	public String getFinished() {
 		return finished;
 	}
 
-	public void setFinished(boolean finished) {
+	public void setFinished(String finished) {
 		this.finished = finished;
 	}
 
@@ -183,6 +189,8 @@ public class ProductVO {
 	
 	
 	
+	
+	
 	@Override
 	public String toString() {
 		return "ProductVO [pno=" + pno + ", pname=" + pname + ", title=" + title + ", category=" + category
@@ -191,15 +199,19 @@ public class ProductVO {
 				+ ", createdate=" + createdate + ", enddate=" + enddate + ", userID=" + userID + ", seller=" + seller
 				+ ", buyer=" + buyer + ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
 	}
-	
-	
-	
-	
-	
 
 	
-
-
 	
-
+	
+	
+	            
+	
+	
+	
+	
+	
+	
+	
 }
+
+	

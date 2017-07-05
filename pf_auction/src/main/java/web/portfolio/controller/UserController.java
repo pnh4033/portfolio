@@ -218,9 +218,9 @@ public class UserController {
 	
 	
 	@RequestMapping("/loginSuccess")
-	public String loginSuccess() throws Exception {
+	public void loginSuccess() throws Exception {
 		
-		return "/user/loginSuccess";
+		/*return "/user/loginSuccess";*/
 		
 	}
 	

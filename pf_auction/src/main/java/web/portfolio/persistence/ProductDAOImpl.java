@@ -1,7 +1,8 @@
 package web.portfolio.persistence;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -161,6 +162,24 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductVO> mySelling(String userID) throws Exception {
 		
 		return session.selectList(NAMESPACE+"mySelling", userID);
+		
+	}
+
+
+	@Override
+	public void updateNowPrice(Map map) throws Exception {
+		
+
+		
+		session.update(NAMESPACE+"updateNowPrice", map);
+		
+	}
+
+
+	@Override
+	public void approachExpire() throws Exception {
+
+		session.update(NAMESPACE+"approachExpire");
 		
 	}
 

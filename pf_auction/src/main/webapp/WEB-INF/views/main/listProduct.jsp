@@ -15,6 +15,12 @@
 
 <style type="text/css">
 
+html, body {
+height: 100%;
+font-size: 14px;
+}
+
+
 div {
 	margin:0px;
 	}
@@ -74,38 +80,11 @@ div {
 
 
 
-
-html, body {
-height: 100%;
-font-size: 14px;
-}
-
-.pageA {
-font-size: 20px;
-color:gray;
-text-decoration: none;
-}
+a:LINK {color: gray; text-decoration: none;}
+a:VISITED {color: gray; text-decoration: none;}
+a:HOVER {color: red; text-decoration: none;}
 
 
-#paging {
-list-style: none;
-display:inline-block; *display:inline; zoom:1;
-}
-
-#pagingDiv {
-margin: 0 auto;
-text-align: center;
-}
-
-#pageLi {
-margin: 4px;
-width: 26px;
-display: inline-block;
-font-size: 15px;
-border: solid #E888AA 2px;
-border-radius: 3px;
-vertical-align: middle;
-}
 
 table {
 text-align: center;
@@ -203,6 +182,32 @@ color: white;
 font-weight: bold;
 }
 
+#paging {
+list-style: none;
+display:inline-block; *display:inline; zoom:1;
+}
+
+#pagingDiv {
+margin: 0 auto;
+text-align: center;
+}
+
+#pageLi {
+margin: 4px;
+width: 26px;
+display: inline-block;
+font-size: 15px;
+border: solid #E888AA 2px;
+border-radius: 3px;
+vertical-align: middle;
+}
+
+.pageA {
+font-size: 20px;
+color:gray;
+text-decoration: none;
+}
+
 #search_table {
 width:80%;
 margin:0px;
@@ -221,6 +226,22 @@ border-radius: 5px;
 background-color: #EAF5FF;
 height: 30px;
 width: 100%;
+}
+
+#auction {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #007023;
+}
+
+#directBuy {
+text-align: center;
+padding: 2px;
+font-size: 12px;
+color: white;
+background-color: #D32E5A;
 }
 
 </style>
@@ -310,7 +331,22 @@ width: 100%;
     <a href="/main/readProduct${paging.makeSearchQuery(paging.criteria.page)}&pno=${vo.pno}" class="listItem">
     <img src="/main/listImgsPno?pno=${vo.pno}" id="listImg"/></a></li>
     <li class="list_li" id="li_title">&nbsp;${vo.title}</li>
-    <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li>
+    <%-- <li class="list_li">&nbsp;구매방식 &nbsp;&nbsp; ${vo.buytype}</li> --%>
+    
+    <li class="list_li">
+    <c:if test="${vo.buytype == 'a'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'i'}">
+      <span>&nbsp;</span><span id="directBuy">즉시구매</span>
+    </c:if>
+    
+    <c:if test="${vo.buytype == 'ai'}">
+      <span>&nbsp;</span><span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+    </c:if>
+    </li>
+    
     <li class="list_li">&nbsp;현재가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.nowprice}</li>
     <li class="list_li">&nbsp;즉구가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${vo.i_price}</li>
 	
@@ -464,14 +500,24 @@ $(document).ready(function () {
 
 
 
-$(".listItem").click(function(event) {
+search_enter=function() {
 	
-	event.preventDefault();
+	${paging.criteria.keyWord=null};
+	 self.location="/main/searchedList"
+	    + "${paging.makeSearchQuery(1)}"
+	    + $("#keyWord_input").val();
 	
-	var t=$(this).attr("href");
+}
+
+
+
+$("input[name=keyWord]").keydown(function(key) {
 	
-	/* $("#body_con1").load(t); */
-	window.open(t);
+	if(key.keyCode == 13) {
+		
+		search_enter();
+		
+	}
 	
 });
 
@@ -511,7 +557,7 @@ $(document).ready(function() {
 	var pno=$(this).attr("data-pno");
 	
 	$.ajax({
-		url:'/getExpDate?pno='+pno,
+		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		success: function(result) {
 			
@@ -534,9 +580,7 @@ $(document).ready(function() {
 	
   }); 
 
-}); 
-
-
+});
 
 
 

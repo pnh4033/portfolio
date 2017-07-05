@@ -1,7 +1,7 @@
 package web.portfolio.persistence;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.ProductVO;
@@ -29,6 +29,10 @@ public interface ProductDAO {
 	public int searchedCount(Criteria criteria) throws Exception;
 	
 	public List<ProductVO> mySelling(String userID) throws Exception;        /*내가 등록한 상품들 조회*/
+	
+	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
+	
+	public void approachExpire() throws Exception;                 /*경매종료 처리*/
 	
 
 }

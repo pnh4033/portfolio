@@ -6,7 +6,6 @@
 <head>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js'></script>
-<script src='/resources/plugins/jquery-validation-1.16.0/dist/jquery.validate.min.js'></script>
 
 <title>상품 등록</title>
 
@@ -17,7 +16,7 @@
 	width: 100%;
 	}
 	
-	#form_wrap {
+	#reg_form_wrap {
 	overflow:hidden;
 	text-align: center;
 	}
@@ -26,7 +25,7 @@
 	float:left;
 	}
 	
-	.form-title {
+	.reg-form-title {
 	overflow:hidden;
 	margin: 0 auto;
 	padding: 30px;
@@ -35,7 +34,7 @@
 	text-align: center;
 	}
 	
-	.inner-form {
+	.reg-inner-form {
 	width: 750px;
 	height: 470px;
 	margin: 10px; 
@@ -153,7 +152,7 @@
 
 <body>
 
-<div id="form_wrap">
+<div id="reg_form_wrap">
 <div class="regist_product">
 
 	
@@ -166,8 +165,8 @@
 	
 	
 	
-	<div class="form-title">
-	  <div class="inner-form">
+	<div class="reg-form-title">
+	  <div class="reg-inner-form">
 	  
 		<div>
 		<label>제목 : <input type="text" name="title" id="form_title" class="reg_form" size="100" value="${ productVO.title }"></label>
@@ -238,7 +237,7 @@
   <form action="/main/upload" method="post" name="form1" id="form1" enctype="multipart/form-data">
     <div style="margin:0; padding:0; width:100%; height:30px;"></div>
     <input type="file" name="mFile" id="mFile" multiple accept=".jpg, .gif, .png"/>
-    <input type="button" id="send_btn" value="등록하기"/>
+    <input type="button" id="reg_send_btn" value="등록하기"/>
   </form>
   <br><br>
   
@@ -422,11 +421,13 @@ function submit_chk() {
 /* 선택된 파일들의 사이즈 초기화 */
 var size=0;
 	
+var form=$("#form1")[0];
+var formData=new FormData(form);  
+	
+	
 	
 $("#mFile").on("change", function() {   
 
-	var form=$("#form1")[0];
-	var formData=new FormData(form);  
 	
 	for(var i=0; i<$("#mFile")[0].files.length; i++){
 	var fname=$("#mFile")[0].files[i].name;
@@ -441,9 +442,12 @@ $("#mFile").on("change", function() {
     			"<input type='hidden' name='imgs' value='"+$('#mFile')[0].files[i].name+"'>"); */
 		
     }
+});  
 
 	
-	$("#send_btn").click(function() {
+	$("#reg_send_btn").click(function(event) {
+		
+		event.preventDefault();
 		
 		
 		if(size >= 1024*1024*1024) {
@@ -481,7 +485,7 @@ $("#mFile").on("change", function() {
      				
 				
      		var formObj=$("#regForm")[0];
-     		$(".inner-form").append("<input type='hidden' name='imgs' value='"+replacedResult+"'/>");
+     		$(".reg-inner-form").append("<input type='hidden' name='imgs' value='"+replacedResult+"'/>");
      		formObj.submit();        /* 등록폼 전송 */
      				
      				alert("등록되었습니다.");
@@ -499,7 +503,6 @@ $("#mFile").on("change", function() {
 
 	});   
 
-});  
 
 
 
@@ -532,6 +535,7 @@ $("#mFile").on("change", function() {
 
 </body>
 </html>
+
 
 
 
