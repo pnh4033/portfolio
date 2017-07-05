@@ -561,6 +561,8 @@ $(document).ready(function() {
 		dataType:'text',
 		success: function(result) {
 			
+			
+			
 			var id="#expDate"+pno;
 			
 			if(result != null) {
@@ -572,11 +574,13 @@ $(document).ready(function() {
 				$(id).append(result);
 				
 			}
-			
+		
 		}
+			
+		
 	});	 
 	
-	
+  
 	
   }); 
 
