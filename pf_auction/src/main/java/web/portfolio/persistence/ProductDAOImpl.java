@@ -89,7 +89,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void addAttach(String fullName) throws Exception {
 		
-		session.insert(NAMESPACE+"addAttach", fullName);
+		if(fullName != null) {
+			
+			session.insert(NAMESPACE+"addAttach", fullName);
+			
+		}
 		
 	}
 	

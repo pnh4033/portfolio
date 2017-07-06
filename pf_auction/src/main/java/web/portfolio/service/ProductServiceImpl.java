@@ -1,14 +1,12 @@
 package web.portfolio.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +17,7 @@ import web.portfolio.persistence.ProductDAO;
 @Service
 public class ProductServiceImpl implements ProductService {
 	
+	private static final Logger logger=LoggerFactory.getLogger(ProductServiceImpl.class);
 	
 	@Inject
 	private ProductDAO dao;
@@ -32,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		/*같이 전송된 이미지 목록 조회*/
 		String[] imgs=vo.getImgs();
+		logger.info("imgs : "+vo.getImgs().toString());
 		
 			if(imgs == null) {
 				return;
@@ -41,7 +41,13 @@ public class ProductServiceImpl implements ProductService {
 				fileName.replace("\"", "");
 				fileName.replace("\\[", "");
 				fileName.replace("\\]", "");
-				dao.addAttach(fileName);
+				
+				if(fileName != null) {
+					
+					dao.addAttach(fileName);
+					
+				}
+				
 			}
 		
 	}

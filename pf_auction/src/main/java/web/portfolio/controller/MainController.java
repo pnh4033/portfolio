@@ -78,7 +78,7 @@ public class MainController {
 	public void registProductPOST(ProductVO vo) throws Exception {
 		logger.info(vo.toString());
 		
-		System.out.println("vo.toString() : "+vo.toString());
+		logger.info("vo.toString() : "+vo.toString());
 		prod_service.createProduct(vo);
 		/*rttr.addFlashAttribute("msg","success");*/
 		

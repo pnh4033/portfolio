@@ -88,29 +88,42 @@ public class UploadController {
 			String fileName="";
 			String oriName="";
 			
+				
 			while(it.hasNext()) {
+				
 				byte[] imgData=null;
 				MultipartFile file=null;
 				
 				file=it.next();
+				
 				imgData=file.getBytes();
 				oriName=file.getOriginalFilename();
+				logger.info("upload oriName : "+oriName);
+
+				if((oriName != null) || (oriName != "")) {
 				
 				
 				/*이미지를 uploadPath에 저장하고 전체 경로를 포함한 파일명을 반환*/
-				fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
-				logger.info("fileName : "+fileName);
+					
+					fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
+					logger.info("fileName : "+fileName);
+					
+				}
 				
 				
 				/*저장된 이미지 리스트*/
-				list.add(fileName);
+				if(fileName != null) {
+					
+					list.add(fileName);
+					
+				}
 				
 			}
 
 			
 
 			
-			
+			logger.info("list : "+list);
 			entity=new ResponseEntity<List<String>>(list, HttpStatus.CREATED);
 			
 			

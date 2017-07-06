@@ -431,8 +431,12 @@ $("#mFile").on("change", function() {
 	
 	for(var i=0; i<$("#mFile")[0].files.length; i++){
 	var fname=$("#mFile")[0].files[i].name;
-
+		
+		if($('#mFile')[0].files[i] != null) {
+			
         formData.append('mFile', $('#mFile')[0].files[i]);   /* 폼에 파일 추가 */
+
+		}
         
         size+=$("#mFile")[0].files[i].size;    /* 파일 사이즈 제한을 위해 카운팅 */
     	
@@ -449,7 +453,6 @@ $("#mFile").on("change", function() {
 		
 		event.preventDefault();
 		
-		
 		if(size >= 1024*1024*1024) {
 			
 			alert("10MB 이상은 등록할 수 없습니다.");
@@ -464,7 +467,6 @@ $("#mFile").on("change", function() {
 			return;
 			
 		}else if(submit_chk()){
-     		
      		
      		
      		
@@ -486,7 +488,7 @@ $("#mFile").on("change", function() {
 				
      		var formObj=$("#regForm")[0];
      		$(".reg-inner-form").append("<input type='hidden' name='imgs' value='"+replacedResult+"'/>");
-     		formObj.submit();        /* 등록폼 전송 */
+     		formObj.submit();       
      				
      				alert("등록되었습니다.");
      		
