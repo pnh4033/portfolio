@@ -225,6 +225,9 @@
 <div><p style="color:red;">이미지는 다중선택이 가능하며 용량은 10MB 이하로 제한됩니다.</p></div>
 
 <div>
+
+<div id="div_size"></div>
+
 <ul id="fileList_ul">
 </ul>
 </div>  
@@ -427,7 +430,13 @@ var formData=new FormData(form);
 	
 	
 $("#mFile").on("change", function() {   
-
+	
+	//form input file 초기화
+	formData.delete('mFile');
+	
+	
+	$(".fileLi").remove();
+	size=0;
 	
 	for(var i=0; i<$("#mFile")[0].files.length; i++){
 	var fname=$("#mFile")[0].files[i].name;
@@ -442,6 +451,8 @@ $("#mFile").on("change", function() {
     	
         $("#fileList_ul").append("<li class='fileLi'>"+fname+"</li>");   /* 선택한 파일 목록 만들기 */ 
         
+        $("#div_size").text("file size : "+size);
+        
     	/* $(".inner-form").append(      
     			"<input type='hidden' name='imgs' value='"+$('#mFile')[0].files[i].name+"'>"); */
 		
@@ -453,7 +464,7 @@ $("#mFile").on("change", function() {
 		
 		event.preventDefault();
 		
-		if(size >= 1024*1024*1024) {
+		if(size >= 1024*1024*10) {
 			
 			alert("10MB 이상은 등록할 수 없습니다.");
 			$("#fileList_ul").empty();

@@ -205,7 +205,7 @@ public class UploadController {
 	
 	
 	
-	/*pno에 해당하는 이미지 출력*/
+	/*pno에 해당하는 샘플 이미지 출력*/
 	@ResponseBody
 	@RequestMapping(value="/main/listImgsPno")
 	public ResponseEntity<byte[]> listImgsPno(@RequestParam("pno") Integer pno) throws Exception {

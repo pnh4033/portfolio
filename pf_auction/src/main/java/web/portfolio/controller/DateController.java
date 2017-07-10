@@ -85,6 +85,7 @@ public class DateController {
 			if(day<=0 && hourFloor<=0 && minuteFloor<=0 && secondRound<=0) {
 
 				remainTime="종료 되었습니다.";
+				
 			}
 			
 			if(str == null) {

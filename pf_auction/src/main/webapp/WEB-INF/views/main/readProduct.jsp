@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<% pageContext.setAttribute("newLineChar", "\n"); %>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -162,6 +165,8 @@ border-radius: 2px;
 
 <body>
 
+
+
 <div id="desc">
 
   <div id="desc0"></div>
@@ -220,7 +225,7 @@ border-radius: 2px;
   </div>
 
 
-  
+
 
 </div>
 
@@ -250,11 +255,23 @@ border-radius: 2px;
 <div id="showImg" data-pno="${productVO.pno}">
 </div>
 
+<div id="descTitle"></div>
+<br/><br/>
 
-		
+<c:set var="desc" value="${productVO.desc_product}"/>
+<div id="contents">${fn:replace(desc, newLineChar, "<br>")}</div>
+
+<div id='footer'><%@ include file="footer.jsp" %></div>
+
+
+
+
+
+
 
 <script>
 
+var pno=${productVO.pno};
  
 function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 	var front=fileName.substring(0,12);
@@ -266,12 +283,26 @@ function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본
 
 
 
-var pno=${productVO.pno};
-
 
 
 
 $(document).ready(function() {
+	
+	
+	/* 남은시간 요청 */
+	$.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
+		success: function(result) {
+			
+			$("#remain").html(result);
+			
+		}
+		
+	});	
+	
 	
   $.getJSON("/main/listImgsString/"+pno, function(list) {   /* pno 에 해당하는 attach 된 이미지들 로드 */ 
 	
@@ -290,13 +321,9 @@ $(document).ready(function() {
 	    	$("#showImg").append(str);
 
 	    });
+	    
 	
-	
-	
-	    $("#showImg").append("<br><br><hr><br><br><div id='descTitle'>상품 설명<div>");
-    	$("#showImg").append("<br><br><div id='contents'>${productVO.desc_product}</div><br><br>");
-	    $("#showImg").append("<div id='footer'></div>");
-	
+
 		
   });
 		
@@ -304,31 +331,9 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function() {
-	
-	
-	
-	var pno=$("#remain").attr("data-pno");
-	
-	
-	/* 남은시간 요청 */
-	$.ajax({
-		
-		url:'/getEndDate?pno='+pno,
-		dataType:'text',
-		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
-		success: function(result) {
-			
-			$("#remain").html(result);
-			
-		}
-		
-	});	 
-	
 
-	
-	
-}); 
+
+
 
 
 var login=$("#loginVal").attr("data-login");

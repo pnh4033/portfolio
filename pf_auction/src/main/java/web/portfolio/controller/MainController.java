@@ -88,7 +88,7 @@ public class MainController {
 	
 	
 	
-	/*등록된 상품 보기*/
+	/*등록된 상품 조회*/
 	@RequestMapping(value="/readProduct")
 	public void readProduct(@RequestParam Integer pno, 
 			Model model,Criteria criteria, ProductVO vo) throws Exception {

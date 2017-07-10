@@ -551,7 +551,6 @@ $("#myPage_a").click(function() {
 /* 각 상품 별 남은 시간 표시 */
 $(document).ready(function() {
 	
-	
   $(".expDate").each(function() {
 	
 	var pno=$(this).attr("data-pno");
@@ -560,8 +559,6 @@ $(document).ready(function() {
 		url:'/getEndDate?pno='+pno,
 		dataType:'text',
 		success: function(result) {
-			
-			
 			
 			var id="#expDate"+pno;
 			
@@ -576,11 +573,8 @@ $(document).ready(function() {
 			}
 		
 		}
-			
 		
 	});	 
-	
-  
 	
   }); 
 
