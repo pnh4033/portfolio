@@ -82,9 +82,7 @@ a:HOVER {color: #CC2647; text-decoration: none;}
 	  
 	  <p></p>
 	  <div>
-	    <label>
-    	    <input type="checkbox" name="useCookie"> ID 기억하기 </input>
-	    </label>
+
 	  </div>
 	 
       <p></p>	 

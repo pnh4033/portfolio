@@ -51,6 +51,11 @@ background-color: purple;
 border-radius: 2px;
 }
 
+#nowprice {
+color: #BF0065;
+font-weight: bold;
+}
+
 #directBuy {
 padding: 2px;
 font-size: 14px;
@@ -82,7 +87,7 @@ width: auto;
 
 
 
-
+<!-- 입찰가 데이터 전송 폼 -->
 <form name="" id="tenderVal_form" target="/main/tenderVal" method="post">
   <input type="hidden" name="tenderValue" id="tenderValue_input" value="${tenderVO.tenderValueInput}"/>
 </form>
@@ -108,7 +113,11 @@ width: auto;
     </td>
   </tr>
   
-  
+  <tr>
+    <td>
+      <span id="nowprice">현재가 : ${productVO.nowprice} 원</span>
+    </td>
+  </tr>
   
   <tr>
     <td>

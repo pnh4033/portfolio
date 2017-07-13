@@ -348,25 +348,25 @@ function submit_chk() {
 	
 	if(!title_result) {
 		
-		alert("제목을 입력하세요.");
+		alert("제목을 입력하세요. (2자 이상 50자 이하)");
 		$("#form_title").focus();
 		return false;
 		
 	}else if(!pname_result) {
 		
-		alert("상품명을 입력하세요.");
+		alert("상품명을 입력하세요. (50자 이하)");
 		$("#form_pname").focus();
 		return false;
 		
 	}else if($("input:checkbox[id='imm']").prop("checked") && !i_price_result){
 		
-		alert("즉구가를 입력하세요.");
+		alert("즉구가를 입력하세요. (1~9자리 숫자)");
 		$("#form_i_price").focus();
 		return false;
 		
 	}else if($("input:checkbox[id='auc']").prop("checked") && !startprice_result) {
 		
-		alert("시작가를 입력하세요.");
+		alert("시작가를 입력하세요. (1~9자리 숫자)");
 		$("#form_startprice").focus();
 		return false;
 		
@@ -378,37 +378,37 @@ function submit_chk() {
 		
 	}else if($("#form_buytype option:selected").val() == 'i' && !i_price_result) {      //선택된 옵션에 대해서 검사
 		
-		alert("즉구가를 입력하세요.");
+		alert("즉구가를 입력하세요. (1~9자리 숫자)");
 		$("#form_buytype").focus();
 		return false;
 		
 	}else if($("#form_buytype option:selected").val() == 'a' && !startprice_result) {
 		
-		alert("시작가를 입력하세요.");
+		alert("시작가를 입력하세요. (1~9자리 숫자)");
 		$("#form_buytype").focus();
 		return false;
 		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !i_price_result) {
 		
-		alert("즉구가를 입력하세요.");
+		alert("즉구가를 입력하세요. (1~9자리 숫자)");
 		$("#form_buytype").focus();
 		return false;
 		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result) {
 		
-		alert("시작가를 입력하세요.");
+		alert("시작가를 입력하세요. (1~9자리 숫자)");
 		$("#form_buytype").focus();
 		return false;
 		
 	}else if($("#form_buytype option:selected").val() == 'ai' && !startprice_result && !i_price_result) {
 		
-		alert("즉구가 와 시작가를 입력하세요.");
+		alert("즉구가 와 시작가를 입력하세요. (1~9자리 숫자)");
 		$("#form_buytype").focus();
 		return false;
 		
 	}else if(!quantity_result) {
 		
-		alert("수량을 입력하세요.");
+		alert("수량을 입력하세요. (1~9자리 숫자)");
 		$("#form_quantity").focus();
 		return false;
 		

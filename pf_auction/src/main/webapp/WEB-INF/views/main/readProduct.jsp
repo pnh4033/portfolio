@@ -139,6 +139,12 @@ width: 130px;
 height: auto;
 }
 
+#contents_title {
+text-align: center;
+font-size: 30px;
+color: gray;
+}
+
 #auction {
 padding: 2px;
 font-size: 14px;
@@ -256,6 +262,9 @@ border-radius: 2px;
 </div>
 
 <div id="descTitle"></div>
+<br/><br/>
+
+<div id="contents_title">상품 설명</div>
 <br/><br/>
 
 <c:set var="desc" value="${productVO.desc_product}"/>

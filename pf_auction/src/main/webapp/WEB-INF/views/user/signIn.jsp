@@ -268,7 +268,7 @@ $("#chk_id_btn").click(function(event) {
 				
 			}else{
 				
-			alert("아이디 형식이 올바르지 않습니다.")
+			alert("아이디 형식이 올바르지 않습니다. (영문, 숫자를 포함 하여 5~12 글자)");
 				
 			}
 			
@@ -276,7 +276,7 @@ $("#chk_id_btn").click(function(event) {
 		
 		error: function() {
 				
-				alert("아이디 형식이 올바르지 않습니다.")
+				alert("아이디 형식이 올바르지 않습니다. (영문, 숫자를 포함 하여 5~12 글자)");
 			
 			$("#uid").val("");
 			$("#uid").focus();
@@ -305,7 +305,7 @@ $("#chk_id_btn").click(function(event) {
 		
 	}else if(!checkId()){
 		
-		alert("아이디 형식이 올바르지 않습니다.");
+		alert("아이디 형식이 올바르지 않습니다. (영문, 숫자를 포함 하여 5~12 글자)");
 		idCheckFlag=false;
 		return false;
 		
@@ -316,17 +316,17 @@ $("#chk_id_btn").click(function(event) {
    		
 	}else if(!checkPwd()){
 		
-		alert("비밀번호 형식이 올바르지 않습니다.  (6~20글자 영문,숫자 혼합)");
+		alert("비밀번호 형식이 올바르지 않습니다.  (6~20 글자 영문,숫자 혼합)");
 		return false;
 	
 	}else if(!checkName()) {
 		
-		alert("이름 형식이 올바르지 않습니다.");
+		alert("이름 형식이 올바르지 않습니다. (한글 2~5 글자)");
 		return false;
 		
 	}else if(!checkCell()) {
 		
-  		alert("휴대폰 번호 형식이 올바르지 않습니다.");
+  		alert("휴대폰 번호 형식이 올바르지 않습니다. (예 : 01012345678)");
   		return false;
   		
 	}else if(!checkEmail()) {

@@ -19,7 +19,7 @@ private static final Logger logger=LoggerFactory.getLogger(mySchedule.class);
 	
 	
 	/*종료된 경매 처리*/
-	//@Scheduled(cron="*/1 * * * * *")
+	@Scheduled(cron="*/1 * * * * *")
 	public void scdTest() throws Exception {
 		
 
