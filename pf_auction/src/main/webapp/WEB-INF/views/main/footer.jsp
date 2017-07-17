@@ -23,6 +23,7 @@ height: 150px;
 }
 
 p {
+margin-left: 100px;
 color: white;
 }
 </style>
@@ -32,7 +33,12 @@ color: white;
 <body>
 <div id="footerDiv">
 <p>
-Footer
+<br>
+이름 : 박남호</br>
+1981년생, 만 36세</br>
+cell : 010 - 2789 - 9499</br>
+e-mail : pnh4033@naver.com</br>
+깃허브 : https://github.com/pnh4033/portfolio.git</br>
 </p>
 </div>
 </body>

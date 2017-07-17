@@ -19,9 +19,12 @@
 	height: 150px;
 	float: left;
 	}
+	
 	#top_center{
 	width: 70%;
 	height: 150px;
+	font-size: 30px;
+	color: #00549E;
 	background-color: #E1E9ED;
 	float: left;
 	}
@@ -112,7 +115,7 @@
 	</tr>
 	</table>
 	</div>
-	<div id="top_center"></div>
+	<div id="top_center">https://github.com/pnh4033/portfolio.git</div>
 	
 	<div id="top_login">
 	  <div id="login_border">
