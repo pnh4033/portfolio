@@ -26,7 +26,7 @@ max-width: 1200px;
 #showImg {
 text-align: center;
 width:100%;
-height:100%;
+height:auto;
 }
 
 #desc {
@@ -241,8 +241,11 @@ border-radius: 2px;
   <div id="buy_menu">
     <table id="buy_menu_table">
       <tr>
-      
+      	
+      	<!-- 즉시구매 인 경우 입찰 버튼 숨김 -->
+      	<c:if test="${productVO.buytype != 'i' }">
         <td><a href="/main/tender" id="tender"><img src="/resources/image/i1.png" class="buy_btn"></a></td>
+      	</c:if>
         <td><a href="#" id="direct"><img src="/resources/image/i2.png" class="buy_btn"></a></td>
       
       </tr>
@@ -266,6 +269,7 @@ border-radius: 2px;
 
 <div id="contents_title">상품 설명</div>
 <br/><br/>
+
 
 <c:set var="desc" value="${productVO.desc_product}"/>
 <div id="contents">${fn:replace(desc, newLineChar, "<br>")}</div>
@@ -325,8 +329,8 @@ $(document).ready(function() {
 		
 	    	str="<div>"
 	    	+ "<img src='/main/listImgs?fileName="+fileName+"'/>"
-	    	+"</div>";
-		
+	    	+"</div>"; 
+	    	
 	    	$("#showImg").append(str);
 
 	    });
@@ -335,6 +339,9 @@ $(document).ready(function() {
 
 		
   });
+  
+
+  
 		
 });
 
