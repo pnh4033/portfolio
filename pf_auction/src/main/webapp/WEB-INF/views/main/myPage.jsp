@@ -99,7 +99,8 @@ background-color: #D32E5A;
 
 </head>
 <body>
-
+  
+  
   <div id="wrap">
   
     <div style="height: 100px; width: 100%"></div>
@@ -138,7 +139,16 @@ background-color: #D32E5A;
       <tr>
   		<td style="width:50px;">${list.pno}</td>
   		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
-  		<td style="width: 980px;" colspan="6">${list.title}</td>
+  		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} 
+  		
+  		<c:if test="${list.finished == '진행중' }">
+  		<a href="/main/modifyProduct?pno=${list.pno}">
+  		<img src="/resources/image/synchronize.png" id="corr_img" style="width: 20px; height: auto;">
+  		</a>
+  		</c:if>
+  		
+  		</td>
+  		
   	  </tr>
   	  
   	  <tr>

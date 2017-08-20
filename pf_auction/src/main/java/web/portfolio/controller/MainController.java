@@ -195,7 +195,7 @@ public class MainController {
 	
 	
 	
-	
+	/*입찰 페이지*/
 	@RequestMapping(value="/tender", method=RequestMethod.GET)
 	public void tenderGET(int pno, ProductVO vo, TenderVO tenderVO, Model model) throws Exception {
 		
@@ -225,6 +225,27 @@ public class MainController {
 	public void tenderValGET() {
 		
 	}
+	
+	
+	
+	@RequestMapping(value="/main/modifyProduct", method=RequestMethod.GET)
+	public void correctProdGET(Integer pno, ProductVO vo, Model model) throws Exception {
+		
+		vo=prod_service.readProduct(pno);
+		model.addAttribute("productVO", vo);
+		
+	}
+	
+	
+	@RequestMapping(value="/main/modifyProduct", method=RequestMethod.POST)
+	public void correctProdPOST(Integer pno, ProductVO vo, Model model) throws Exception {
+		
+		vo=prod_service.readProduct(pno);
+		prod_service.modifyProduct(vo);
+		
+	}
+	
+	
 	
 	
 	/*현재가 업데이트*/
