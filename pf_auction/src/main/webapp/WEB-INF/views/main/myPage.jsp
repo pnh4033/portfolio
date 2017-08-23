@@ -8,6 +8,8 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>유저 정보</title>
@@ -29,7 +31,7 @@ max-height: 150px;
 max-width: auto;
 }
 
-#list_table {
+/* #list_table {
 width:70%;
 text-align: center;
 display: table-cell;
@@ -39,7 +41,7 @@ border-collapse: collapse;
 
 .list_class {
 background-color: #FCF4FF;
-}
+} */
 
 #info_table {
 width: 500px;
@@ -76,10 +78,10 @@ border-radius: 6px;
 color: white;
 }
 
-#list_table td {
+/* #list_table td {
 border: solid #6397CE 2px;
 padding: 2px;
-}
+} */
 
 #auction {
 padding: 2px;
@@ -93,6 +95,12 @@ padding: 2px;
 font-size: 12px;
 color: white;
 background-color: #D32E5A;
+}
+
+a:HOVER {text-decoration: none;}
+
+#mod_button {
+font-size: 15px;
 }
 
 </style>
@@ -126,6 +134,7 @@ background-color: #D32E5A;
     
     
     
+    <div class="container">
     
     
     <div id="list_title">
@@ -133,7 +142,8 @@ background-color: #D32E5A;
     </div>
     <div style="height: 20px; width: 100%"></div>
     
-    <table id="list_table">
+    
+    <table class="table table-hover" id="list_table">
       <c:forEach items="${myList}" var="list">
   
       <tr>
@@ -142,8 +152,8 @@ background-color: #D32E5A;
   		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} 
   		
   		<c:if test="${list.finished == '진행중' }">
-  		<a href="/main/modifyProduct?pno=${list.pno}">
-  		<img src="/resources/image/synchronize.png" id="corr_img" style="width: 20px; height: auto;">
+  		<a href="/main/modifyProduct?pno=${list.pno}">&nbsp;&nbsp;
+  		<button type="button" class="btn btn-default" id="mod_button" style="padding: 2px;">수정</button>
   		</a>
   		</c:if>
   		
@@ -188,8 +198,12 @@ background-color: #D32E5A;
     
     
     
+    </div>
   
   </div>
+
+
+
 
 
 </body>

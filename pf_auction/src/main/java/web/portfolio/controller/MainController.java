@@ -298,8 +298,50 @@ public class MainController {
 		
 	}
 	
-
 	
+	
+	/*이미지 재업로드 이후 데이터베이스에 경로 저장*/
+	@RequestMapping(value="main/addAttach", method=RequestMethod.GET) 
+	public void addAttachGET(ProductVO vo, Model model) throws Exception {
+		
+		model.addAttribute("productVO",	vo);
+		
+	}
+	
+	
+	/*이미지 재업로드 이후 데이터베이스에 경로 저장*/
+	@Transactional
+	@RequestMapping(value="main/addAttach", method=RequestMethod.POST) 
+	public String addAttachPOST(ProductVO vo, Model model) throws Exception {
+		
+		logger.info("addAttach vo : "+vo.toString());
+		
+		Map map=new HashMap<>();
+		Integer pno=vo.getPno();
+		String[] imgs=vo.getImgs();
+		
+		map.put("pno", pno);
+		
+		for(String fullName : imgs) {
+			
+			map.put("fullName", fullName);
+			logger.info("map : "+map.toString());
+			
+			prod_service.updateAttach(map);
+			
+		}
+		
+		return "/main/updIframe";
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("/main/updIframe")
+	public void updIframe() throws Exception {
+		
+	}
 	
 	
 }

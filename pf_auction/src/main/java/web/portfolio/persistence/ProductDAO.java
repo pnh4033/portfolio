@@ -19,6 +19,8 @@ public interface ProductDAO {
 	
 	public int getPno()	throws Exception;
 	public void addAttach(String fullName) throws Exception;          /*이미지 첨부*/  
+	public void removeAttach(Integer pno) throws Exception;           /*첨부 이미지 삭제*/
+	public void updateAttach(Map map) throws Exception;  /*이미지 새로 등록*/
 	public int countPaging(Criteria criteria) throws Exception;       
 	public String getOneImg(Integer pno) throws Exception;            /*샘플 이미지 한개 가져오기*/
 	public List<String> getAllImg(Integer pno) throws Exception;      /*첨부된 이미지 리스트*/

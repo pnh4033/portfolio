@@ -88,6 +88,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	values (#{fullName}, LAST_INSERT_ID())
 	</insert>
 	
+	<insert id="updateAttach">
+	insert into prod_attach (fullName, pno)
+	values (#{fullName}, #{pno})
+	</insert>
+	
+	<delete id="removeAttach">
+	delete from prod_attach
+	where pno=#{pno}
+	</delete>
+	
 	<select id="getOneImg" resultType="string">
 	select fullName from prod_attach 
 	where pno=#{pno} 
@@ -139,6 +149,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mySelling" resultType="ProductVO">
 	select * from product_tbl
 	where seller = #{userID} 
+	order by pno desc
 	</select>
 	
 	<update id="updateNowPrice">

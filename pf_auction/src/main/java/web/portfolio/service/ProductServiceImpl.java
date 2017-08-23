@@ -193,4 +193,24 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void removeAttach(Integer pno) throws Exception {
+
+		dao.removeAttach(pno);
+		
+	}
+
+
+
+	@Override
+	public void updateAttach(Map map) throws Exception {
+		
+		
+		dao.updateAttach(map);
+		
+		
+	}
+
+
+
 }

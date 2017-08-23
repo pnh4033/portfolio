@@ -187,6 +187,22 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void removeAttach(Integer pno) throws Exception {
+		
+		session.delete(NAMESPACE+"removeAttach", pno);
+		
+	}
+
+
+	@Override
+	public void updateAttach(Map map) throws Exception {
+		
+		session.insert(NAMESPACE+"updateAttach", map);
+		
+	}
+
 }
 
 
