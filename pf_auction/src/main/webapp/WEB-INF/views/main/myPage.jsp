@@ -111,9 +111,9 @@ font-size: 15px;
   
   <div id="wrap">
   
-    <div style="height: 100px; width: 100%"></div>
+    <div class="container">
     
-    <table id="info_table">
+    <%-- <table id="info_table">
       <tr><td class="info_td">사용자 ID</td><td class="info_td2">${userInfo.userID}</td></tr>
       <tr><td class="info_td">E-MAIL</td><td class="info_td2">${userInfo.userEmail}</td></tr>
       <tr><td class="info_td">연락처</td><td class="info_td2">${userInfo.userCell}</td></tr>
@@ -122,7 +122,7 @@ font-size: 15px;
       <td class="info_td2">
       <fmt:formatDate value="${userInfo.createdDate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/>
       </td></tr>
-    </table>
+    </table> --%>
     
     
     
@@ -134,13 +134,18 @@ font-size: 15px;
     
     
     
-    <div class="container">
     
     
     <div id="list_title">
          나의 거래 내역
     </div>
-    <div style="height: 20px; width: 100%"></div>
+    <div style="height: 40px; width: 100%"></div>
+    
+    <div class="row">
+    <p class="alert alert-danger" style="font-size: 15px; padding: 2px;">
+         경매가 포함된 판매 및 입찰이 한건 이상인 물품은 취소 하실 수 없습니다.</p>
+    </div>
+    <br/>
     
     
     <table class="table table-hover" id="list_table">
@@ -153,7 +158,16 @@ font-size: 15px;
   		
   		<c:if test="${list.finished == '진행중' }">
   		<a href="/main/modifyProduct?pno=${list.pno}">&nbsp;&nbsp;
-  		<button type="button" class="btn btn-default" id="mod_button" style="padding: 2px;">수정</button>
+  		<button type="button" class="btn btn-info" id="mod_button${list.pno}" 
+  		data-pno="${list.pno}" style="padding: 2px;">수정</button>
+  		</a>
+  		</c:if>
+  		
+  		
+  		<c:if test="${(list.finished == '진행중') && (list.tendercnt == 0) && ((list.buytype == 'i') || (list.buytype == 'ai'))}">
+  		<a href="/main/removeProduct?pno=${list.pno}">
+  		<button type="button" class="btn btn-warning" id="cancelBtn${list.pno}" 
+  		data-pno="${list.pno}" style="padding: 2px;">판매 취소</button>
   		</a>
   		</c:if>
   		
@@ -190,7 +204,17 @@ font-size: 15px;
   		<td class="list_class">종료일 : <fmt:formatDate value="${list.enddate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/></td>
   		<td class="list_class">구매자 : ${list.buyer}</td>
   		<td class="list_class">입찰자수 : ${list.tendercnt}</td>
-  		<td class="list_class" colspan="2">${list.finished}</td>
+  		<td class="list_class" colspan="2" style="font-size: 17px;">
+  		
+  		<c:if test="${list.finished == '진행중'}">
+  		<span class="label label-primary">${list.finished}</span></td>
+  		</c:if>
+  		
+  		<c:if test="${list.finished == '종료'}">
+  		<span class="label label-warning">${list.finished}</span></td>
+  		</c:if>
+  		
+  		
       </tr>
   	  <tr><td style="border:0; height: 40px;"></td></tr>
       </c:forEach>
@@ -203,6 +227,42 @@ font-size: 15px;
   </div>
 
 
+
+<!-- 새창으로 값 전달 -->
+  <form name="removeForm" id="remove_form" action="/main/removeProduct" target="removeWindow" method="get">
+    <input type="hidden" name="pno" value="">
+  </form>
+
+
+
+<script>
+
+
+$(".btn.btn-warning").click(function(event) {
+	
+	event.preventDefault();
+	
+	
+	var pno=$(this).attr("data-pno");
+	
+	var dispWid=screen.availWidth;
+	var dispHei=screen.availHeight;
+	
+	var winWid=300;
+	var winHei=200;
+	
+	var xloc=(dispWid-winWid)/2;
+	var yloc=(dispHei-winHei)/2;
+	
+	var w=window.open("/main/removeProduct?pno="+pno, "removeWindow", 'top='+yloc+', left='+xloc+', toolbar=no, location=no, status=no, menubar=no, resizable=no, directories=no, width='+winWid+', height='+winHei);
+
+	
+});  
+
+
+
+
+</script>
 
 
 

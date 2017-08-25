@@ -152,7 +152,6 @@ public class MainController {
 		
 		model.addAttribute("myList", prod_service.mySelling(userID));
 		
-		
 	}
 	
 	
@@ -342,6 +341,86 @@ public class MainController {
 	public void updIframe() throws Exception {
 		
 	}
+	
+	
+	
+	
+	/*즉시구매 가격 수정*/
+	@RequestMapping(value="/main/modifyPrice", method=RequestMethod.GET)
+	public void modPriceGET() throws Exception {
+		
+	}
+	
+	
+	/*즉시구매 가격 수정*/
+	@RequestMapping(value="/main/modifyPrice", method=RequestMethod.POST)
+	public ResponseEntity<Integer> modPricePOST(Integer pno, Integer price) throws Exception {
+		
+		ResponseEntity<Integer> entity=null;
+		
+		Map map=new HashMap<>();
+		
+		try {
+			
+			map.put("pno", pno);
+			map.put("i_price", price);
+			
+			prod_service.modifyPrice(map);
+			
+			entity=new ResponseEntity<>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		
+		return entity;
+		
+		
+	}
+	
+	
+	@RequestMapping(value="/main/removeProduct", method=RequestMethod.GET)
+	public void removeProductGET(int pno, Model model, ProductVO vo) throws Exception {
+		
+		vo=prod_service.readProduct(pno);
+		model.addAttribute("productVO", vo);
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/main/removeProduct", method=RequestMethod.POST)
+	public ResponseEntity<Integer> removeProductPOST(Integer pno) throws Exception {
+		
+		ResponseEntity<Integer> entity=null;
+		
+		try{
+			
+			logger.info("removeProductPOST pno : "+pno);
+			prod_service.removeProduct(pno);
+			
+			entity=new ResponseEntity<>(HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/main/removeOK")
+	public void removeOK() throws Exception {
+		
+	}
+	
 	
 	
 }

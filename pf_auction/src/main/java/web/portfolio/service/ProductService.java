@@ -29,9 +29,11 @@ public interface ProductService {
 	public List<ProductVO> searchedList(Criteria criteria) throws Exception;
 	public int searchedCount(Criteria criteria) throws Exception;
 	
+	public ProductVO getUserInfo(String id) throws Exception;
 	public List<ProductVO> mySelling(String userID) throws Exception;      /*내가 등록한 상품들 조회*/
 	
 	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
+	public void modifyPrice(Map map) throws Exception;            /*즉구가 업데이트*/
 	
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
 }

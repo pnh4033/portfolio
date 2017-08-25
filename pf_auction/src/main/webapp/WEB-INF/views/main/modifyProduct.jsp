@@ -20,6 +20,20 @@ height: 0px;
 border: 0px;
 }
 
+#img_mod_wrap {
+border: solid #54B5C9 0.5px;
+padding: 30px;
+width: auto;
+height: auto;
+}
+
+#price_mod_wrap {
+border: solid #54B5C9 0.5px;
+padding: 30px;
+width: auto;
+height: auto;
+}
+
 </style>
 
 </head>
@@ -34,7 +48,9 @@ border: 0px;
   <div class="row"><h1>등록 정보 수정</h1></div>
   <br/><br/>
   
-  <div class="row"><p class="alert alert-danger" style="font-size: 15px;">이미지는 모두 삭제 후 재등록 됩니다.</p></div>
+  <div id="img_mod_wrap">
+  <div class="row"><h4>이미지 수정</h4></div>
+  <div class="row"><p class="alert alert-danger" style="font-size: 15px;">주의! 이미지는 모두 삭제 후 재등록 됩니다.</p></div>
   <br/>
   
 
@@ -62,14 +78,31 @@ border: 0px;
   <div class="row">
     <button class="btn btn-primary" id="btnImgMod">이미지 수정</button>
   </div>
-
+  </div>  <!-- img_mod_wrap -->
+  
+  <br/><br/><br/>
+  
+  <div id="price_mod_wrap">
+  <div class="row"><h4>판매가 수정</h4></div>
+  <br/><br/>
+  
+  <div class="row">
+    <div class="form-group">
+      <label for="mod_imm">즉시구매 가격 수정</label>
+      <input type="text" class="form-control" id="mod_imm" 
+      style="font-size:15px; bolder;" placeholder="${productVO.i_price}"/>
+      &nbsp;&nbsp;
+    </div>
+      <button class="btn btn-primary" id="btnImmMod">가격 수정</button>
+  </div>
+  </div>  <!-- price_mod_wrap -->
 
 
 </div> <!-- class-container -->
 
 
 
-
+<div style="height: 300px;"></div>
 
 
 
@@ -94,8 +127,8 @@ $("#mFile").on("change", function(e) {
 	//form input file 초기화
 	formData.delete('mFile');
 	
+	$(".tr_img").detach();
 	
-	$(".fileLi").remove();
 	size=0;
 	
 	for(var i=0; i<mFile.files.length; i++){
@@ -110,7 +143,7 @@ $("#mFile").on("change", function(e) {
         size+=mFile.files[i].size;    /* 파일 사이즈 제한을 위해 카운팅 */
         
         
-        $("#table_file_list").append("<tr><td id='table_thmb'></td><td>"+fname+"</td></tr>");   /* 선택한 파일 목록 만들기 */ 
+        $("#table_file_list").append("<tr class='tr_img'><td></td><td>"+fname+"</td></tr>");   /* 선택한 파일 목록 만들기 */ 
     	
 
 	}
@@ -180,33 +213,59 @@ $("#mFile").on("change", function(e) {
 	
 	
 
-/* $("#btnImgMod").click(function() {
+function submit_chk() {
 	
-	var pno=${productVO.pno};
+	var i_price_chk=/\d{1,9}$/;
+	var i_price=$("#mod_imm");
 	
-	$.ajax({
+	var result=i_price_chk.test(i_price.val());
+	
+	
+	if(!result) {
 		
-		url:'/main/modifyAttach',
-		type:'POST',
-		dataType: "text",
-		headers:{
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		data:JSON.stringify({
-			pno:pno
-		}), 
-		success:
-			function(result) {
-			
-			alert("modify success : "+pno);
-			
-		}
+		alert("숫자만 입력 가능합니다.");
+		$("#mod_imm").val("");
+		$("#mod_imm").focus();
 		
-	});
+		return false;
+		
+	}else{
+		
+		return true;
+		
+	}
 	
-});	 */
+}
+
+
+$("#btnImmMod").click(function() {
 	
+	if(!submit_chk()) {
+		
+		return;
+		
+	}else{
+		
+		var pno=${productVO.pno};
+		var price=$("#mod_imm").val();
+		
+		$.ajax({
+			
+			url:'/main/modifyPrice',
+			dataType:'text', 
+			data:{pno:pno, price:price},
+			type:'POST',
+			success:function(result) {
+				
+				alert("즉시구매 가격이 수정 되었습니다.");
+				
+			}
+			
+		});
+		
+	} 
+	
+});
 
 </script>
 
