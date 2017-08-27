@@ -25,6 +25,7 @@ public interface ProductService {
 	public List<String> getAllImg(Integer pno) throws Exception;       /*첨부된 이미지 리스트*/
 	public String getExpdate(Integer pno) throws Exception;            /*종료일 조회*/
 	public String getCreateDate(Integer pno) throws Exception;
+	public String isExpired(Integer pno) throws Exception;            /*종료 여부 조회*/
     
 	public List<ProductVO> searchedList(Criteria criteria) throws Exception;
 	public int searchedCount(Criteria criteria) throws Exception;

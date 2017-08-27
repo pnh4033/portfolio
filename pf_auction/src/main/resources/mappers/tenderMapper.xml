@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.portfolio.mapper.TenderMapper">
+
+    <insert id="addMyTender">
+	insert into tender_tbl (userID, myTender) 
+	select * from (select #{userID}, #{pno}) as tmp
+	where not exists 
+	(select userID from tender_tbl where userID=#{userID} and myTender=#{pno})
+	</insert>
+	
+	<select id="myTender" resultType="int">
+	<!-- select distinct myTender from tender_tbl -->
+	select myTender from tender_tbl
+	where userID=#{userID} and (myTender is not null)
+	</select>
+	
+	<delete id="removeMytender">
+	delete from tender_tbl
+	where myTender=#{myTender}
+	</delete>
+	
+	<update id="updateTenderPrice">
+	update tender_tbl set
+	myTenderPrice=#{newPrice}
+	where myTender=#{pno} and userID=#{userID}
+	</update>
+	
+	<select id="getMyTenderPrice" resultType="int">
+	select myTenderPrice from tender_tbl
+	where userID=#{userID} and myTender=#{pno}
+	</select>
+
+</mapper>

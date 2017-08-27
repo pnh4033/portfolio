@@ -1,12 +1,12 @@
 package web.portfolio.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.UserVO;
 import web.portfolio.dto.LoginDTO;
 import web.portfolio.persistence.UserDAO;
@@ -50,6 +50,24 @@ public class UserServiceImpl implements UserService {
 		dao.userSignIn(vo);
 		
 	}
+
+
+	@Override
+	public List<Integer> myTender(String UserID) throws Exception {
+	
+		return dao.myTender(UserID);
+	}
+
+
+	@Override
+	public List<Integer> myAspect(String UserID) throws Exception {
+
+		return dao.myAspect(UserID);
+		
+	}
+
+
+
 
 
 }

@@ -230,4 +230,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public String isExpired(Integer pno) throws Exception {
+		
+		return dao.isExpired(pno);
+		
+	}
+
+
+
 }

@@ -181,6 +181,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	i_price=#{i_price}
 	where pno=#{pno}
 	</update>
+	
+	<select id="isExpired" resultType="String">
+	select finished from product_tbl
+	where pno=#{pno}
+	</select>
 
 	
 </mapper>

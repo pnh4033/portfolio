@@ -218,6 +218,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public String isExpired(Integer pno) throws Exception {
+		
+		return session.selectOne(NAMESPACE+"isExpired", pno);
+		
+	}
+
 }
 
 

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,6 +28,7 @@ import web.portfolio.domain.SampleVO;
 import web.portfolio.domain.TenderVO;
 import web.portfolio.domain.UserVO;
 import web.portfolio.service.ProductService;
+import web.portfolio.service.UserService;
 
 @Controller
 @RequestMapping(value="/main/*")
@@ -42,6 +42,8 @@ public class MainController {
 	
 	@Inject
 	private ProductService prod_service;
+	
+	@Inject UserService user_service;
 	
 
 	
@@ -195,7 +197,7 @@ public class MainController {
 	
 	
 	/*입찰 페이지*/
-	@RequestMapping(value="/tender", method=RequestMethod.GET)
+	/*@RequestMapping(value="/tender", method=RequestMethod.GET)
 	public void tenderGET(int pno, ProductVO vo, TenderVO tenderVO, Model model) throws Exception {
 		
 		vo=prod_service.readProduct(pno);
@@ -214,7 +216,7 @@ public class MainController {
 		model.addAttribute("ProductVO", vo);
 		model.addAttribute("tenderVO", tenderVO);
 		
-	}
+	}*/
 	
 	
 	
@@ -248,10 +250,10 @@ public class MainController {
 	
 	
 	/*현재가 업데이트*/
-	@Transactional
+	/*@Transactional
 	@ResponseBody
 	@RequestMapping(value="/tenderVal", method=RequestMethod.POST)
-	public ResponseEntity<Integer> tenderValPOST(@RequestBody TenderVO tenderVO, ProductVO vo) {
+	public ResponseEntity<Integer> tenderValPOST(@RequestBody TenderVO tenderVO, ProductVO productVO) {
 		
 		ResponseEntity<Integer> entity=null;
 		
@@ -262,26 +264,33 @@ public class MainController {
 			
 			String buyer=tenderVO.getBuyer();
 
-			vo=prod_service.readProduct(pno);
+			productVO=prod_service.readProduct(pno);
 			
 			
-			/*현재가+입찰가*/
-			int tempNow=vo.getNowprice();
-			vo.setNowprice(tempNow + val);
+			현재가+입찰가
+			int tempNow=productVO.getNowprice();
+			productVO.setNowprice(tempNow + val);
 			
-			int value=vo.getNowprice();
+			int value=productVO.getNowprice();
 			
 			Map<String, Object> map=new HashMap<>();
+			Map<String, Object> myTenderMap= new HashMap<>();
 			
 			map.put("pno", pno);
 			map.put("value", value);
 			
-			/*현재 최고가 입찰자*/
+			현재 최고가 입찰자
 			map.put("buyer", buyer);
 			
 			prod_service.updateNowPrice(map);
 			
 			logger.info("tender update map : "+map.toString());
+			
+			myTenderMap.put("pno", pno);
+			myTenderMap.put("newPrice", value);
+			myTenderMap.put("buyer", buyer);
+			
+			user_service.updateTenderPrice(myTenderMap);
 			
 			
 			
@@ -295,7 +304,7 @@ public class MainController {
 		
 		return entity;
 		
-	}
+	}*/
 	
 	
 	
@@ -418,6 +427,31 @@ public class MainController {
 	
 	@RequestMapping(value="/main/removeOK")
 	public void removeOK() throws Exception {
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/main/isExpired", produces="application/text;charset=UTF-8")
+	public ResponseEntity<String> isExpired(Integer pno) throws Exception {
+		
+		ResponseEntity<String> entity=null;
+		
+		try{
+			
+			String result=prod_service.isExpired(pno);
+			logger.info("/main/isExpired value : result - "+result+", pno - "+pno);
+			
+			entity=new ResponseEntity<>(result, HttpStatus.OK);
+			
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
 		
 	}
 	
