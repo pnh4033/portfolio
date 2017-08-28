@@ -33,6 +33,7 @@ public class ProductVO {
 	
 	private String[] imgs;             /*등록한 이미지 목록*/
 	
+	private int myTenderPrice;
 	
 	
 	
@@ -41,6 +42,15 @@ public class ProductVO {
 	
 	
 	
+	
+
+	public int getMyTenderPrice() {
+		return myTenderPrice;
+	}
+
+	public void setMyTenderPrice(int myTenderPrice) {
+		this.myTenderPrice = myTenderPrice;
+	}
 
 	public Integer getPno() {
 		return pno;
@@ -190,22 +200,16 @@ public class ProductVO {
 	
 	
 	
-	
 	@Override
 	public String toString() {
 		return "ProductVO [pno=" + pno + ", pname=" + pname + ", title=" + title + ", category=" + category
 				+ ", i_price=" + i_price + ", startprice=" + startprice + ", nowprice=" + nowprice + ", buytype="
 				+ buytype + ", tendercnt=" + tendercnt + ", quantity=" + quantity + ", desc_product=" + desc_product
 				+ ", createdate=" + createdate + ", enddate=" + enddate + ", userID=" + userID + ", seller=" + seller
-				+ ", buyer=" + buyer + ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + "]";
+				+ ", buyer=" + buyer + ", finished=" + finished + ", imgs=" + Arrays.toString(imgs) + ", myTenderPrice="
+				+ myTenderPrice + "]";
 	}
 
-	
-	
-	
-	
-	            
-	
 	
 	
 	

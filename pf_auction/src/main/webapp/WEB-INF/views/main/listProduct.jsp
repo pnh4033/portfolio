@@ -12,6 +12,8 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 
@@ -216,7 +218,7 @@ border: 0px;
 text-align: center;
 }
 
-#keyWord_input {
+/* #keyWord_input {
 font-size:18px;
 color: #00398E;
 margin:0px;
@@ -226,7 +228,20 @@ border-radius: 5px;
 background-color: #EAF5FF;
 height: 30px;
 width: 100%;
-}
+}  */
+
+#keyWord_input {
+font-size:20px;
+color: #00398E;
+margin:0px;
+padding:2px;
+padding-left:10px;
+height:30px;
+border: solid #dcdcdc 0.5px;
+border-radius: 5px;
+height: 30px;
+width: 100%;
+} 
 
 #auction {
 text-align: center;
@@ -243,6 +258,12 @@ font-size: 12px;
 color: white;
 background-color: #D32E5A;
 }
+
+#nav-ul {
+color: #007099;
+font-size: 14px;
+}
+
 
 </style>
 
@@ -273,13 +294,17 @@ background-color: #D32E5A;
     <p></p>
 	<div id="body">
 	
-	  
+	<div class="container" style="margin: 0px; width: 100%;">
+	
+	<br/><br/>
+	
 	  <!-- 검색 -->	
 	  <div>
 		<table id="search_table">
-		<tr><td><input type="text" name="keyWord" id="keyWord_input" 
+		<tr><td><input type="text" name="keyWord" id="keyWord_input" placeholder="Search"
 		     value="${criteria.keyWord}"></td><td style="width:60px; text-align: right;">
-		<input type="image" id="search_btn" style="width:29px;" src="/resources/image/search.png"/></td></tr>
+		<!-- <input type="image" id="search_btn" style="width:29px;" src="/resources/image/search.png"/></td></tr> -->
+		<button class="btn btn-sm btn-default" id="search_btn">Submit</button></td></tr>
 		</table>
 		<p></p>
 	  </div>
@@ -290,7 +315,7 @@ background-color: #D32E5A;
 	
 	
 	    <!-- 상단 메뉴 -->
-		<div id="center_menu">
+		<%-- <div id="center_menu">
 		<table id="table_menu">
 		
 		<tr>
@@ -313,11 +338,28 @@ background-color: #D32E5A;
 		
 		</table>
 		
-		</div><p></p>
+		</div><p></p> --%>
+	
+	
+	<nav class="navbar navbar-inverse">
+    
+     <div class="navbar-header">
+       <a class="navbar-brand" href="#">Main Page</a>
+     </div>
+    
+     <ul class="nav navbar-nav" id="nav-ul" style="margin-right: 5px;">
+       <li><a href="register" target="_blank">판매 등록</a></li>
+       <li><a href="/tender/myTender?userID=${login.userID}">나의 입찰 목록</a></li>
+       <li><a href="#">나의 관심 상품</a></li>
+       <li><a href="myPage?userID=${login.userID}" id="myPage_a">My Page</a></li>
+     </ul>
+     
+    </nav>	
 
 
+	<br/><br/>
 
-
+	</div>  <!-- container -->
 
 
 
@@ -498,6 +540,12 @@ $(document).ready(function () {
 
 
 
+$("#keyWord_input").focus(function() {
+	
+	$("#keyWord_input").val("");
+	
+});
+
 
 
 search_enter=function() {
@@ -550,6 +598,7 @@ $("#myPage_a").click(function() {
 
 /* 각 상품 별 남은 시간 표시 */
 $(document).ready(function() {
+	
 	
   $(".expDate").each(function() {
 	

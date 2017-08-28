@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where pno=#{pno}
 	</update>
 	
-	<delete id="deleteProduct">
+	<delete id="removeProduct">
 	delete from product_tbl
 	where pno=#{pno}
 	</delete>
@@ -82,11 +82,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select max(pno) from product_tbl
 	</select>
 	
+	<select id="getUserInfo" resultType="ProductVO">
+	select * from user_tbl
+	where userID=#{id}
+	</select>
+	
 	<insert id="addAttach">
 	insert into prod_attach (fullName, pno)
 	<!-- values (#{fullName}, (select max(pno) from product_tbl)) -->
 	values (#{fullName}, LAST_INSERT_ID())
 	</insert>
+	
+	<insert id="updateAttach">
+	insert into prod_attach (fullName, pno)
+	values (#{fullName}, #{pno})
+	</insert>
+	
+	<delete id="removeAttach">
+	delete from prod_attach
+	where pno=#{pno}
+	</delete>
 	
 	<select id="getOneImg" resultType="string">
 	select fullName from prod_attach 
@@ -139,6 +154,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mySelling" resultType="ProductVO">
 	select * from product_tbl
 	where seller = #{userID} 
+	order by pno desc
 	</select>
 	
 	<update id="updateNowPrice">
@@ -159,6 +175,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	(enddate < current_timestamp())
 	]]>
 	</update>
+	
+	<update id="modifyPrice">
+	update product_tbl set
+	i_price=#{i_price}
+	where pno=#{pno}
+	</update>
+	
+	<select id="isExpired" resultType="String">
+	select finished from product_tbl
+	where pno=#{pno}
+	</select>
+
 	
 </mapper>
 

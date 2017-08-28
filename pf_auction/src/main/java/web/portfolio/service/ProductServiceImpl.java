@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void removeProduct(Integer pno) throws Exception {
 		
-		dao.deleteProduct(pno);
+		dao.removeProduct(pno);
 
 	}
 	
@@ -188,6 +188,52 @@ public class ProductServiceImpl implements ProductService {
 	public void approachExpire() throws Exception {
 		
 		dao.approachExpire();
+		
+	}
+
+
+
+	@Override
+	public void removeAttach(Integer pno) throws Exception {
+
+		dao.removeAttach(pno);
+		
+	}
+
+
+
+	@Override
+	public void updateAttach(Map map) throws Exception {
+		
+		
+		dao.updateAttach(map);
+		
+		
+	}
+
+
+
+	@Override
+	public ProductVO getUserInfo(String id) throws Exception {
+		
+		return dao.getUserInfo(id);
+	}
+
+
+
+	@Override
+	public void modifyPrice(Map map) throws Exception {
+		
+		dao.modifyPrice(map);
+		
+	}
+
+
+
+	@Override
+	public String isExpired(Integer pno) throws Exception {
+		
+		return dao.isExpired(pno);
 		
 	}
 

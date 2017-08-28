@@ -1,5 +1,11 @@
 package web.portfolio.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.UserVO;
 import web.portfolio.dto.LoginDTO;
+import web.portfolio.service.ProductService;
 import web.portfolio.service.UserService;
 
 
@@ -32,6 +40,9 @@ public class UserController {
 	
 	@Inject
 	private UserService service;
+	
+	@Inject
+	private ProductService prod_service;
 	
 	
 	
@@ -242,6 +253,68 @@ public class UserController {
 		return "redirect:/main/listProduct";
 		
 	}
+	
+	
+	
+	
+	/*@RequestMapping(value="/addMyTender")
+	public void addMyTender(String userID, Integer pno) throws Exception {
+		
+		logger.info("addMyTender userID : "+userID+" , pno : "+pno);
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("userID", userID);
+		map.put("pno", pno);
+		
+		
+		service.addMyTender(map);
+		
+	}
+	
+	
+	
+	//나의 입찰 목록
+	@RequestMapping(value="/myTender", method=RequestMethod.GET)
+	public void myTenderGET(String userID, ProductVO vo, Model model) throws Exception {
+		
+		List<Integer> list=new ArrayList<>();
+		List<ProductVO> listVO=new ArrayList<>();
+		
+		list=service.myTender(userID);
+		logger.info("myTender list : "+list.toString());
+		
+		
+		Iterator<Integer> it=list.iterator();
+		
+		while(it.hasNext()) {
+			
+			int pno=it.next();
+			listVO.add(prod_service.readProduct(pno));
+			
+		}
+		
+		model.addAttribute("userInfo", service.userInfo(userID));
+		model.addAttribute("myTenderList", listVO);
+		
+		
+	}
+	
+	
+	//나의 입찰 목록
+	@RequestMapping(value="/myTender", method=RequestMethod.POST)
+	public void myTenderPOST() throws Exception {
+		
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/myAspect", method=RequestMethod.GET)
+	public void myAspectGET(String userID) throws Exception {
+		
+	}*/
+	
 
 }
 

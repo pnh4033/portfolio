@@ -1,6 +1,10 @@
 package web.portfolio.persistence;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -52,6 +56,23 @@ public class UserDAOImpl implements UserDAO {
 		session.insert(NAMESPACE+"userSignIn", vo);
 		
 	}
+
+
+	@Override
+	public List<Integer> myTender(String UserID) throws Exception {
+		
+		return session.selectList(NAMESPACE+"myTender", UserID);
+	}
+
+
+	@Override
+	public List<Integer> myAspect(String UserID) throws Exception {
+	
+		return session.selectList(NAMESPACE+"myAspect", UserID);
+		
+	}
+
+
 
 
 }

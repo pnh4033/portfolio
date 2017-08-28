@@ -12,6 +12,8 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 
@@ -213,16 +215,17 @@ text-align: center;
 }
 
 #keyWord_input {
-font-size:18px;
+font-size:20px;
 color: #00398E;
 margin:0px;
 padding:2px;
-border: solid #F43500 3px;
+padding-left:10px;
+height:30px;
+border: solid #dcdcdc 0.5px;
 border-radius: 5px;
-background-color: #EAF5FF;
 height: 30px;
 width: 100%;
-}
+} 
 
 #auction {
 text-align: center;
@@ -272,17 +275,26 @@ background-color: #D32E5A;
 	<div id="body">
 	
 		
+	  <div class="container">
+	  
+	  <!-- 검색 -->	
 	  <div>
 		<table id="search_table">
-		<tr><td><input type="text" name="keyWord" id="keyWord_input" 
+		<tr><td><input type="text" name="keyWord" id="keyWord_input" placeholder="Search"
 		     value="${criteria.keyWord}"></td><td style="width:60px; text-align: right;">
-		<input type="image" id="search_btn" style="width:29px;" src="/resources/image/search.png"/></td></tr>
+		<!-- <input type="image" id="search_btn" style="width:29px;" src="/resources/image/search.png"/></td></tr> -->
+		<button class="btn btn-sm btn-default" id="search_btn">Submit</button></td></tr>
 		</table>
 		<p></p>
 	  </div>
+	    
+	    <form name="form1" id="formUser" action="/main/myPage" method="post">
+	    <input type="hidden" name="userID" value="${login.userID}">
+	    </form>
 	
 	
-		<div id="center_menu">
+	
+		<%-- <div id="center_menu">
 		<table id="table_menu">
 		<tr>
 		
@@ -302,12 +314,29 @@ background-color: #D32E5A;
 		</tr>
 		</table>
 		
-		</div><p></p>
+		</div><p></p> --%>
 
 
+	<nav class="navbar navbar-inverse">
+    
+     <div class="navbar-header">
+       <a class="navbar-brand" href="#">Main Page</a>
+     </div>
+    
+     <ul class="nav navbar-nav" id="nav-ul">
+       <li><a href="register" target="_blank">판매 등록</a></li>
+       <li><a href="#">입찰</a></li>
+       <li style="width: 300px;"></li>
+       <li><a href="myPage?userID=${login.userID}" id="myPage_a">My Page</a></li>
+     </ul>
+     
+    </nav>	
 
 
+	<br/><br/>
 
+
+     </div>  <!-- container -->
 
 
 <div id="listWrap">
@@ -428,6 +457,12 @@ $(".listItem").click(function(event) {
 });
 
 
+
+$("#keyWord_input").focus(function() {
+	
+	$("#keyWord_input").val("");
+	
+});
 
 
 search_enter=function() {

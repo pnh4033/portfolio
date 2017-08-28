@@ -9,8 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
 
@@ -19,131 +22,6 @@ height: 100%;
 width:100%;
 }
 
-img {
-max-width: 1200px;
-}
-
-#showImg {
-text-align: center;
-width:100%;
-height:auto;
-}
-
-#desc {
-margin: 20px;
-padding: 10px;
-overflow: hidden; 
-}
-
-#desc0 {
-width: 280px;
-height: 300px;
-float: left; 
-display: inline-block;
-}
-
-#desc_left {
-display: table-cell;
-vertical-align: middle;
-padding: 50px;
-margin: 20px;
-width: auto;
-height: auto;
-border-radius: 3px;
-border: solid #B6CCEF 2px;
-float: left; 
-display: inline-block;
-}
-
-#desc_center {
-width: 100px;
-height: 300px;
-float: left; 
-display: inline-block;
-}
-
-#desc_right {
-width: 200px;
-height: 300px;
-border-radius: 3px;
-border-color: solid gray 1px;
-float: left; 
-display: inline-block;
-}
-
-
-
-table {
-vertical-align: middle;
-margin: 3px;
-padding: 3px;
-width: 500px;
-height: 300px;
-text-align: center;
-}
-
-td {
-border: solid #B6CCEF 2px;
-border-radius: 3px;
-margin: 3px;
-padding: 3px;
-text-align: center;
-}
-
-#sample {
-width: 250px;
-}
-
-#contents {
-width: 80%;
-height: 300px;
-border: solid #2487A0 4px;
-border-radius: 5px;
-text-align: left;
-margin: 0 auto;
-padding: 30px;
-opacity: 70%;
-}
-
-#descTitle {
-font-size: 20px;
-font-weight: bold;
-color: orange;
-margin: 0 auto;
-}
-
-#buy_menu_wrap {
-width: 100%;
-background-color: #FFEEDB;
-}
-
-#buy_menu {
-width:300px;
-margin: 0 auto;
-}
-
-#buy_menu_table {
-height: 100px;
-border-top: solid orange 2px;
-border-bottom: solid orange 2px;
-text-align: center;
-}
-
-#buy_menu_table td {
-border: 0px;
-width: 200px;
-}
-
-.buy_btn {
-width: 130px;
-height: auto;
-}
-
-#contents_title {
-text-align: center;
-font-size: 30px;
-color: gray;
-}
 
 #auction {
 padding: 2px;
@@ -161,6 +39,14 @@ background-color: orange;
 border-radius: 2px;
 }
 
+img {
+max-width: 1200px;
+margin: 10px;
+}
+
+.row {
+text-align: center;
+}
 
 </style>
 
@@ -172,107 +58,120 @@ border-radius: 2px;
 <body>
 
 
+<div class="container">
 
-<div id="desc">
-
-  <div id="desc0"></div>
-
-  <div id="desc_left" class="desc_left"><img src="/main/listImgsPno?pno=${productVO.pno}" id="sample"/>
-  <div><p>${productVO.title}</p></div>
-  </div>
-  
-  <div id="desc_center"></div>
-  
-  <div id="desc_right">
-  
+<br/><br/>
 
   <!-- 새창으로 값 전달 -->
-  <form name="tenderForm" id="tender_form" action="/main/tender" target="tenderWindow" method="get">
+  <form name="tenderForm" id="tender_form" action="/tender/tender" target="tenderWindow" method="get">
     <input type="hidden" name="pno" value="${productVO.pno}">
   </form>
 
-
-
+	
+  <div class="row">
   
-  <table>
-  <tbody id="tbd">
-  <tr><td style="width:140px">상품명</td><td>${productVO.pname}</td></tr>
-  <tr><td>판매자 ID</td><td>${productVO.seller}</td></tr>
-  
-  <tr>
-  <td>구매방식</td>
-  
-  <td>
-    <c:if test="${productVO.buytype == 'a'}">
-      <span id="auction">경 매</span>
-    </c:if>
-    
-    <c:if test="${productVO.buytype == 'i'}">
-      <span id="directBuy">즉시구매</span>
-    </c:if>
-    
-    <c:if test="${productVO.buytype == 'ai'}">
-      <span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
-    </c:if>
-  </td>
-  
-  </tr>
-  
-  <tr><td>즉시구입가</td><td>${productVO.i_price}</td></tr>
-  <tr><td>시작가</td><td>${productVO.startprice}</td></tr>
-  <tr><td>현재가</td><td>${productVO.nowprice}</td></tr>
-  <tr><td>입찰자수</td><td>${productVO.tendercnt}</td></tr>
-  <tr><td>수량</td><td>${productVO.quantity}</td></tr>
-  <tr><td>등록일</td><td>${productVO.createdate}</td></tr>
-  <tr><td>남은시간</td><td id="remain" data-pno="${productVO.pno}"></td></tr>
-  </tbody>
-  </table>
-  
-  </div>
-
-
-
-
-</div>
-
-
-
-<div id="buy_menu_wrap">
-  <div id="buy_menu">
-    <table id="buy_menu_table">
-      <tr>
-      	
-      	<!-- 즉시구매 인 경우 입찰 버튼 숨김 -->
-      	<c:if test="${productVO.buytype != 'i' }">
-        <td><a href="/main/tender" id="tender"><img src="/resources/image/i1.png" class="buy_btn"></a></td>
-      	</c:if>
-        <td><a href="#" id="direct"><img src="/resources/image/i2.png" class="buy_btn"></a></td>
-      
-      </tr>
+    <div class="col-xs-5">
+    <table class="table table-hover">
+      <tr><td>
+        <img src="/main/listImgsPno?pno=${productVO.pno}" id="sample"/>
+      </tr></td>
+      <tr><td style="font-size: 24px; text-align: center;">${productVO.title}</td></tr>
     </table>
-  </div>
-</div>
+    </div>
+    
+    <div class="col-xs-2"></div>
+    
+    <div class="col-xs-5">
+    
+      <table class="table table-hover">
+        <tr><td>판매자 ID</td><td>${productVO.seller}</td></tr>
+  
+        <tr>
+          <td>판매 방식</td>
+  
+        <td>
+          <c:if test="${productVO.buytype == 'a'}">
+          <span id="auction">경 매</span>
+          </c:if>
+    
+          <c:if test="${productVO.buytype == 'i'}">
+          <span id="directBuy">즉시구매</span>
+          </c:if>
+    
+          <c:if test="${productVO.buytype == 'ai'}">
+          <span id="auction">경 매</span>&nbsp;<span id="directBuy">즉시구매</span>
+          </c:if>
+        </td>
+  
+        </tr>
+        
+         <tr><td>즉시구입가</td><td>${productVO.i_price}</td></tr>
+         <tr><td>시작가</td><td>${productVO.startprice}</td></tr>
+         <tr><td>현재가</td><td>${productVO.nowprice}</td></tr>
+         <tr><td>입찰횟수</td><td>${productVO.tendercnt}</td></tr>
+         <tr><td>수량</td><td>${productVO.quantity}</td></tr>
+         <tr><td>등록일</td><td>${productVO.createdate}</td></tr>
+         <tr><td>남은시간</td><td id="remain" data-pno="${productVO.pno}"></td></tr>
+         
+        
+      </table>
+    
+      <button class="btn btn-info" id="btnAspect">관심 목록 저장</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      
+      <c:if test="${productVO.buytype != 'i'}">
+      <button class="btn btn-primary" id="btnTender">입찰 하기</button>&nbsp;
+      </c:if>
+      
+      <c:if test="${productVO.buytype != 'a'}">
+      <button class="btn btn-danger" id="btnDirect">바로 구매</button>
+      </c:if>
+      
+    
+    </div>
+  
+  </div>	
 
-<div style="height: 100px;"></div>
+</br></br>	
+  
 
+
+
+  
 
 <!-- 로그인 값 저장 -->
 <div id="loginVal" data-login="${login}"></div>
 
 
 <!-- 이미지 목록 -->
-<div id="showImg" data-pno="${productVO.pno}">
-</div>
+  <div class="row">
+    <div id="showImg" data-pno="${productVO.pno}"></div>
+  </div>
 
-<div id="descTitle"></div>
-<br/><br/>
+  <div class="row">
+    <div id="descTitle"></div>
+    <br/><br/>
+  </div>  
 
-<div id="contents_title">상품 설명</div>
-<br/><br/>
+  <div class="row">
+    <div id="contents_title"><h2>상품 설명</h2></div>
+    <br/><br/>
+  </div>  
 
 
 <c:set var="desc" value="${productVO.desc_product}"/>
-<div id="contents">${fn:replace(desc, newLineChar, "<br>")}</div>
+<div id="contents">
+  <textarea class="form-control" rows="15" readonly="readonly" style="font-size: 18px; padding: 10px; width: 100%;">
+    ${fn:replace(desc, newLineChar, "<br>")}
+  </textarea>
+</div>
+</br></br></br>
+
+
+</div>  <!-- container -->
+
+
+<div id="buyType" data-buyType="${productVO.buytype}"></div>
+
 
 <div id='footer'><%@ include file="footer.jsp" %></div>
 
@@ -353,13 +252,24 @@ $(document).ready(function() {
 
 
 var login=$("#loginVal").attr("data-login");
+var buyType=$("#buyType").attr("data-buyType");
 
 
-$("#tender").click(function(event) {
+$("#btnTender").click(function(event) {
 	
 	event.preventDefault(); 
 	
-	if(login) {
+	if(buyType=="i") {
+		
+		alert("입찰 할 수 없는 상품 입니다.");
+		return;
+		
+	}
+	
+
+	
+	
+    if(login) {
 		
 	
 	
@@ -372,7 +282,7 @@ $("#tender").click(function(event) {
 	var xloc=(dispWid-winWid)/2;
 	var yloc=(dispHei-winHei)/2;
 	
-	var openWindow=window.open("/main/tender", "tenderWindow", 'top='+yloc+', left='+xloc+', toolbar=no, location=no, status=no, menubar=no, resizable=no, directories=no, width='+winWid+', height='+winHei);
+	var openWindow=window.open("/tender/tender", "tenderWindow", 'top='+yloc+', left='+xloc+', toolbar=no, location=no, status=no, menubar=no, resizable=no, directories=no, width='+winWid+', height='+winHei);
 
 	
 	$("#tender_form").target="tenderWindow";
@@ -388,6 +298,13 @@ $("#tender").click(function(event) {
 	
 	
 });
+
+
+
+
+
+
+
 
 
 </script>
