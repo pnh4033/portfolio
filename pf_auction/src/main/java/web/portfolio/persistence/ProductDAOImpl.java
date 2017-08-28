@@ -52,9 +52,9 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	@Transactional
 	@Override
-	public void deleteProduct(int pno) throws Exception {
+	public void removeProduct(int pno) throws Exception {
 		
-		session.delete(NAMESPACE+"delete", pno);
+		session.delete(NAMESPACE+"removeProduct", pno);
 
 	}
 	
@@ -184,6 +184,45 @@ public class ProductDAOImpl implements ProductDAO {
 	public void approachExpire() throws Exception {
 
 		session.update(NAMESPACE+"approachExpire");
+		
+	}
+
+
+	@Override
+	public void removeAttach(Integer pno) throws Exception {
+		
+		session.delete(NAMESPACE+"removeAttach", pno);
+		
+	}
+
+
+	@Override
+	public void updateAttach(Map map) throws Exception {
+		
+		session.insert(NAMESPACE+"updateAttach", map);
+		
+	}
+
+
+	@Override
+	public ProductVO getUserInfo(String id) throws Exception {
+		
+		return session.selectOne(NAMESPACE+"getUserInfo", id);
+	}
+
+
+	@Override
+	public void modifyPrice(Map map) throws Exception {
+		
+		session.update(NAMESPACE+"modifyPrice", map);
+		
+	}
+
+
+	@Override
+	public String isExpired(Integer pno) throws Exception {
+		
+		return session.selectOne(NAMESPACE+"isExpired", pno);
 		
 	}
 

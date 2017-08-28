@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -295,6 +298,93 @@ public class UploadController {
 		return entity;
 		
 	}
+
+	
+	
+	/*이미지 재업로드*/
+	@RequestMapping(value="/main/modifyAttach", method=RequestMethod.GET)
+	public void modifyAttachGET(ProductVO vo) throws Exception {
+		
+	}
+	
+	
+	/*이미지 재업로드*/
+	@Transactional
+	@ResponseBody
+	@RequestMapping(value="/main/modifyAttach", method=RequestMethod.POST)
+	public ResponseEntity<List<String>> modifyAttachPOST(@RequestPart List<MultipartFile> mFile, 
+			ProductVO vo) throws Exception {
+		
+		ResponseEntity<List<String>> entity=null;
+		Integer pno=vo.getPno();
+		
+		service.removeAttach(pno);
+		
+		
+		logger.info("MultipartFile : "+mFile.toString());
+		List<String> list=new ArrayList<>();
+		
+		try{
+			
+			Iterator<MultipartFile> it=mFile.iterator();
+			
+			String fileName="";
+			String oriName="";
+			
+				
+			while(it.hasNext()) {
+				
+				byte[] imgData=null;
+				MultipartFile file=null;
+				
+				file=it.next();
+				
+				imgData=file.getBytes();
+				oriName=file.getOriginalFilename();
+				logger.info("upload oriName : "+oriName);
+
+				if((oriName != null) || (oriName != "")) {
+				
+				
+				/*이미지를 uploadPath에 저장하고 전체 경로를 포함한 파일명을 반환*/
+					
+					fileName=UploadImageUtils.uploadImg(uploadPath, oriName, imgData);
+					logger.info("fileName : "+fileName);
+					
+				}
+				
+				
+				/*저장된 이미지 리스트*/
+				if(fileName != null) {
+					
+					list.add(fileName);
+					
+				}
+				
+			}
+
+			
+
+			
+			logger.info("list : "+list);
+			entity=new ResponseEntity<List<String>>(list, HttpStatus.CREATED);
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		return entity;
+		
+	}
+	
+	
+	
+	
+	
 	
 }
 

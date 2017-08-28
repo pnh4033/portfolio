@@ -16,6 +16,8 @@ public interface ProductService {
 	public List<ProductVO> listAll() throws Exception;
 	public int getPno() throws Exception;
 	public void addAttach(String fullName) throws Exception;           /*이미지 첨부*/
+	public void removeAttach(Integer pno) throws Exception;            /*첨부 이미지 삭제*/
+	public void updateAttach(Map map) throws Exception;  /*이미지 새로 등록*/
 	public List<ProductVO> listCriteria(Criteria criteria) throws Exception;    /*페이징, 검색 키워드 를 이용한 상품 리스트*/
 	public int listCountCriteria(Criteria criteria) throws Exception;
 	
@@ -23,13 +25,16 @@ public interface ProductService {
 	public List<String> getAllImg(Integer pno) throws Exception;       /*첨부된 이미지 리스트*/
 	public String getExpdate(Integer pno) throws Exception;            /*종료일 조회*/
 	public String getCreateDate(Integer pno) throws Exception;
+	public String isExpired(Integer pno) throws Exception;            /*종료 여부 조회*/
     
 	public List<ProductVO> searchedList(Criteria criteria) throws Exception;
 	public int searchedCount(Criteria criteria) throws Exception;
 	
+	public ProductVO getUserInfo(String id) throws Exception;
 	public List<ProductVO> mySelling(String userID) throws Exception;      /*내가 등록한 상품들 조회*/
 	
 	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
+	public void modifyPrice(Map map) throws Exception;            /*즉구가 업데이트*/
 	
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
 }

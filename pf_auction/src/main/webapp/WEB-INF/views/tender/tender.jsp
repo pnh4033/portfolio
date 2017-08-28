@@ -78,17 +78,20 @@ width: auto;
 <div style="height: 100px;"></div>
 
 <div id="pno_div" data-pno="${productVO.pno}"></div>
-<div id="seller_div" data-pno="${productVO.seller}"></div>
-<div id="loginID_div" data-pno="${login.userID}"></div>
+<div id="seller_div" data-seller="${productVO.seller}"></div>
+<div id="loginID_div" data-userID="${login.userID}"></div>
 
 
 <div id="title">${productVO.title}</div>
 <p></p>
 
 
+<!-- 로그인 값 저장 -->
+<div id="loginVal" data-login="${login}"></div>
+
 
 <!-- 입찰가 데이터 전송 폼 -->
-<form name="" id="tenderVal_form" target="/main/tenderVal" method="post">
+<form name="" id="tenderVal_form" target="/tender/tenderVal" method="post">
   <input type="hidden" name="tenderValue" id="tenderValue_input" value="${tenderVO.tenderValueInput}"/>
 </form>
 
@@ -172,8 +175,8 @@ width: auto;
 
 
 var pno=$("#pno_div").attr("data-pno");
-var seller=$("#seller_div").attr("data-pno");
-var loginID=$("#loginID_div").attr("data-pno");
+var seller=$("#seller_div").attr("data-seller");
+var userID=$("#loginID_div").attr("data-userID");
 
 var expired="";
 
@@ -205,14 +208,22 @@ $(document).ready(function() {
 
 
 
+
+var login=$("#loginVal").attr("data-login");
+
+
+
 $("#tender_submit").click(function() {
 	
 	/* 선택된 입찰가 */
 	var val=$("#select_tenderVal option:selected").val();
 	
 	
+  if(login) {
+	  
+	
 	/* 입찰자가 판매자 인지 체크 */
-	if(seller==loginID) {
+	if(seller==userID) {
 		
 		alert("본인이 판매중인 상품은 입찰 할 수 없습니다.");
 		
@@ -225,7 +236,7 @@ $("#tender_submit").click(function() {
 	
 	$.ajax({
 		
-		url:"/main/tenderVal",
+		url:"/tender/tenderVal",
 		type:"post",
 		dataType:"text",
 		headers:{
@@ -235,7 +246,8 @@ $("#tender_submit").click(function() {
 		data:JSON.stringify({
 			pno:pno,
 			tenderValueInput:val,
-			buyer:loginID
+			buyer:userID,
+			userID:userID
 		}),
 		success:function(result) {
 			
@@ -245,11 +257,43 @@ $("#tender_submit").click(function() {
 		
 		
 	});
+
+	}
+
 	
+  }else{
+	  
+	  self.location="/user/login2";
+	  
+  }
+	  
+  
+  
+  
+  
+  
+  
+  if(login) {
+  
+	//나의 입찰 생성
+	$.ajax({
+		
+		url:'/tender/addMyTender',
+		dataType:'text',
+		data:{
+			userID:userID,
+			pno:pno
+		}
+		
+	});
+  
+  
 	
-	}	
-	
-	
+  }else{
+	  
+	  self.location="/user/login2";
+	  
+  }
 	
 	
 	
