@@ -239,4 +239,31 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void addMyFavorite(Map map) throws Exception {
+		
+		dao.addMyFavorite(map);
+		
+	}
+
+
+
+	@Override
+	public void removeMyFavorite(Map map) throws Exception {
+		
+		dao.removeMyFavorite(map);
+		
+	}
+
+
+
+	@Override
+	public List<Integer> readMyFavorite(String userID) throws Exception {
+		
+		return dao.readMyFavorite(userID);
+		
+	}
+
+
+
 }

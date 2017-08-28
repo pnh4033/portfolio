@@ -186,7 +186,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select finished from product_tbl
 	where pno=#{pno}
 	</select>
-
+	
+	<insert id="addMyFavorite">
+	insert into favorite_tbl (userID, myFavorite) 
+	select * from (select #{userID}, #{pno}) as tmp
+	where not exists 
+	(select userID from favorite_tbl where userID=#{userID} and myFavorite=#{pno})
+	</insert>
+	
+	<select id="readMyFavorite" resultType="int">
+	select myFavorite from favorite_tbl
+	where userID=#{userID}
+	</select>
+	
+	<delete id="removeMyFavorite">
+	delete from favorite_tbl
+	where myFavorite=#{pno}
+	</delete>
 	
 </mapper>
 

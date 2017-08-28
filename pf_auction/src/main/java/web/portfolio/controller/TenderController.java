@@ -67,6 +67,15 @@ public class TenderController {
 	
 	
 	
+	
+	/*현재가 업데이트*/
+	@RequestMapping(value="/tenderVal", method=RequestMethod.GET)
+	public void tenderValGET() {
+		
+	}
+	
+	
+	
 	/*현재가 업데이트*/
 	@Transactional
 	@ResponseBody

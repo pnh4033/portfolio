@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -137,7 +139,7 @@ font-size: 15px;
     
     
     <div id="list_title">
-         나의 거래 내역
+         나의 판매 내역
     </div>
     <div style="height: 40px; width: 100%"></div>
     
@@ -147,14 +149,19 @@ font-size: 15px;
     </div>
     <br/>
     
+    <div id="ifNull" data-isEmpty="${isEmpty}"></div>
+    
     
     <table class="table table-hover" id="list_table">
       <c:forEach items="${myList}" var="list">
+      
   
       <tr>
   		<td style="width:50px;">${list.pno}</td>
-  		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
-  		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} 
+  		<td><a href="/main/readProduct?pno=${list.pno}">
+  		<img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></a></td>
+  		<td style="width: 980px; font-size: 24px;" colspan="6">
+  		<a href="/main/readProduct?pno=${list.pno}">${list.title} &nbsp;</a> 
   		
   		<c:if test="${list.finished == '진행중' }">
   		<a href="/main/modifyProduct?pno=${list.pno}">&nbsp;&nbsp;
@@ -238,6 +245,24 @@ font-size: 15px;
 <script>
 
 
+$(document).ready(function() {
+	
+	var data=$("#ifNull").attr("data-isEmpty");
+	
+	if(data == 'empty') {
+		
+		$("#ifNull").append("<div class='jumbotron'><h1>현재 판매중 인 물품이 없습니다.</h1>"
+				+"<p>판매 물품을 등록 하시면 여기에 추가 됩니다.</p></div>");
+		
+	}
+	
+});
+
+
+
+
+
+
 $(".btn.btn-warning").click(function(event) {
 	
 	event.preventDefault();
@@ -248,8 +273,8 @@ $(".btn.btn-warning").click(function(event) {
 	var dispWid=screen.availWidth;
 	var dispHei=screen.availHeight;
 	
-	var winWid=300;
-	var winHei=200;
+	var winWid=400;
+	var winHei=300;
 	
 	var xloc=(dispWid-winWid)/2;
 	var yloc=(dispHei-winHei)/2;

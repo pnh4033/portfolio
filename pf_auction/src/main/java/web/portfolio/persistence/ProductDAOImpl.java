@@ -226,6 +226,29 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void addMyFavorite(Map map) throws Exception {
+		
+		session.insert(NAMESPACE+"addMyFavorite", map);
+		
+	}
+
+
+	@Override
+	public void removeMyFavorite(Map map) throws Exception {
+		
+		session.delete(NAMESPACE+"removeMyFavorite", map);
+		
+	}
+
+
+	@Override
+	public List<Integer> readMyFavorite(String userID) throws Exception {
+		
+		return session.selectList(NAMESPACE+"readMyFavorite", userID);
+	}
+
 }
 
 

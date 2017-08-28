@@ -1,7 +1,10 @@
 package web.portfolio.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +27,6 @@ import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.SampleVO;
-import web.portfolio.domain.TenderVO;
 import web.portfolio.domain.UserVO;
 import web.portfolio.service.ProductService;
 import web.portfolio.service.UserService;
@@ -152,7 +153,16 @@ public class MainController {
 	@RequestMapping(value="/myPage", method=RequestMethod.GET)
 	public void myPageGET(String userID, Model model, ProductVO productVO, UserVO userVO) throws Exception {
 		
-		model.addAttribute("myList", prod_service.mySelling(userID));
+		List<ProductVO> list=new ArrayList<>();
+		list=prod_service.mySelling(userID);
+		
+		model.addAttribute("myList", list);
+		
+		if(list.isEmpty()) {
+			
+			model.addAttribute("isEmpty", "empty");
+			
+		}
 		
 	}
 	
@@ -194,42 +204,14 @@ public class MainController {
 	
 	
 	
-	
-	
-	/*입찰 페이지*/
-	/*@RequestMapping(value="/tender", method=RequestMethod.GET)
-	public void tenderGET(int pno, ProductVO vo, TenderVO tenderVO, Model model) throws Exception {
-		
-		vo=prod_service.readProduct(pno);
-		
-		model.addAttribute("productVO", vo);
-		model.addAttribute("tenderVO", tenderVO);
-		
-	}
-	
-	
-	@RequestMapping(value="/tender", method=RequestMethod.POST)
-	public void tenderPOST(int pno, ProductVO vo, TenderVO tenderVO, Model model) throws Exception {
-		
-		vo=prod_service.readProduct(pno);
-		
-		model.addAttribute("ProductVO", vo);
-		model.addAttribute("tenderVO", tenderVO);
+	/*@RequestMapping(value="/tenderVal", method=RequestMethod.GET)
+	public void tenderValGET() {
 		
 	}*/
 	
 	
 	
-	
-	
-	@RequestMapping(value="/tenderVal", method=RequestMethod.GET)
-	public void tenderValGET() {
-		
-	}
-	
-	
-	
-	@RequestMapping(value="/main/modifyProduct", method=RequestMethod.GET)
+	@RequestMapping(value="/modifyProduct", method=RequestMethod.GET)
 	public void correctProdGET(Integer pno, ProductVO vo, Model model) throws Exception {
 		
 		vo=prod_service.readProduct(pno);
@@ -238,7 +220,7 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping(value="/main/modifyProduct", method=RequestMethod.POST)
+	@RequestMapping(value="/modifyProduct", method=RequestMethod.POST)
 	public void correctProdPOST(Integer pno, ProductVO vo, Model model) throws Exception {
 		
 		vo=prod_service.readProduct(pno);
@@ -247,69 +229,10 @@ public class MainController {
 	}
 	
 	
-	
-	
-	/*현재가 업데이트*/
-	/*@Transactional
-	@ResponseBody
-	@RequestMapping(value="/tenderVal", method=RequestMethod.POST)
-	public ResponseEntity<Integer> tenderValPOST(@RequestBody TenderVO tenderVO, ProductVO productVO) {
-		
-		ResponseEntity<Integer> entity=null;
-		
-		try {
-			
-			int pno=tenderVO.getPno();
-			int val=tenderVO.getTenderValueInput();
-			
-			String buyer=tenderVO.getBuyer();
 
-			productVO=prod_service.readProduct(pno);
-			
-			
-			현재가+입찰가
-			int tempNow=productVO.getNowprice();
-			productVO.setNowprice(tempNow + val);
-			
-			int value=productVO.getNowprice();
-			
-			Map<String, Object> map=new HashMap<>();
-			Map<String, Object> myTenderMap= new HashMap<>();
-			
-			map.put("pno", pno);
-			map.put("value", value);
-			
-			현재 최고가 입찰자
-			map.put("buyer", buyer);
-			
-			prod_service.updateNowPrice(map);
-			
-			logger.info("tender update map : "+map.toString());
-			
-			myTenderMap.put("pno", pno);
-			myTenderMap.put("newPrice", value);
-			myTenderMap.put("buyer", buyer);
-			
-			user_service.updateTenderPrice(myTenderMap);
-			
-			
-			
-			entity=new ResponseEntity<Integer>(val, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-		
-	}*/
-	
-	
 	
 	/*이미지 재업로드 이후 데이터베이스에 경로 저장*/
-	@RequestMapping(value="main/addAttach", method=RequestMethod.GET) 
+	@RequestMapping(value="/addAttach", method=RequestMethod.GET) 
 	public void addAttachGET(ProductVO vo, Model model) throws Exception {
 		
 		model.addAttribute("productVO",	vo);
@@ -319,7 +242,7 @@ public class MainController {
 	
 	/*이미지 재업로드 이후 데이터베이스에 경로 저장*/
 	@Transactional
-	@RequestMapping(value="main/addAttach", method=RequestMethod.POST) 
+	@RequestMapping(value="/addAttach", method=RequestMethod.POST) 
 	public String addAttachPOST(ProductVO vo, Model model) throws Exception {
 		
 		logger.info("addAttach vo : "+vo.toString());
@@ -346,7 +269,7 @@ public class MainController {
 	
 	
 	
-	@RequestMapping("/main/updIframe")
+	@RequestMapping("/updIframe")
 	public void updIframe() throws Exception {
 		
 	}
@@ -355,14 +278,14 @@ public class MainController {
 	
 	
 	/*즉시구매 가격 수정*/
-	@RequestMapping(value="/main/modifyPrice", method=RequestMethod.GET)
+	@RequestMapping(value="/modifyPrice", method=RequestMethod.GET)
 	public void modPriceGET() throws Exception {
 		
 	}
 	
 	
 	/*즉시구매 가격 수정*/
-	@RequestMapping(value="/main/modifyPrice", method=RequestMethod.POST)
+	@RequestMapping(value="/modifyPrice", method=RequestMethod.POST)
 	public ResponseEntity<Integer> modPricePOST(Integer pno, Integer price) throws Exception {
 		
 		ResponseEntity<Integer> entity=null;
@@ -391,7 +314,7 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping(value="/main/removeProduct", method=RequestMethod.GET)
+	@RequestMapping(value="/removeProduct", method=RequestMethod.GET)
 	public void removeProductGET(int pno, Model model, ProductVO vo) throws Exception {
 		
 		vo=prod_service.readProduct(pno);
@@ -401,7 +324,7 @@ public class MainController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/main/removeProduct", method=RequestMethod.POST)
+	@RequestMapping(value="/removeProduct", method=RequestMethod.POST)
 	public ResponseEntity<Integer> removeProductPOST(Integer pno) throws Exception {
 		
 		ResponseEntity<Integer> entity=null;
@@ -425,14 +348,14 @@ public class MainController {
 	
 	
 	
-	@RequestMapping(value="/main/removeOK")
+	@RequestMapping(value="/removeOK")
 	public void removeOK() throws Exception {
 		
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/main/isExpired", produces="application/text;charset=UTF-8")
+	@RequestMapping(value="/isExpired", produces="application/text;charset=UTF-8")
 	public ResponseEntity<String> isExpired(Integer pno) throws Exception {
 		
 		ResponseEntity<String> entity=null;
@@ -452,6 +375,131 @@ public class MainController {
 		}
 		
 		return entity;
+		
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/addMyFavorite")
+	public ResponseEntity<Integer> addMyFavorite(String userID, Integer pno) throws Exception {
+		
+		
+		ResponseEntity<Integer> entity=null;
+		Map<String, Object> map=new HashMap<>();
+		
+		try{
+			
+			map.put("userID", userID);
+			map.put("pno", pno);
+			
+			prod_service.addMyFavorite(map);
+			
+			logger.info("addMyFavorite : "+map.toString());
+			
+			entity=new ResponseEntity<>(HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/removeMyFavorite")
+	public ResponseEntity<Integer> removeMyFavorite(String userID, Integer pno) throws Exception {
+		
+		ResponseEntity<Integer> entity=null;
+		Map<String, Object> map=new HashMap<>();
+		
+		try {
+			
+			map.put("userID", userID);
+			map.put("pno", pno);
+			
+			prod_service.removeMyFavorite(map);
+			
+			logger.info("removeMyFavorite : "+map.toString());
+			
+			entity=new ResponseEntity<>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/myFavorite", method=RequestMethod.GET)
+	public void myFavorite(@RequestParam String userID, 
+			ProductVO vo, Model model) throws Exception {
+		
+		List<Integer> list=new ArrayList<>();
+		List<ProductVO> prodList=new ArrayList<>();
+		
+		list=prod_service.readMyFavorite(userID);
+		
+		Iterator<Integer> it=list.iterator();
+		
+		while(it.hasNext()) {
+			
+			Integer pno=it.next();
+			vo=prod_service.readProduct(pno);
+			
+			prodList.add(vo);
+			
+		}
+		
+		model.addAttribute("list", prodList);
+		logger.info("myFavorite list : "+prodList.toString());
+		
+		
+        if(list.isEmpty()) {
+			
+			model.addAttribute("isEmpty", "empty");
+			
+		}
+		
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/pay", method=RequestMethod.GET)
+	public void payGET(String userID, Integer pno,
+			ProductVO productVO, UserVO userVO, Model model) throws Exception {
+		
+		logger.info("/pay : "+userID);
+		
+		productVO=prod_service.readProduct(pno);
+		logger.info("readProduct : "+productVO.toString());
+		
+		userVO=user_service.userInfo(userID);
+		
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("userVO", userVO);
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/pay", method=RequestMethod.POST)
+	public void payPOST() throws Exception {
+		
+		
+		
 		
 	}
 	
