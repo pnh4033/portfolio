@@ -116,7 +116,7 @@ text-align: center;
         
       </table>
     
-      <button class="btn btn-info" id="btnAspect">관심 목록 저장</button>&nbsp;&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-info" id="btnFavorite">관심 목록 저장</button>&nbsp;&nbsp;&nbsp;&nbsp;
       
       <c:if test="${productVO.buytype != 'i'}">
       <button class="btn btn-primary" id="btnTender">입찰 하기</button>&nbsp;
@@ -171,6 +171,9 @@ text-align: center;
 
 
 <div id="buyType" data-buyType="${productVO.buytype}"></div>
+<div id="userID" data-userID="${login.userID}"></div>
+<div id="pno" data-pno="${productVO.pno}"></div>
+<div id="finished" data-finished="${productVO.finished}"></div>
 
 
 <div id='footer'><%@ include file="footer.jsp" %></div>
@@ -183,7 +186,10 @@ text-align: center;
 
 <script>
 
-var pno=${productVO.pno};
+var pno=$("#pno").attr("data-pno");
+var userID=$("#userID").attr("data-userID");
+var finished=$("#finished").attr("data-finished");
+
  
 function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 	var front=fileName.substring(0,12);
@@ -302,8 +308,55 @@ $("#btnTender").click(function(event) {
 
 
 
+	
+$("#btnFavorite").click(function(e) {
+	
+	e.preventDefault();
+	
+	if(!login) {
+		
+		self.location="/user/login2";
+		
+	}else{
+		
+	
+	if(finished != '진행중') {
+		
+	    alert("판매가 종료된 상품 입니다.");
+	    return;
+		
+	}else{
+		
+	$.ajax({
+		
+		url:'/main/addMyFavorite',
+		data:{userID:userID, pno:pno},
+		success:function(result) {
+			
+			alert("관심목록에 등록 되었습니다.");
+			
+		}
+		
+	});
+		
+	}
+	
+	}
+	
+	
+	
+});
+	
 
 
+
+$("#btnDirect").click(function(e) {
+	
+	e.preventDefault();
+	
+	window.location.replace("/main/pay?userID="+userID+"&pno="+pno);
+	
+}); 
 
 
 

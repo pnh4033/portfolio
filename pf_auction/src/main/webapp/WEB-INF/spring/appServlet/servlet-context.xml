@@ -105,7 +105,17 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/main/tender"/>
+			<mapping path="/tender/tender"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/tender/myTender"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/main/myFavorite"/>
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
 		

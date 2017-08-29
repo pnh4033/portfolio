@@ -350,7 +350,7 @@ font-size: 14px;
      <ul class="nav navbar-nav" id="nav-ul" style="margin-right: 5px;">
        <li><a href="register" target="_blank">판매 등록</a></li>
        <li><a href="/tender/myTender?userID=${login.userID}">나의 입찰 목록</a></li>
-       <li><a href="#">나의 관심 상품</a></li>
+       <li><a href="/main/myFavorite?userID=${login.userID}">나의 관심 상품</a></li>
        <li><a href="myPage?userID=${login.userID}" id="myPage_a">My Page</a></li>
      </ul>
      

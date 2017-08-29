@@ -36,6 +36,9 @@ public interface ProductDAO {
 	
 	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
 	public void modifyPrice(Map map) throws Exception;            /*즉구가 업데이트*/
+	public void addMyFavorite(Map map) throws Exception;          /*관심목록 추가*/
+	public List<Integer> readMyFavorite(String userID) throws Exception;   /*관심목록 조회*/
+	public void removeMyFavorite(Map map) throws Exception;       /*관심목록에서 제거*/
 	
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
 	
