@@ -35,7 +35,7 @@ color: white;
 <p>
 <br>
 이름 : 박남호</br>
-cell : 010 - 2789 - 9499</br>
+phone : 010 - 2789 - 9499</br>
 e-mail : pnh4033@naver.com</br>
 깃허브 : https://github.com/pnh4033/portfolio.git</br>
 </p>
