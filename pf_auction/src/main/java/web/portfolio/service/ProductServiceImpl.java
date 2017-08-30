@@ -276,4 +276,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void addPaidResult(PaymentVO vo) throws Exception {
+		
+		dao.addPaidResult(vo);
+		
+	}
+
+
+
 }

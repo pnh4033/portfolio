@@ -258,6 +258,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void addPaidResult(PaymentVO vo) throws Exception {
+		
+		session.insert(NAMESPACE+"addPaidResult", vo);
+		
+	}
+
 }
 
 
