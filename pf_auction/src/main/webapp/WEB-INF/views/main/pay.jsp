@@ -610,7 +610,7 @@ $("#btnPay").click(function(e) {
 	         		buyer_addr:buyer_addr,
 	         		buyer_postcode:buyer_postcode
 	         	}),
-	         	datyType:'text',
+	         	dataType:'text',
 	         	success:function(result) {
 	         		
 	         		alert(result);
