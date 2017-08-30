@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
+import web.portfolio.domain.PaymentVO;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.domain.SampleVO;
 import web.portfolio.domain.UserVO;
@@ -314,6 +315,8 @@ public class MainController {
 	}
 	
 	
+	
+	//판매 취소
 	@RequestMapping(value="/removeProduct", method=RequestMethod.GET)
 	public void removeProductGET(int pno, Model model, ProductVO vo) throws Exception {
 		
@@ -323,6 +326,7 @@ public class MainController {
 	}
 	
 	
+	//판매 취소
 	@ResponseBody
 	@RequestMapping(value="/removeProduct", method=RequestMethod.POST)
 	public ResponseEntity<Integer> removeProductPOST(Integer pno) throws Exception {
@@ -354,6 +358,8 @@ public class MainController {
 	}
 	
 	
+	
+	//종료 여부 조회
 	@ResponseBody
 	@RequestMapping(value="/isExpired", produces="application/text;charset=UTF-8")
 	public ResponseEntity<String> isExpired(Integer pno) throws Exception {
@@ -380,7 +386,7 @@ public class MainController {
 	
 	
 	
-	
+	//관심 목록 생성
 	@RequestMapping(value="/addMyFavorite")
 	public ResponseEntity<Integer> addMyFavorite(String userID, Integer pno) throws Exception {
 		
@@ -412,6 +418,7 @@ public class MainController {
 	
 	
 	
+	//관심 목록 삭제
 	@RequestMapping(value="/removeMyFavorite")
 	public ResponseEntity<Integer> removeMyFavorite(String userID, Integer pno) throws Exception {
 		
@@ -441,6 +448,7 @@ public class MainController {
 	
 	
 	
+	//관심 목록 조회
 	@RequestMapping(value="/myFavorite", method=RequestMethod.GET)
 	public void myFavorite(@RequestParam String userID, 
 			ProductVO vo, Model model) throws Exception {
@@ -476,6 +484,7 @@ public class MainController {
 	
 	
 	
+	//결제
 	@RequestMapping(value="/pay", method=RequestMethod.GET)
 	public void payGET(String userID, Integer pno,
 			ProductVO productVO, UserVO userVO, Model model) throws Exception {
@@ -494,12 +503,25 @@ public class MainController {
 	}
 	
 	
-	
+	//결제
 	@RequestMapping(value="/pay", method=RequestMethod.POST)
 	public void payPOST() throws Exception {
 		
 		
 		
+		
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/paidResult", method=RequestMethod.GET)
+	public void paidResultGET(PaymentVO paymentVO, Model model) throws Exception {
+		
+		List<PaymentVO> list=new ArrayList<>();
+		list=prod_service.paidResultsList();
+		
+		model.addAttribute("paymentList", list);
 		
 	}
 	

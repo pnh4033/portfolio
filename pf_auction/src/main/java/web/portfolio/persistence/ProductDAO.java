@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.portfolio.domain.Criteria;
+import web.portfolio.domain.PaymentVO;
 import web.portfolio.domain.ProductVO;
 
 public interface ProductDAO {
@@ -41,6 +42,8 @@ public interface ProductDAO {
 	public void removeMyFavorite(Map map) throws Exception;       /*관심목록에서 제거*/
 	
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
+	
+	public List<PaymentVO> paidResultsList() throws Exception;
 	
 
 }
