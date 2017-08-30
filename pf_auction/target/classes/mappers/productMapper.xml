@@ -204,6 +204,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where myFavorite=#{pno}
 	</delete>
 	
+	<insert id="addPaidResult">
+	insert into payment_tbl
+	(pno, userID, imp_uid, merchant_uid, paid_amount, apply_num, buyer_name, buyer_email,
+	buyer_tel, buyer_addr, buyer_postcode, paid_at, paymentTime) values
+	(#{pno}, #{userID}, #{imp_uid}, #{merchant_uid}, #{paid_amount}, #{apply_num}, #{buyer_name}, #{buyer_email},
+	 #{buyer_tel}, #{buyer_addr}, #{buyer_postcode}, #{paid_at}, current_timestamp)
+	</insert>
+	
 	<select id="paidResultsList" resultType="PaymentVO">
 	select * from payment_tbl
 	order by paymentTime desc

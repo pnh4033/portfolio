@@ -345,7 +345,8 @@ border: solid #f2f2f2 5px;
   <div id="footer"><%@ include file="footer.jsp" %></div>
 
 
-
+<div id="pno" data-pno="${productVO.pno}"></div>
+<div id="userID" data-userID="${userVO.userID}"></div>
 <div id="orderName" data-orderName="${productVO.title}"></div>
 <div id="i_price" data-iPrice="${productVO.i_price}"></div>
 <div id="eMail" data-eMail="${userVO.userEmail}"></div>
@@ -366,9 +367,21 @@ var orderName=$("#orderName").attr("data-orderName");
 var i_price=$("#i_price").attr("data-iPrice");
 var eMail=$("#eMail").attr("data-eMail");
 var buyerName=$("#userName").attr("data-userName");
-var buyerTel=$("#input_tel").val();
-var buyerAddr=$("#address").val()+" "+$("#adress2").val();
-var buyerPostCode=$("#postcode").val();
+var buyer_tel=$("#input_tel").val();
+var buyer_addr="";
+var buyer_postcode="";
+
+
+
+$("#address2").focusout(function() {
+	
+	buyer_addr+=" "+$("#address2").val();
+	
+}); 
+	
+	
+	
+
 
 
 
@@ -546,6 +559,13 @@ $("#btnPay").click(function(e) {
 	}
 	
 	
+	
+	var pno=$("#pno").attr("data-pno");
+	var userID=$("#userID").attr("data-userID");
+	
+	
+	
+	
 	if(checkCell() && formChk()) {
 		
 	
@@ -557,9 +577,9 @@ $("#btnPay").click(function(e) {
 	    amount : i_price,
 	    buyer_email : eMail,
 	    buyer_name : buyerName,
-	    buyer_tel : buyerTel,
-	    buyer_addr : buyerAddr,
-	    buyer_postcode : buyerPostCode,
+	    buyer_tel : buyer_tel,
+	    buyer_addr : buyer_addr,
+	    buyer_postcode : buyer_postcode,
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	}, function(rsp) {
 	    if ( rsp.success ) {
@@ -571,27 +591,32 @@ $("#btnPay").click(function(e) {
 	        
 	        
 	        $.ajax({
-	        	url:'/main/paidResult',
-	        	data:{
-	        		imp_uid:rsp.imp_uid,
-	        		merchant_uid:rsp.merchant_uid,
-	        		paid_amount:rsp.paid_amount,
-	        		apply_num:rsp.apply_num,
-	        		buyer_name:rsp.buyer_name,
-	        		buyer_email:rsp.buyer_email,
-	        		buyer_tel:rsp.buyer_tel,
-	        		buyer_addr:rsp.buyer_addr,
-	        		buyer_postcode:rsp.buyer_postcode,
-	        		paid_at:rsp.paid_at
-	        	},
-	        	type:'post',
-	        	datyType:'text',
-	        	success:function(result) {
-	        		
-	        		alert("paidResult");
-	        		
-	        	}
-	        });
+	         	url:'/main/paidResult',
+	         	type:'POST',
+	         	headers:{
+	    			"Content-Type" : "application/json",
+	    			"X-HTTP-Method-Override" : "POST"
+	    		},
+	         	data: JSON.stringify({
+	         		pno:pno,
+	         		userID:userID,
+	         		imp_uid:rsp.imp_uid,
+	         		merchant_uid:rsp.merchant_uid,
+	         		paid_amount:rsp.paid_amount,
+	         		apply_num:rsp.apply_num,
+	         		buyer_name:rsp.buyer_name,
+	         		buyer_email:rsp.buyer_email,
+	         		buyer_tel:rsp.buyer_tel,
+	         		buyer_addr:buyer_addr,
+	         		buyer_postcode:buyer_postcode
+	         	}),
+	         	datyType:'text',
+	         	success:function(result) {
+	         		
+	         		alert(result);
+	         		
+	         	}
+	         });
 	        
 	        
 	    } else {
@@ -605,6 +630,8 @@ $("#btnPay").click(function(e) {
 	
 	
 });
+
+
 
 
 
@@ -640,11 +667,16 @@ function execDaumPostcode() {
                 }
                 // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
                 fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                
+                buyer_addr=fullAddr;
+                
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
             document.getElementById('address').value = fullAddr;
+            
+            buyer_postcode=data.zonecode;
 
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById('address2').focus();

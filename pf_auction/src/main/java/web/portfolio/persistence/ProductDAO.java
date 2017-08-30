@@ -44,6 +44,7 @@ public interface ProductDAO {
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
 	
 	public List<PaymentVO> paidResultsList() throws Exception;
+	public void addPaidResult(PaymentVO vo) throws Exception;
 	
 
 }
