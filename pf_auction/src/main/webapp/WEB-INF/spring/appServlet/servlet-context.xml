@@ -119,6 +119,11 @@
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
 		
+		<interceptor>
+			<mapping path="/main/pay"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
 	</interceptors>
 	
 	
