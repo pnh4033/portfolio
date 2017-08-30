@@ -568,6 +568,32 @@ $("#btnPay").click(function(e) {
 	        msg += '상점 거래ID : ' + rsp.merchant_uid;
 	        msg += '결제 금액 : ' + rsp.paid_amount;
 	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	        
+	        
+	        $.ajax({
+	        	url:'/main/paidResult',
+	        	data:{
+	        		imp_uid:rsp.imp_uid,
+	        		merchant_uid:rsp.merchant_uid,
+	        		paid_amount:rsp.paid_amount,
+	        		apply_num:rsp.apply_num,
+	        		buyer_name:rsp.buyer_name,
+	        		buyer_email:rsp.buyer_email,
+	        		buyer_tel:rsp.buyer_tel,
+	        		buyer_addr:rsp.buyer_addr,
+	        		buyer_postcode:rsp.buyer_postcode,
+	        		paid_at:rsp.paid_at
+	        	},
+	        	type:'post',
+	        	datyType:'text',
+	        	success:function(result) {
+	        		
+	        		alert("paidResult");
+	        		
+	        	}
+	        });
+	        
+	        
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;

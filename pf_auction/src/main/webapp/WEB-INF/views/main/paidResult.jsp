@@ -43,7 +43,7 @@ font-size: 16px;
 
   <div class="container">
   
-  <p>${paymentVO}</p>
+  <p>${paymentList}</p>
   
   </div>
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import web.portfolio.domain.Criteria;
+import web.portfolio.domain.PaymentVO;
 import web.portfolio.domain.ProductVO;
 import web.portfolio.persistence.ProductDAO;
 
@@ -261,6 +262,15 @@ public class ProductServiceImpl implements ProductService {
 	public List<Integer> readMyFavorite(String userID) throws Exception {
 		
 		return dao.readMyFavorite(userID);
+		
+	}
+
+
+
+	@Override
+	public List<PaymentVO> paidResultsList() throws Exception {
+		
+		return dao.paidResultsList();
 		
 	}
 

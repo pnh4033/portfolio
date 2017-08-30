@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import web.portfolio.domain.Criteria;
+import web.portfolio.domain.PaymentVO;
 import web.portfolio.domain.ProductVO;
 
 @Repository
@@ -247,6 +248,14 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Integer> readMyFavorite(String userID) throws Exception {
 		
 		return session.selectList(NAMESPACE+"readMyFavorite", userID);
+	}
+
+
+	@Override
+	public List<PaymentVO> paidResultsList() throws Exception {
+		
+		return session.selectList(NAMESPACE+"paidResultsList");
+		
 	}
 
 }

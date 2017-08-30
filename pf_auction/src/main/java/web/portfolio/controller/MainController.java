@@ -518,7 +518,10 @@ public class MainController {
 	@RequestMapping(value="/paidResult", method=RequestMethod.GET)
 	public void paidResultGET(PaymentVO paymentVO, Model model) throws Exception {
 		
-		model.addAttribute("paymentVO", paymentVO);
+		List<PaymentVO> list=new ArrayList<>();
+		list=prod_service.paidResultsList();
+		
+		model.addAttribute("paymentList", list);
 		
 	}
 	

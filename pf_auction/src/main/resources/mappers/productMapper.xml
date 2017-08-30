@@ -204,6 +204,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where myFavorite=#{pno}
 	</delete>
 	
+	<select id="paidResultsList" resultType="PaymentVO">
+	select * from payment_tbl
+	order by paymentTime desc
+	</select>
+	
 </mapper>
 
 
