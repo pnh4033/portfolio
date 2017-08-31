@@ -127,7 +127,7 @@ border: solid #f2f2f2 5px;
         <input type="text" class="form-control" id="address" placeholder="주소">
         </td>
 		<td>
-        <input type="text" class="form-control" id="address2" placeholder="상세주소">
+        <input type="text" class="form-control" id="restAddress" placeholder="상세주소">
 		</td>
 
 	</table><br/>
@@ -306,17 +306,17 @@ border: solid #f2f2f2 5px;
 
 
     <div class="row">
-      <div class="col-xs-4">
+      <div class="col-xs-5">
       </div>
-      <div class="col-xs-2">
-      <button class="btn btn-lg btn-primary" id="btnPay">결제</button>
+      <div class="col-xs-1">
+      <button class="btn btn-md btn-primary" id="btnPay">결제</button>
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-1">
       <a href="/main/listProduct">
-      <button class="btn btn-lg btn-warning" id="btnHome">메인 페이지</button>
+      <button class="btn btn-md btn-warning" id="btnHome">메인 페이지</button>
       </a>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-5">
       </div>
     </div>
   
@@ -369,13 +369,21 @@ var eMail=$("#eMail").attr("data-eMail");
 var buyerName=$("#userName").attr("data-userName");
 var buyer_tel=$("#input_tel").val();
 var buyer_addr="";
+var restAddress=$("#restAddress").val();
+var finalAddress=buyer_addr+" "+restAddress;
 var buyer_postcode="";
 
 
 
-$("#address2").focusout(function() {
+$("#restAddress").focus(function() {
 	
-	buyer_addr+=" "+$("#address2").val();
+	$(this).val("");
+	
+}); 
+
+$("#restAddress").focusout(function() {
+	
+	finalAddress=buyer_addr+" "+$("#restAddress").val();
 	
 }); 
 	
@@ -519,7 +527,7 @@ function formChk() {
 		alert("주소를 입력 해 주시기 바랍니다.");
 		return false;
 		
-	}else if((address2 == null) || (address2 == '')) {
+	}else if(($("#restAddress").val() == null) || ($("#restAddress").val() == '')) {
 		
 		alert("상세 주소를 입력 해 주시기 바랍니다.");
 		return false;
@@ -578,7 +586,7 @@ $("#btnPay").click(function(e) {
 	    buyer_email : eMail,
 	    buyer_name : buyerName,
 	    buyer_tel : buyer_tel,
-	    buyer_addr : buyer_addr,
+	    buyer_addr : finalAddress,
 	    buyer_postcode : buyer_postcode,
 	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 	}, function(rsp) {
@@ -607,7 +615,7 @@ $("#btnPay").click(function(e) {
 	         		buyer_name:rsp.buyer_name,
 	         		buyer_email:rsp.buyer_email,
 	         		buyer_tel:rsp.buyer_tel,
-	         		buyer_addr:buyer_addr,
+	         		buyer_addr:finalAddress,
 	         		buyer_postcode:buyer_postcode
 	         	}),
 	         	dataType:'text',
@@ -679,7 +687,7 @@ function execDaumPostcode() {
             buyer_postcode=data.zonecode;
 
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('address2').focus();
+            document.getElementById('restAddress').focus();
         }
     }).open();
 }

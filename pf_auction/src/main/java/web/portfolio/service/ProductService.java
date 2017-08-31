@@ -44,6 +44,7 @@ public interface ProductService {
 	
 	public List<PaymentVO> paidResultsList() throws Exception;
 	public void addPaidResult(PaymentVO vo) throws Exception;
+	public void updatePaid(Map map) throws Exception;
 	
 	
 }

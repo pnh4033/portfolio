@@ -285,4 +285,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void updatePaid(Map map) throws Exception {
+		
+		dao.updatePaid(map);
+		
+	}
+
+
+
 }

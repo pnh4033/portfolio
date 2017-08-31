@@ -536,9 +536,23 @@ public class MainController {
 		ResponseEntity<String> entity=null;
 		logger.info("paymentVO : "+vo.toString());
 		
+		Map<String, Object> map=new HashMap<>();
+		Integer pno=vo.getPno();
+		
 		try {
-
+			
+			//결제 정보 생성
 			prod_service.addPaidResult(vo);
+			
+			
+			//상품 결제 상태 업데이트
+			map.put("pno", pno);
+			map.put("finished", "종료");
+			map.put("paid", "결제완료");
+			
+			prod_service.updatePaid(map);
+			
+			
 			
 			entity=new ResponseEntity<>(vo.toString(), HttpStatus.OK);
 			

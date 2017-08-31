@@ -266,6 +266,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void updatePaid(Map map) throws Exception {
+		
+		session.update(NAMESPACE+"updatePaid", map);
+		
+	}
+
 }
 
 

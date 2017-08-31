@@ -189,7 +189,6 @@ text-align: center;
 var pno=$("#pno").attr("data-pno");
 var userID=$("#userID").attr("data-userID");
 var finished=$("#finished").attr("data-finished");
-
  
 function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 	var front=fileName.substring(0,12);
@@ -206,6 +205,7 @@ function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본
 
 $(document).ready(function() {
 	
+
 	
 	/* 남은시간 요청 */
 	$.ajax({
@@ -215,7 +215,15 @@ $(document).ready(function() {
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(result) {
 			
-			$("#remain").html(result);
+			if(finished != '종료') {
+				
+    			$("#remain").html(result);
+				
+			}else{
+			
+				$("#remain").html("판매가 종료 되었습니다.");
+				
+			}
 			
 		}
 		

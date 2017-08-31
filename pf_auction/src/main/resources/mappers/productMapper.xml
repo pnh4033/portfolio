@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="createProduct">
 	insert into product_tbl 
 	(title, pname, i_price, startprice, nowprice, buytype, tendercnt, 
-	quantity, desc_product, createdate, enddate, seller, finished)
+	quantity, desc_product, createdate, enddate, seller, finished, paid)
 	values
 	(#{title}, #{pname}, #{i_price}, #{startprice}, #{startprice}, 
 	 #{buytype}, #{tendercnt}, #{quantity}, #{desc_product}, now(),
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사용자 정의 함수 사용 (즉구일 경우 종료시간은 널값 리턴) -->
 	(select immBuyChk(#{buytype}))	+ interval 2 day,
 	
-	#{seller}, '진행중')
+	#{seller}, '진행중', '대기')
 	</insert>
 	
 	<select id="readProduct" resultType="ProductVO">
@@ -216,6 +216,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from payment_tbl
 	order by paymentTime desc
 	</select>
+	
+	<update id="updatePaid">
+	update product_tbl set
+	finished=#{finished},
+	paid=#{paid}
+	where pno=#{pno} 
+	</update>
 	
 </mapper>
 

@@ -180,6 +180,7 @@ var userID=$("#loginID_div").attr("data-userID");
 
 var expired="";
 
+
 $(document).ready(function() {
 
 	
@@ -213,70 +214,95 @@ var login=$("#loginVal").attr("data-login");
 
 
 
+
+
+
+
 $("#tender_submit").click(function() {
 	
+	
+	var now="";
+	
+	 $.ajax({
+			
+			url:'/main/isExpired',
+			data:{pno:pno},
+			success:function(result) {
+				
+				if(result=='종료') {
+					
+					alert("이 상품은 판매가 종료 되었습니다.");
+					return;
+					
+				}else{
+					
+					tender();
+					
+				}
+				
+			}
+			
+		});
+	 
+	 return false;
+	
+});
+
+
+function tender() {
+	
+	 
 	/* 선택된 입찰가 */
 	var val=$("#select_tenderVal option:selected").val();
 	
-	
-  if(login) {
+        if(login) {
 	  
 	
-	/* 입찰자가 판매자 인지 체크 */
-	if(seller==userID) {
+	        /* 입찰자가 판매자 인지 체크 */
+	        if(seller==userID) {
 		
-		alert("본인이 판매중인 상품은 입찰 할 수 없습니다.");
+	        	alert("본인이 판매중인 상품은 입찰 할 수 없습니다.");
+	        	return;
 		
-	}else if(expired=='종료 되었습니다.'){
-		
-		alert("종료된 상품 입니다.");
-		
-	}else{
-		
+	        }else{	
 	
-	$.ajax({
-		
-		url:"/tender/tenderVal",
-		type:"post",
-		dataType:"text",
-		headers:{
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		data:JSON.stringify({
-			pno:pno,
-			tenderValueInput:val,
-			buyer:userID,
-			userID:userID
-		}),
-		success:function(result) {
+	            $.ajax({
+		        url:"/tender/tenderVal",
+	        	type:"post",
+	        	dataType:"text",
+		        headers:{
+		    	"Content-Type" : "application/json",
+		    	"X-HTTP-Method-Override" : "POST"
+	        	},
+		        data:JSON.stringify({
+		    	pno:pno,
+		    	tenderValueInput:val,
+	     		buyer:userID,
+	    		userID:userID
+	        	}),
+	        	success:function(result) {
 			
-			alert("등록 되었습니다.");
+		        	alert("등록 되었습니다.");
 			
-		}
+		        }
 		
 		
-	});
+	            });
+			
+	            
+        	}
 
-	}
-
-	
-  }else{
+        }else{
 	  
-	  self.location="/user/login2";
+	        self.location="/user/login2";
 	  
-  }
+        }
 	  
-  
-  
-  
-  
-  
-  
+	 
   if(login) {
   
-	//나의 입찰 생성
-	$.ajax({
+	  //나의 입찰 생성
+	  $.ajax({
 		
 		url:'/tender/addMyTender',
 		dataType:'text',
@@ -289,15 +315,15 @@ $("#tender_submit").click(function() {
   
   
 	
-  }else{
+    }else{
 	  
 	  self.location="/user/login2";
 	  
-  }
+    }
 	
+  
+}  /* function tender end */
 	
-	
-});
 
 
 </script>
