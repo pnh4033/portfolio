@@ -65,7 +65,7 @@ public class UploadController {
 	
 	
 	
-	@RequestMapping(value="/main/upload", method=RequestMethod.GET)
+	@RequestMapping(value="/upload", method=RequestMethod.GET)
 	public void upload() {
 		
 	}
@@ -74,7 +74,7 @@ public class UploadController {
 	
 	@Transactional
 	@ResponseBody
-	@RequestMapping(value="/main/upload", method=RequestMethod.POST)
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ResponseEntity<List<String>> upload(@RequestPart List<MultipartFile> mFile,
 			ProductVO vo) throws Exception {
 		
@@ -148,7 +148,7 @@ public class UploadController {
 	
 	/*readProduct.jsp 로부터 원본 이미지 경로를 받아 원본 이미지 출력*/
 	@ResponseBody
-	@RequestMapping(value="/main/listImgs")
+	@RequestMapping(value="/listImgs")
 	public ResponseEntity<byte[]> listImgs(@RequestParam("fileName") String fileName) throws Exception {
 		
 		InputStream inputStream=null;
@@ -210,7 +210,7 @@ public class UploadController {
 	
 	/*pno에 해당하는 샘플 이미지 출력*/
 	@ResponseBody
-	@RequestMapping(value="/main/listImgsPno")
+	@RequestMapping(value="/listImgsPno")
 	public ResponseEntity<byte[]> listImgsPno(@RequestParam("pno") Integer pno) throws Exception {
 		
 		InputStream inputStream=null;
@@ -274,7 +274,7 @@ public class UploadController {
 
 	
 	/*readProduct.jsp 로부터 pno에 해당하는 attach된 파일들을 db에서 읽어온 후 이미지 경로들을 리스트 형태로 반환*/ 
-	@RequestMapping("/main/listImgsString/{pno}")
+	@RequestMapping("/listImgsString/{pno}")
 	@ResponseBody
 	public ResponseEntity<List<String>> listImgsString(@PathVariable Integer pno) throws Exception {
 		
@@ -302,7 +302,7 @@ public class UploadController {
 	
 	
 	/*이미지 재업로드*/
-	@RequestMapping(value="/main/modifyAttach", method=RequestMethod.GET)
+	@RequestMapping(value="/modifyAttach", method=RequestMethod.GET)
 	public void modifyAttachGET(ProductVO vo) throws Exception {
 		
 	}
@@ -311,7 +311,7 @@ public class UploadController {
 	/*이미지 재업로드*/
 	@Transactional
 	@ResponseBody
-	@RequestMapping(value="/main/modifyAttach", method=RequestMethod.POST)
+	@RequestMapping(value="/modifyAttach", method=RequestMethod.POST)
 	public ResponseEntity<List<String>> modifyAttachPOST(@RequestPart List<MultipartFile> mFile, 
 			ProductVO vo) throws Exception {
 		

@@ -250,7 +250,7 @@ public class UserController {
 			session.invalidate();
 		}
 		
-		return "redirect:/main/index";
+		return "redirect:/index";
 		
 	}
 	

@@ -36,7 +36,7 @@ import web.portfolio.service.ProductService;
 import web.portfolio.service.UserService;
 
 @Controller
-@RequestMapping(value="/main/*")
+@RequestMapping(value="/*")
 public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
