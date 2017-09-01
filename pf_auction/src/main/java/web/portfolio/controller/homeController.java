@@ -13,10 +13,8 @@ public class homeController {
 
 	
 	@RequestMapping(value="/")
-	public String home() throws Exception {
+	public void home() throws Exception {
 		
-		
-		return "/index.jsp";
 		
 	}
 
