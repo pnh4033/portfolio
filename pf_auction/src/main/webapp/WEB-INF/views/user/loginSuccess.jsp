@@ -81,7 +81,7 @@ height: 35px;
 $(document).ready(function() {
 	if(opener) {
 		
-	opener.location="/main/listProduct";
+	opener.location="/main/index";
 	
 	}
 	
@@ -95,7 +95,7 @@ $("#close_a").click(function(event) {
 	if(opener) {
     	window.close();
 	}else{
-		self.location="/main/listProduct";
+		self.location="/main/index";
 	}
 });
 

@@ -54,7 +54,7 @@ width: 60px;
 		
 		event.preventDefault();
 		
-		self.location="/main/listProduct";
+		self.location="/main/index";
 		
 	});
 

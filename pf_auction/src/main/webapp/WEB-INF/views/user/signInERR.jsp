@@ -60,7 +60,7 @@ line-height: 40px;
 		
 		event.preventDefault();
 		
-		self.location="/main/listProduct";
+		self.location="/main/index";
 		
 	});
 	
