@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
 import web.portfolio.domain.PaymentVO;
@@ -36,7 +34,7 @@ import web.portfolio.service.ProductService;
 import web.portfolio.service.UserService;
 
 @Controller
-@RequestMapping(value="/*")
+@RequestMapping(value="/main/*")
 public class MainController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(MainController.class);
