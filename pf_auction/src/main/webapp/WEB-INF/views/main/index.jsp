@@ -456,7 +456,7 @@ font-size: 14px;
     
     
     <!-- 남은 시간 표시 -->
-    <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}" data-finished="${vo.finished}">&nbsp;
+    <li class="expDate" id="expDate${vo.pno}" data-pno="${vo.pno}" data-finished="${vo.finished}" data-buytype="${vo.buytype}">&nbsp;
     <img src="/resources/image/clock.png" width="18px" style="vertical-align: text-bottom;"/></li>
     
     
@@ -611,10 +611,16 @@ $(document).ready(function() {
 			
 			var id="#expDate"+pno;
 			var finished=$(id).attr("data-finished");
+			var buytype=$(id).attr("data-buytype");
 			
 			if(result != null) {
 				
-				if(finished != '종료') {
+				if(buytype == 'i') {
+					
+					$(id).append("");
+					return;
+					
+				}else	if(finished != '종료') {
 					
 				  $(id).append("&nbsp;"+result);
 				

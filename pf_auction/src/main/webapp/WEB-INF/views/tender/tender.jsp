@@ -80,6 +80,7 @@ width: auto;
 <div id="pno_div" data-pno="${productVO.pno}"></div>
 <div id="seller_div" data-seller="${productVO.seller}"></div>
 <div id="loginID_div" data-userID="${login.userID}"></div>
+<div id="buytype_div" data-buytype="${productVO.buytype}"></div>
 
 
 <div id="title">${productVO.title}</div>
@@ -177,6 +178,7 @@ width: auto;
 var pno=$("#pno_div").attr("data-pno");
 var seller=$("#seller_div").attr("data-seller");
 var userID=$("#loginID_div").attr("data-userID");
+var buytype=$("#buytype_div").attr("data-buytype");
 
 var expired="";
 
@@ -191,7 +193,12 @@ $(document).ready(function() {
 			
 			var id="#expDate"+pno;
 			
-			if(result != null) {
+			if(buytype == 'i') {
+				
+				$("#remain").append("");
+				return;
+				
+			}else	if(result != null) {
 				
 				$("#remain").append("&nbsp;"+result);
 				expired=result;

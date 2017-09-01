@@ -63,7 +63,16 @@ max-width: 200px;
   	  
   	  <tr>
   		<td class="list_class" colspan="2">등록일 : <fmt:formatDate value="${list.createdate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+  		
+  		<c:if test="${list.buytype != 'i' }">
   		<td class="list_class">종료일 : <fmt:formatDate value="${list.enddate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+  		</c:if>
+  		
+  		<c:if test="${list.buytype == 'i' }">
+  		<td class="list_class">종료일 : </td>
+  		</c:if>
+  		
+  		
   		<td class="list_class">구매자 : ${list.buyer}</td>
   		<td class="list_class">입찰횟수 : ${list.tendercnt}</td>
   		<td class="list_class" colspan="2" style="font-size: 17px;">
