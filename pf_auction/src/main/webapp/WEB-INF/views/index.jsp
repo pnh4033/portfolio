@@ -14,9 +14,9 @@
 
 
 <script>
-document.ready(function() {
+$(document).ready(function() {
 	
-	window.location.replace("/main/listProduct");
+	window.location.replace("/main/index");
 	
 });
 </script>
