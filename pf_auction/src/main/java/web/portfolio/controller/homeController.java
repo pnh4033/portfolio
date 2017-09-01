@@ -13,8 +13,9 @@ public class homeController {
 
 	
 	@RequestMapping(value="/")
-	public void home() throws Exception {
+	public String home() throws Exception {
 		
+		return "/index";
 		
 	}
 
