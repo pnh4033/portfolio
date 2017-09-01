@@ -24,10 +24,11 @@ max-width: 200px;
 
 <body>
 
+<div class="container">
 
 <div id="div_userID" data-userID="${userInfo.userID}"></div>
+<div id="ifNull" data-isEmpty="${isEmpty}"></div>
 
-<div class="container">
   
   
   <br/><br/><br/>
@@ -84,6 +85,22 @@ max-width: 200px;
 
 
 <script>
+
+
+$(document).ready(function() {
+	
+	var data=$("#ifNull").attr("data-isEmpty");
+	
+	if(data == 'empty') {
+		
+		$("#ifNull").append("<div class='jumbotron'><h1>현재 입찰 목록에 물품이 없습니다.</h1>"
+				+"<p>입찰 등록을 하시면 여기에 추가 됩니다.</p></div>");
+		
+	}
+	
+});
+
+
 
 $(document).ready(function() {
 	

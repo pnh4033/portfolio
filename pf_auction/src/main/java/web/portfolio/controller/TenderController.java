@@ -177,6 +177,13 @@ public class TenderController {
 		list=tender_service.myTender(userID);
 		logger.info("myTender list : "+list.toString());
 		
+        
+		if(list.isEmpty()) {
+			
+			model.addAttribute("isEmpty", "empty");
+			
+		}
+		
 		
 		Iterator<Integer> it=list.iterator();
 		
