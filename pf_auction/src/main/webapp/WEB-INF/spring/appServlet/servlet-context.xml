@@ -83,7 +83,7 @@
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
 	<!-- <beans:constructor-arg value="\\upload"/> -->
-	<beans:constructor-arg value="/home/hosting_users/pnh4033"/>
+	<beans:constructor-arg value="/home/hosting_users/pnh4033/upload"/>
 	</beans:bean>
 	
 	
