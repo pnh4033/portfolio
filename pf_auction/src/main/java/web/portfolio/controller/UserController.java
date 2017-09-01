@@ -250,7 +250,7 @@ public class UserController {
 			session.invalidate();
 		}
 		
-		return "redirect:/main/listProduct";
+		return "redirect:/main/index";
 		
 	}
 	

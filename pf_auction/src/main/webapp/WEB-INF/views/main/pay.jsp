@@ -312,7 +312,7 @@ border: solid #f2f2f2 5px;
       <button class="btn btn-md btn-primary" id="btnPay">결제</button>
       </div>
       <div class="col-xs-1">
-      <a href="/main/listProduct">
+      <a href="/main/index">
       <button class="btn btn-md btn-warning" id="btnHome">메인 페이지</button>
       </a>
       </div>

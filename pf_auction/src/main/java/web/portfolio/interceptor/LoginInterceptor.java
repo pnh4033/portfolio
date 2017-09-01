@@ -37,7 +37,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			
 			Object dest=session.getAttribute("dest");
 			
-			response.sendRedirect(dest != null ? (String)dest : "/main/listProduct");
+			response.sendRedirect(dest != null ? (String)dest : "/main/index");
 			
 		}
 		

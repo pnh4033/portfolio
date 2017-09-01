@@ -110,7 +110,7 @@
   <div id="wrap">	
 	<div id="top_left">
 	<table id="homeImg"><tr>
-	<td><a href="/main/listProduct" target="_parent">
+	<td><a href="/main/index" target="_parent">
 	<img src="/resources/image/home-1194442_1280.jpg" style="width: auto; height: 100%;"></a></td>
 	</tr>
 	</table>

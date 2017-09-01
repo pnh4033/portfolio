@@ -11,7 +11,7 @@
 <body>
 
 	<script type="text/javascript">
-	self.location="/main/listProduct";
+	self.location="/main/index";
 	</script>
 
 </body>

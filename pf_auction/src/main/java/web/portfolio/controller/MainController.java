@@ -114,7 +114,7 @@ public class MainController {
 	
 	
 	/*메인 페이지 품목 리스트*/
-	@RequestMapping(value="/listProduct")
+	@RequestMapping(value="/index")
 	public void listCriteria(@ModelAttribute("criteria") Criteria criteria,
 			Model model, ProductVO vo) throws Exception {
 		

@@ -480,18 +480,18 @@ font-size: 14px;
   <ul id="paging">
     
     <c:if test="${paging.prev}">
-      <li id="pageLi"><a href="listProduct${paging.makeSearchQuery(paging.startPage-1)}"
+      <li id="pageLi"><a href="index${paging.makeSearchQuery(paging.startPage-1)}"
           class="pageA">&laquo;</a></li>
     </c:if>
     
     <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
       <li id="pageLi" <c:out value="${ paging.criteria.page == idx ? 'class=active' : '' }"/>>
-          <a href="listProduct${paging.makeSearchQuery(idx)}" class="pageA">${idx}</a>
+          <a href="index${paging.makeSearchQuery(idx)}" class="pageA">${idx}</a>
       </li>
     </c:forEach>
     
     <c:if test="${paging.next && paging.endPage > 0 }">
-      <li id="pageLi"><a href="listProduct${paging.makeSearchQuery(paging.endPage+1)}" 
+      <li id="pageLi"><a href="index${paging.makeSearchQuery(paging.endPage+1)}" 
           class="pageA">&raquo;</a></li>
     </c:if>
     

@@ -99,7 +99,7 @@
 	
 		<div id="event"></div><p></p>
 		
-		<div id="body_con1"><%@ include file="listProduct.jsp" %></div>
+		<div id="body_con1"><%@ include file="index.jsp" %></div>
 		
 	</div>
   </div>
