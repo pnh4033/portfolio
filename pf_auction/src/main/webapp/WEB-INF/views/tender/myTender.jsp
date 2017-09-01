@@ -27,12 +27,16 @@ max-width: 200px;
 <div class="container">
 
 <div id="div_userID" data-userID="${userInfo.userID}"></div>
-<div id="ifNull" data-isEmpty="${isEmpty}"></div>
 
   
   
   <br/><br/><br/>
   <h2>나의 입찰 목록 관리</h2>
+  <br/><br/>
+  
+  <div id="ifNull" data-isEmpty="${isEmpty}"></div>
+  
+  
   
   <table class="table table-hover" id="list_table">
       <c:forEach items="${myTenderList}" var="list">
