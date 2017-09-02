@@ -112,6 +112,11 @@
 		</interceptor>
 		
 		<interceptor>
+			<mapping path="/main/modifyProduct"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
 			<mapping path="/main/myPage"/>
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
