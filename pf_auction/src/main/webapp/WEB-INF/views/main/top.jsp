@@ -118,7 +118,7 @@
 	<div id="top_center">
 	https://github.com/pnh4033/portfolio.git<br/><br/>
 	  <div>
-	    <ul style="font-size: 20px; color: gray;">
+	    <ul style=" padding-left:20px; list-style-type:disc; text-align:left; font-size: 16px; color: gray;">
     	  <li>id와 비번은 같으며 user00 ~ user05 까지 있습니다.</li>
 	      <li>모든 상품의 입력 수량은 1개로 가정합니다.</li>
 	      <li>이 개인 프로젝트는 어떤 기술을 어떻게 사용 하는지 보여주는 것이 목적 이므로 모든 기능을 구현 하지는 않습니다.  </li>
