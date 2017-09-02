@@ -436,8 +436,6 @@ $("#form_desc_product").focusout(function() {
 	str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 	$("#form_desc_product").val(str);
 	
-	alert(str);
-	
 });
 
 

@@ -115,7 +115,17 @@
 	</tr>
 	</table>
 	</div>
-	<div id="top_center">https://github.com/pnh4033/portfolio.git</div>
+	<div id="top_center">
+	https://github.com/pnh4033/portfolio.git<br/><br/>
+	  <div>
+	    <ul style="font-size: 20px; color: gray;">
+    	  <li>id와 비번은 같으며 user00 ~ user05 까지 있습니다.</li>
+	      <li>모든 상품의 입력 수량은 1개로 가정합니다.</li>
+	      <li>이 개인 프로젝트는 어떤 기술을 어떻게 사용 하는지 보여주는 것이 목적 이므로 모든 기능을 구현 하지는 않습니다.  </li>
+	    </ul>
+ 	  </div>
+	
+	</div>
 	
 	<div id="top_login">
 	  <div id="login_border">
@@ -125,7 +135,7 @@
 	    <div id="login_name">
 	    <p></p>
 	    <p></p>
-	    <img src="/resources/image/unlock.png" id="login_name_img"> ${login.userName} 님 접속됨</div>
+	    <img src="/resources/image/unlock.png" id="login_name_img"> ${login.userName} 님</div>
 	    <p></p>
 	    <div class="login_list"><a href="/user/logout" class="userA">
 	    <img class="loginImg" src="/resources/image/undo.png"> 로그아웃 </a></div>
