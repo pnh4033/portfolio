@@ -352,6 +352,9 @@ font-size: 14px;
        <li><a href="/tender/myTender?userID=${login.userID}">나의 입찰 목록</a></li>
        <li><a href="/main/myFavorite?userID=${login.userID}">나의 관심 상품</a></li>
        <li><a href="myPage?userID=${login.userID}" id="myPage_a">My Page</a></li>
+       <c:if test="${login.userID == 'admin'}">
+       <li style="text-align: right; padding-right: 20px;"><a href="/main/admin">관리자 페이지</a></li>
+       </c:if>
      </ul>
      
     </nav>	
@@ -596,6 +599,21 @@ $("#myPage_a").click(function() {
 
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno}
+		
+		});
+		
+}
+
+
+
+
 /* 각 상품 별 남은 시간 표시 */
 $(document).ready(function() {
 	
@@ -627,6 +645,7 @@ $(document).ready(function() {
 				}else{
 					
 					 $(id).append("&nbsp;"+"판매 종료");
+					 setExpire(pno);
 					
 				}
 				

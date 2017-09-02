@@ -294,4 +294,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void setExpired(int pno) throws Exception {
+		
+		dao.setExpired(pno);
+		
+	}
+
+
+
 }

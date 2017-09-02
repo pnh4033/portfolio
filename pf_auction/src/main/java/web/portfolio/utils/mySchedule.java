@@ -18,8 +18,8 @@ private static final Logger logger=LoggerFactory.getLogger(mySchedule.class);
 	private ProductService prod_service;
 	
 	
-	/*종료된 경매 처리*/
-	@Scheduled(cron="*/1 * * * * *")
+	/*종료된 경매 처리 - 10분 단위 체크*/
+	@Scheduled(fixedDelay=1000 * 60 * 10)
 	public void scdTest() throws Exception {
 		
 

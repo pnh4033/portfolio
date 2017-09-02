@@ -12,11 +12,18 @@ public class PaymentVO {
 	private String buyer_addr;
 	private String buyer_postcode;
 	private long paid_at;
-	
+	private String paymentTime;
 	private int pno;
 	private String userID;
 	
 	
+	public String getPaymentTime() {
+		return paymentTime;
+	}
+	
+	public void setPaymentTime(String paymentTime) {
+		this.paymentTime = paymentTime;
+	}
 	
 	public String getImp_uid() {
 		return imp_uid;
@@ -116,17 +123,14 @@ public class PaymentVO {
 
 	
 	
-	
 	@Override
 	public String toString() {
 		return "PaymentVO [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", paid_amount=" + paid_amount
 				+ ", apply_num=" + apply_num + ", buyer_name=" + buyer_name + ", buyer_email=" + buyer_email
 				+ ", buyer_tel=" + buyer_tel + ", buyer_addr=" + buyer_addr + ", buyer_postcode=" + buyer_postcode
-				+ ", paid_at=" + paid_at + ", pno=" + pno + ", userID=" + userID + "]";
+				+ ", paid_at=" + paid_at + ", paymentTime=" + paymentTime + ", pno=" + pno + ", userID=" + userID + "]";
 	}
-	
-	
-	
+
 	
 	
 	

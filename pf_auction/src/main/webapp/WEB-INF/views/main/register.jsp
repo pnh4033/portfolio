@@ -297,7 +297,7 @@ $("#form_buytype").change(function() {
 	if($("#form_buytype option:selected").val() == 'a') {
 		
 		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice'"
-				+"class='reg_form' value='${productVO.startprice}'>원");
+				+"class='reg_form' value='${productVO.startprice}'>원  (최소 1000원 이상)");
 		$("#opt_val").append("<p></p>");
 		
 	}
@@ -412,6 +412,12 @@ function submit_chk() {
 		$("#form_quantity").focus();
 		return false;
 		
+	}else if($("#form_startprice").val() < 1000){
+	
+		alert("시작가는 1000원 이상 이어야 합니다.");
+		$("#form_startprice").focus();
+		return false;
+	
 	}else{
 		
 		return true;
@@ -419,6 +425,23 @@ function submit_chk() {
 	}
 	
 }
+
+
+
+//개행 처리
+$("#form_desc_product").focusout(function() {
+	
+	var str="";
+	str=$("#form_desc_product").val();
+	str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	$("#form_desc_product").val(str);
+	
+	alert(str);
+	
+});
+
+
+
 
 
 /* 선택된 파일들의 사이즈 초기화 */

@@ -223,6 +223,18 @@ var login=$("#loginVal").attr("data-login");
 
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno}
+		
+		});
+		
+}
+
 
 
 $("#tender_submit").click(function() {
@@ -239,6 +251,7 @@ $("#tender_submit").click(function() {
 				if(result=='종료') {
 					
 					alert("이 상품은 판매가 종료 되었습니다.");
+					setExpire(pno);
 					return;
 					
 				}else{

@@ -29,9 +29,12 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<!-- <resources mapping="C:/image/upload/**" location="/upload/" /> -->
-	<!-- <resources mapping="/home/hosting_users/pnh4033/upload/**" location="/upload/" /> -->
-	<resources mapping="/home/hosting_users/pnh4033/upload" location="/upload/" />
+	
+	
+	<resources mapping="C:/image/upload/**" location="/upload/" />
+	<!-- <resources mapping="/home/hosting_users/pnh4033/upload" location="/upload/" /> -->
+
+
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -81,10 +84,16 @@
 	<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
+	
+	
 	<beans:bean id="uploadPath" class="java.lang.String">
-	<!-- <beans:constructor-arg value="\\upload"/> -->
-	<beans:constructor-arg value="/home/hosting_users/pnh4033/upload"/>
+	
+	<beans:constructor-arg value="c:\\image\\upload"/>
+	<!-- <beans:constructor-arg value="/home/hosting_users/pnh4033/upload"/> -->
+	
 	</beans:bean>
+	
+	
 	
 	
 	<beans:bean id="loginInterceptor" class="web.portfolio.interceptor.LoginInterceptor"/>
@@ -124,6 +133,11 @@
 		
 		<interceptor>
 			<mapping path="/main/pay"/>
+			<beans:ref bean="authorityInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/main/admin"/>
 			<beans:ref bean="authorityInterceptor"/>
 		</interceptor>
 		

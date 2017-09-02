@@ -501,13 +501,26 @@ $("#search_btn").click(function(event) {
 
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno}
+		
+		});
+		
+}
 
 
-/* 각 상품 별 남은시간 표시 */ 
+
+
+/* 각 상품 별 남은 시간 표시 */
 $(document).ready(function() {
 	
 	
-$(".expDate").each(function() {
+  $(".expDate").each(function() {
 	
 	var pno=$(this).attr("data-pno");
 	
@@ -517,25 +530,40 @@ $(".expDate").each(function() {
 		success: function(result) {
 			
 			var id="#expDate"+pno;
+			var finished=$(id).attr("data-finished");
+			var buytype=$(id).attr("data-buytype");
 			
 			if(result != null) {
 				
-				$(id).append("&nbsp;"+result);
+				if(buytype == 'i') {
+					
+					$(id).append("");
+					return;
+					
+				}else	if(finished != '종료') {
+					
+				  $(id).append("&nbsp;"+result);
+				
+				}else{
+					
+					 $(id).append("&nbsp;"+"판매 종료");
+					 setExpire(pno);
+					
+				}
 				
 			}else{
 				
 				$(id).append(result);
 				
 			}
-			
+		
 		}
-	
+		
 	});	 
 	
-
   }); 
 
-}); 
+});
 
 </script>
 

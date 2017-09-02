@@ -387,6 +387,32 @@ public class MainController {
 	
 	
 	
+	//데이터베이스 판매 종료 컬럼 업데이트
+	@ResponseBody
+	@RequestMapping("/setExpired")
+	public ResponseEntity<String> setExpired(int pno) throws Exception {
+		
+		ResponseEntity<String> entity=null;
+		
+		try {
+			
+			prod_service.setExpired(pno);
+			logger.info("setExpired : "+ pno);
+			
+			entity=new ResponseEntity<>("set expired success : "+pno , HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
+	
+	
 	//관심 목록 생성
 	@RequestMapping(value="/addMyFavorite")
 	public ResponseEntity<Integer> addMyFavorite(String userID, Integer pno) throws Exception {
@@ -560,6 +586,30 @@ public class MainController {
 		}
 		
 		return entity;
+		
+	}
+	
+	
+	
+	@RequestMapping("/paymentSuccess")
+	public String paymentSuccess() {
+		
+		return "/main/paymentSuccess";
+		
+	}
+	
+	
+	
+	
+	@RequestMapping("/admin")
+	public void admin(PaymentVO paymentVO, Model model) throws Exception {
+		
+		List<PaymentVO> paidList=new ArrayList<>();
+		
+		paidList=prod_service.paidResultsList();
+		logger.info("paidList : "+paidList.toString());
+		
+		model.addAttribute("paidList", paidList);
 		
 	}
 	

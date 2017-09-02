@@ -45,7 +45,8 @@ max-width: 200px;
   		<td style="width:50px;">${list.pno}</td>
   		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
   		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} &nbsp;
-  		<button class="btn btn-default" style="padding: 2px;" data-pno="${list.pno}">입찰</button>
+  		<button class="btn btn-primary" style="padding: 2px;" data-pno="${list.pno}">입찰</button>&nbsp;
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>
   		</td>
   	  </tr>
   	  
@@ -115,6 +116,21 @@ $(document).ready(function() {
 
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno}
+		
+		});
+		
+}
+
+
+
+
 $(document).ready(function() {
 	
 	$(".list_class.success").each(function() {
@@ -147,7 +163,7 @@ $(document).ready(function() {
 
 
 
-$(".btn.btn-default").click(function(e) {
+$(".btn.btn-primary").click(function(e) {
 	
 	e.preventDefault();
 	
@@ -164,6 +180,7 @@ $(".btn.btn-default").click(function(e) {
 			if(result != '진행중') {
 				
 				alert("죄송합니다. 판매가 종료 되었습니다.");
+				setExpire(pno);
 				return;
 				
 			}else{
@@ -189,6 +206,28 @@ $(".btn.btn-default").click(function(e) {
 });
 
 
+
+
+
+$(".btn.btn-warning").click(function() {
+	
+	var finished=$(this).attr("data-finished");
+	var userID=$("#div_userID").attr("data-userID");
+	var pno=$(this).attr("data-pno");
+	
+	 if(finished != '진행중') {
+			
+	        alert("판매가 종료된 상품 입니다.");
+	        setExpire(pno);
+	        return;
+		
+ 	}else{
+	
+	        window.location.replace("/main/pay?userID="+userID+"&pno="+pno);
+	
+ 	}
+	
+});
 
 
 </script>

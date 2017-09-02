@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
-<% pageContext.setAttribute("newLineChar", "\n"); %>
+<%-- <% pageContext.setAttribute("newLineChar", "\n"); %> --%>
 
 <!DOCTYPE HTML>
 <html>
@@ -159,10 +159,21 @@ text-align: center;
 
 
 <c:set var="desc" value="${productVO.desc_product}"/>
-<div id="contents">
+
+<!-- <div id="contents">
+
   <textarea class="form-control" rows="15" readonly="readonly" style="font-size: 18px; padding: 10px; width: 100%;">
-    ${fn:replace(desc, newLineChar, "<br>")}
+    ${fn:replace(desc, newLineChar, '<br/>')}
   </textarea>
+  
+</div> -->
+
+<div id="contents">
+
+  <textarea class="form-control" rows="15" readonly="readonly" style="font-size: 18px; padding: 10px; width: 100%;">
+    ${productVO.desc_product}
+  </textarea>
+  
 </div>
 </br></br></br>
 
@@ -200,6 +211,22 @@ function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본
 
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno},
+			success:function() {
+				
+			}
+		
+		});
+		
+}
+
+
 
 
 
@@ -222,6 +249,7 @@ $(document).ready(function() {
 			}else{
 			
 				$("#remain").html("판매가 종료 되었습니다.");
+				setExpire(pno);
 				
 			}
 			
@@ -255,8 +283,9 @@ $(document).ready(function() {
   
 
   
+  
 		
-});
+});     /* document.ready(function) end */
 
 
 
@@ -361,10 +390,38 @@ $("#btnFavorite").click(function(e) {
 $("#btnDirect").click(function(e) {
 	
 	e.preventDefault();
+    
+	if(!login) {
+		
+		self.location="/user/login2";
+		
+	}else{
+		
 	
-	window.location.replace("/main/pay?userID="+userID+"&pno="+pno);
+	    if(finished != '진행중') {
+		
+	        alert("판매가 종료된 상품 입니다.");
+	        setExpire(pno);
+	        return;
+		
+    	}else{
+	
+	        location.replace("/main/pay?userID="+userID+"&pno="+pno);
+	
+    	}
+	}
+	
+	return false;
 	
 }); 
+
+
+
+
+
+
+
+
 
 
 

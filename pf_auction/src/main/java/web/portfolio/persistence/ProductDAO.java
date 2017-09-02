@@ -42,6 +42,7 @@ public interface ProductDAO {
 	public void removeMyFavorite(Map map) throws Exception;       /*관심목록에서 제거*/
 	
 	public void approachExpire() throws Exception;                 /*경매종료 처리*/
+	public void setExpired(int pno) throws Exception;
 	
 	public List<PaymentVO> paidResultsList() throws Exception;
 	public void addPaidResult(PaymentVO vo) throws Exception;

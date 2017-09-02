@@ -23,19 +23,6 @@ width: 100%;
 height: 100%;
 }
 
-img {
-max-width: 250px;
-}
-
-input[type=checkbox] {
--webkit-transform: scale(1.5);
-padding: 5px;
-}
-
-label {
-font-size: 16px;
-}
-
 </style>
 
 </head>

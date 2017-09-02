@@ -58,6 +58,8 @@ background-color: #D32E5A;
   		<td style="width: 980px; font-size: 24px;" colspan="6">
   		<a href="/main/readProduct?pno=${list.pno}">${list.title} &nbsp;</a>
   		
+  		<button class="btn btn-primary" id="tender_btn" style="padding: 2px;" data-pno="${list.pno}">입찰</button>&nbsp;
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>&nbsp;
   		<button type="button" class="btn btn-default" id="remove_button${list.pno}" 
   		data-pno="${list.pno}" style="padding: 2px;">목록에서 제거</button>
 
@@ -176,6 +178,87 @@ $(".btn.btn-default").click(function(e) {
 	
 });
 
+
+
+
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno}
+		
+		});
+		
+}
+
+
+
+$(".btn.btn-primary").click(function(e) {
+	
+	e.preventDefault();
+	
+	var pno=$(this).attr("data-pno");
+	
+	$.ajax({
+		
+		url:'/main/isExpired',
+		data:{pno:pno},
+		type:'GET',
+		dataType:'text',
+		success:function(result) {
+			
+			if(result != '진행중') {
+				
+				alert("죄송합니다. 판매가 종료 되었습니다.");
+				setExpire(pno);
+				return;
+				
+			}else{
+				
+				var dispWid=screen.availWidth;
+				var dispHei=screen.availHeight;
+				
+				var winWid=700;
+				var winHei=800;
+				
+				var xloc=(dispWid-winWid)/2;
+				var yloc=(dispHei-winHei)/2;
+				
+				var openWindow=window.open("/tender/tender?pno="+pno, "tender_Window", 'top='+yloc+', left='+xloc+', toolbar=no, location=no, status=no, menubar=no, resizable=no, directories=no, width='+winWid+', height='+winHei);
+
+				
+			}
+			
+		}
+		
+	});
+	
+});
+
+
+
+
+
+$(".btn.btn-warning").click(function() {
+	
+	var pno=$(this).attr("data-pno");
+	var finished=$(this).attr("data-finished");
+	
+	 if(finished != '진행중') {
+			
+	        alert("판매가 종료된 상품 입니다.");
+	        setExpire(pno);
+	        return;
+		
+ 	}else{
+	
+	        window.location.replace("/main/pay?userID="+userID+"&pno="+pno);
+	
+ 	}
+	
+});
 
 
 

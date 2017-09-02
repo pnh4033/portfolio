@@ -177,6 +177,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 	
+	<update id="setExpired">
+	update product_tbl set
+	finished='종료'
+	<![CDATA[
+	where pno=#{pno} and (enddate < current_timestamp())
+	]]>
+	</update>
+	
 	<update id="modifyPrice">
 	update product_tbl set
 	i_price=#{i_price}

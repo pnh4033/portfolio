@@ -274,6 +274,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void setExpired(int pno) throws Exception {
+		
+		session.update(NAMESPACE+"setExpired", pno);
+		
+	}
+
 }
 
 

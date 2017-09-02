@@ -621,7 +621,7 @@ $("#btnPay").click(function(e) {
 	         	dataType:'text',
 	         	success:function(result) {
 	         		
-	         		alert(result);
+	         		window.location.replace("/main/paymentSuccess");
 	         		
 	         	}
 	         });
