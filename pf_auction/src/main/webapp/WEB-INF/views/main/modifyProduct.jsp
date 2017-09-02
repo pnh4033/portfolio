@@ -82,6 +82,10 @@ height: auto;
   
   <br/><br/><br/>
   
+  
+  <div id="div-buytype" data-buytype="${productVO.buytype}"></div>
+  
+  
   <div id="price_mod_wrap">
   <div class="row"><h4>판매가 수정</h4></div>
   <br/><br/>
@@ -217,9 +221,16 @@ function submit_chk() {
 	
 	var i_price_chk=/\d{1,9}$/;
 	var i_price=$("#mod_imm");
+	var buytype=$("#div-buytype").attr("data-buytype");
 	
 	var result=i_price_chk.test(i_price.val());
 	
+	if(buytype == 'a') {
+		
+		alert("죄송합니다. 경매는 즉시구매 가격 수정이 불가 합니다.");
+		return;
+		
+	}
 	
 	if(!result) {
 		
