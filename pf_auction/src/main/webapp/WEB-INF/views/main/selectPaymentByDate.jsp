@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -29,7 +29,10 @@ text-align: center;
 </head>
 <body>
 
-	
+
+	<c:if test="${empty paidList}">
+	<br/><br/><br/><br/><div class='jumbotron'><h3>데이터가 존재 하지 않습니다.</h1></div>
+	</c:if>
 
 		 <c:forEach items="${paidList}" var="list">
 	        
@@ -65,7 +68,10 @@ text-align: center;
 
 
 
+<script>
 
+
+</script>
 
 
 </body>

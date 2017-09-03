@@ -27,7 +27,6 @@ width: 100%;
 height: 100%;
 }
 
-a:HOVER {text-decoration: none;}
 
 input[type=text] {
 -webkit-transform: scale(0.9);
@@ -73,7 +72,7 @@ color: #084B8A;
 	  <br/><br/><br/>
 	  
 	     <div id="div-title">
-	     <button class="btn btn-default"><a href="/main/index">MAIN PAGE</a></button>
+	     <button class="btn btn-default">MAIN PAGE</button>
 	     <span style="text-align: right;"><h1>관리자 페이지</h1></span>
 	     </div>
 	     <br/><br/>
@@ -98,6 +97,13 @@ color: #084B8A;
               </div>
 			  </div>
 			  
+			
+			<c:if test="${empty paidList}">
+			<br/><br/><br/><br/><div class='jumbotron'><h3>데이터가 존재 하지 않습니다.</h1></div>
+			</c:if>
+			
+			
+			
 			  <table>
 			    <tr><td></td></tr>
 			    <tr>
@@ -107,6 +113,10 @@ color: #084B8A;
 			  </table>
 			  
 			  </td>
+
+
+
+
 
 			
 			<td style="height: 100%; width: 1000px; text-align: center;">
@@ -160,6 +170,14 @@ color: #084B8A;
 
 <script>
 
+var empty=$("#isEmpty").attr("data-isEmpty");
+
+
+$(".btn.btn-default").click(function() {
+	location.replace("/main/index");
+});
+
+
 
 function today() {
 	
@@ -198,6 +216,14 @@ $(document).ready(function() {
 		 format: "yyyy-mm-dd",
 		 language: "kr"
     });
+	
+	
+	if(empty == 'empty') {
+		
+		$("#isEmpty").append("<br/><br/><br/><br/><div class='jumbotron'><h1>데이터가 존재 하지 않습니다.</h1></div>");
+		
+	}
+	
 	
 });
 

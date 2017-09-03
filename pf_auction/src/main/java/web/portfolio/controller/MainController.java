@@ -634,12 +634,14 @@ public class MainController {
 		paidList=prod_service.selectPaymentByDate(date);
         logger.info("paidList : "+paidList.toString());
 		
-		model.addAttribute("paidList", paidList);
+        model.addAttribute("paidList", paidList);
+		
 		
 	}
 	
 	
-	@ResponseBody
+	
+	
 	@RequestMapping(value="/selectPaymentByDate", method=RequestMethod.POST)
 	public ResponseEntity<List<Integer>> selectPaymentByDatePOST(String date, PaymentVO vo, Model model) throws Exception {
 		
@@ -647,29 +649,9 @@ public class MainController {
 		
         try {
 
-        	List<PaymentVO> list=new ArrayList<>();
-        	List<Integer> pnoList=new ArrayList<>();
-        	
-        	logger.info("date : "+date);
-        	list=prod_service.selectPaymentByDate(date);
-        	
-        	Iterator<PaymentVO> it=list.iterator();
-        	
-        	while(it.hasNext()) {
-        	
-        		vo=it.next();
-        		int pno=vo.getPno();
         		
-        		pnoList.add(pno);
-        		
-        	}
-        	
-			
-			entity=new ResponseEntity<>(pnoList, HttpStatus.OK);
-			
 		} catch (Exception e) {
 			
-			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
