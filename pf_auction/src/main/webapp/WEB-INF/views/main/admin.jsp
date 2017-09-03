@@ -98,9 +98,6 @@ color: #084B8A;
 			  </div>
 			  
 			
-			<c:if test="${empty paidList}">
-			<br/><br/><br/><br/><div class='jumbotron'><h3>데이터가 존재 하지 않습니다.</h1></div>
-			</c:if>
 			
 			
 			
@@ -121,6 +118,13 @@ color: #084B8A;
 			
 			<td style="height: 100%; width: 1000px; text-align: center;">
 			<div id="table-view">
+	        
+	        
+	        <div>
+			<c:if test="${empty paidList}">
+			<br/><br/><br/><br/><div class='jumbotron'><h3>데이터가 존재 하지 않습니다.</h1></div>
+			</c:if>
+			</div>
 	        
 	        <c:forEach items="${paidList}" var="list">
 	        

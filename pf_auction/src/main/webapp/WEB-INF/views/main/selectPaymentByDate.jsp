@@ -12,6 +12,9 @@
 </script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/plugins/datePicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/plugins/datePicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/plugins/datePicker/bootstrap-datepicker.kr.js"></script>
 
 
 <style>
@@ -29,10 +32,11 @@ text-align: center;
 </head>
 <body>
 
-
+	<div>
 	<c:if test="${empty paidList}">
 	<br/><br/><br/><br/><div class='jumbotron'><h3>데이터가 존재 하지 않습니다.</h1></div>
 	</c:if>
+	</div>
 
 		 <c:forEach items="${paidList}" var="list">
 	        
