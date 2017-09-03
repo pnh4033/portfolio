@@ -110,18 +110,19 @@
   <div id="wrap">	
 	<div id="top_left">
 	<table id="homeImg"><tr>
-	<td><a href="/main/index" target="_parent">
-	<img src="/resources/image/home-1194442_1280.jpg" style="width: auto; height: 100%;"></a></td>
+	<td style="vertical-align: middle; background-color: #002041;"><a href="/main/index" target="_parent">
+	<img src="/resources/image/mainpage.png" style="width: 260px; height: auto; "></a></td>
 	</tr>
 	</table>
 	</div>
 	<div id="top_center">
-	https://github.com/pnh4033/portfolio.git<br/><br/>
-	  <div>
-	    <ul style=" padding-left:20px; list-style-type:disc; text-align:left; font-size: 16px; color: gray;">
+	https://github.com/pnh4033/portfolio.git<br/>
+	  <div style="padding-left: 20px;">
+	    <ul style="list-style-type:disc; text-align:left; font-size: 14px; color: gray;">
     	  <li>id와 비번은 같으며 user00 ~ user05 까지 있습니다.</li>
 	      <li>모든 상품의 입력 수량은 1개로 가정합니다.</li>
 	      <li>이 개인 프로젝트는 어떤 기술을 어떻게 사용 하는지 보여주는 것이 목적 이므로 모든 기능을 구현 하지는 않습니다.  </li>
+	      <li>브라우저는 Chrome 에 맞추어 만들어 졌습니다.</li>
 	    </ul>
  	  </div>
 	

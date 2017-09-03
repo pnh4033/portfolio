@@ -1,7 +1,9 @@
 package web.portfolio.controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import web.portfolio.domain.Criteria;
 import web.portfolio.domain.Paging;
@@ -606,13 +610,82 @@ public class MainController {
 		
 		List<PaymentVO> paidList=new ArrayList<>();
 		
-		paidList=prod_service.paidResultsList();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        String strToday = sdf.format(cal.getTime());
+        logger.info("today : "+strToday);
+
+
+		
+		
+		paidList=prod_service.selectPaymentByDate(strToday);
 		logger.info("paidList : "+paidList.toString());
 		
 		model.addAttribute("paidList", paidList);
 		
 	}
 	
+	
+	
+	@RequestMapping(value="/selectPaymentByDate",produces="application/text;charset=UTF-8", method=RequestMethod.GET)
+	public void selectPaymentByDateGET(String date, PaymentVO vo, Model model) throws Exception {
+        
+		List<PaymentVO> paidList=new ArrayList<>();
+		paidList=prod_service.selectPaymentByDate(date);
+        logger.info("paidList : "+paidList.toString());
+		
+		model.addAttribute("paidList", paidList);
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/selectPaymentByDate", method=RequestMethod.POST)
+	public ResponseEntity<List<Integer>> selectPaymentByDatePOST(String date, PaymentVO vo, Model model) throws Exception {
+		
+		ResponseEntity<List<Integer>> entity=null;
+		
+        try {
+
+        	List<PaymentVO> list=new ArrayList<>();
+        	List<Integer> pnoList=new ArrayList<>();
+        	
+        	logger.info("date : "+date);
+        	list=prod_service.selectPaymentByDate(date);
+        	
+        	Iterator<PaymentVO> it=list.iterator();
+        	
+        	while(it.hasNext()) {
+        	
+        		vo=it.next();
+        		int pno=vo.getPno();
+        		
+        		pnoList.add(pno);
+        		
+        	}
+        	
+			
+			entity=new ResponseEntity<>(pnoList, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+		
+		
+	
+	
+	
+	@RequestMapping(value="/getPaymentByPno")
+	public void PaymentByDateList(PaymentVO vo, Model model, int pno) throws Exception {
+		
+		prod_service.getPaymentByPno(pno);
+		
+	}
 	
 	
 }

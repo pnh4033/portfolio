@@ -282,6 +282,22 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public List<PaymentVO> selectPaymentByDate(String date) throws Exception {
+		
+		return session.selectList(NAMESPACE+"selectPaymentByDate", date);
+		
+	}
+
+
+	@Override
+	public PaymentVO getPaymentByPno(int pno) throws Exception {
+		
+		return session.selectOne(NAMESPACE+"getPaymentByPno", pno);
+		
+	}
+
 }
 
 

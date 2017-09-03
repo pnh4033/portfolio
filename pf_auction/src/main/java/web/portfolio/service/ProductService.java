@@ -46,6 +46,8 @@ public interface ProductService {
 	public List<PaymentVO> paidResultsList() throws Exception;
 	public void addPaidResult(PaymentVO vo) throws Exception;
 	public void updatePaid(Map map) throws Exception;
+	public List<PaymentVO> selectPaymentByDate(String date) throws Exception;
+	public PaymentVO getPaymentByPno(int pno) throws Exception;
 	
 	
 }

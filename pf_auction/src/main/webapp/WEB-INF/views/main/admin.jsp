@@ -12,6 +12,10 @@
 </script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/plugins/datePicker/datepicker3.css" />
+<script type="text/javascript" src="/resources/plugins/datePicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/resources/plugins/datePicker/bootstrap-datepicker.kr.js"></script>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>관리자 페이지</title>
@@ -21,6 +25,17 @@
 html body {
 width: 100%;
 height: 100%;
+}
+
+a:HOVER {text-decoration: none;}
+
+input[type=text] {
+-webkit-transform: scale(0.9);
+padding: 2px;
+}
+
+#paid-table {
+background-color: #EFF8FB;
 }
 
 #paid-table th {
@@ -45,6 +60,10 @@ text-align:center;
 color: white;
 }
 
+#div-title {
+color: #084B8A;
+}
+
 </style>
 
 </head>
@@ -53,21 +72,45 @@ color: white;
 	<div class="container">
 	  <br/><br/><br/>
 	  
+	     <div id="div-title">
+	     <button class="btn btn-default"><a href="/main/index">MAIN PAGE</a></button>
+	     <span style="text-align: right;"><h1>관리자 페이지</h1></span>
+	     </div>
+	     <br/><br/>
+	     
+	         <ul class="nav nav-tabs">
+               <li class="active"><a href="#">날짜별 거래 목록</a></li>
+ 			   <li><a href="#">메뉴 2</a></li>
+  			   <li><a href="#">메뉴 3</a></li>
+  			   <li><a href="#">메뉴 4</a></li>
+			</ul>
+
+	   <br/><br/>
+	     
 	   <table style="margin:10px; padding: 5px;">
-	     <tr><td id="title-td" colspan="2">관리자 페이지</td></tr>
+	     
 	     <tr>
-			<td style="height: 100%; width: 200px; vertical-align:top; background-color: #233A57; margin: 10px; padding: 5px; border-right: solid white 20px;">
 			  
-			  <table id="menu-table">
+			  <td style="padding-right: 40px; height: 100%; vertical-align: top;">
+			  <div>
+			  <div class="alert alert-info" style="width: 200px; padding: 3px; text-align: center;">
+              <strong>날짜별 거래목록 검색</strong>
+              </div>
+			  </div>
+			  
+			  <table>
 			    <tr><td></td></tr>
-			    <tr><td>Menu</td></tr>
-			    <tr><td></td></tr>
+			    <tr>
+			    <td style="margin-right: 10px;"><input class="form-control" type="text"  id="calendar" style="width: 140px;" placeholder="날짜 선택"/></td>
+			    <td><button type="button" class="btn btn-sm btn-primary" id="dateSearchBtn">검색</button></td>
+			    </tr>
 			  </table>
 			  
-			</td>
+			  </td>
+
 			
 			<td style="height: 100%; width: 1000px; text-align: center;">
-			
+			<div id="table-view">
 	        
 	        <c:forEach items="${paidList}" var="list">
 	        
@@ -101,6 +144,10 @@ color: white;
 	          
 	        </c:forEach>
 	      
+			</div>
+			
+			
+			
 			</td>	     
 	     </tr>
 	   </table>
@@ -108,5 +155,90 @@ color: white;
 	</div>
 
 
+
+
+
+<script>
+
+
+function today() {
+	
+
+var date = new Date(); 
+var year = date.getFullYear(); 
+var month = new String(date.getMonth()+1); 
+var day = new String(date.getDate()); 
+var today="";
+
+// 한자리수일 경우 0을 채워준다. 
+
+	if(month.length == 1){ 
+
+ 	    month = "0" + month; 
+
+	} 
+
+	if(day.length == 1){ 
+
+  		day = "0" + day; 
+
+	} 
+
+	return today=year+"-"+month+"-"+day;
+
+}
+
+
+
+
+
+$(document).ready(function() {
+	
+	$('#calendar').datepicker({
+		 format: "yyyy-mm-dd",
+		 language: "kr"
+    });
+	
+});
+
+
+
+
+
+$("#dateSearchBtn").click(function() {
+	
+	var str=$("#calendar").val();
+	
+	if((str == null) || (str == '')) {
+		
+		alert("날짜를 선택 해주시기 바랍니다.");
+		return;
+		
+	}
+	
+	$("#table-view").load('/main/selectPaymentByDate?date='+str);
+	
+	
+});
+
+
+
+
+
+</script>
+
+
+
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

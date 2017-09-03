@@ -58,7 +58,7 @@ background-color: #D32E5A;
   		<td style="width: 980px; font-size: 24px;" colspan="6">
   		<a href="/main/readProduct?pno=${list.pno}">${list.title} &nbsp;</a>
   		
-  		<button class="btn btn-primary" id="tender_btn" style="padding: 2px;" data-pno="${list.pno}">입찰</button>&nbsp;
+  		<button class="btn btn-primary" id="tender_btn" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
   		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>&nbsp;
   		<button type="button" class="btn btn-default" id="remove_button${list.pno}" 
   		data-pno="${list.pno}" style="padding: 2px;">목록에서 제거</button>
@@ -200,6 +200,7 @@ $(".btn.btn-primary").click(function(e) {
 	e.preventDefault();
 	
 	var pno=$(this).attr("data-pno");
+	var buytype=$(this).attr("data-buytype");
 	
 	$.ajax({
 		
@@ -213,6 +214,10 @@ $(".btn.btn-primary").click(function(e) {
 				
 				alert("죄송합니다. 판매가 종료 되었습니다.");
 				setExpire(pno);
+				return;
+			}else if(buytype == 'i') {
+				
+				alert("경매가 포함 되지 않은 상품은 입찰 하실 수 없습니다.");
 				return;
 				
 			}else{

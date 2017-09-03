@@ -303,4 +303,22 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public List<PaymentVO> selectPaymentByDate(String date) throws Exception {
+		
+		return dao.selectPaymentByDate(date);
+		
+	}
+
+
+
+	@Override
+	public PaymentVO getPaymentByPno(int pno) throws Exception {
+		
+		return dao.getPaymentByPno(pno);
+		
+	}
+
+
+
 }

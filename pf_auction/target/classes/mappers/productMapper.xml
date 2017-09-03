@@ -233,6 +233,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where pno=#{pno} 
 	</update>
 	
+	<select id="selectPaymentByDate" resultType="PaymentVO">
+	select * from payment_tbl
+	where
+	paymentTime 
+	like CONCAT (#{date}, '%')
+	</select>
+	
+	<select id="getPaymentByPno" resultType="PaymentVO">
+	select * from payment_tbl
+	where
+	pno=#{pno}
+	</select>
+	
 </mapper>
 
 
