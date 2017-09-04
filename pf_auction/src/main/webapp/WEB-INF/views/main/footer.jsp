@@ -17,7 +17,7 @@ height: 100%;
 
 
 #footerDiv {
-background-color: #317AAA;
+background-color: #002041;
 width: 100%;
 height: 150px;
 }
