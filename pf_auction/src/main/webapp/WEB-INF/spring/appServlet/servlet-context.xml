@@ -31,8 +31,8 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	
 	
-	<!-- <resources mapping="C:/image/upload/**" location="/upload/" /> -->
-	<resources mapping="/home/hosting_users/pnh4033/upload" location="/upload/" />
+	<resources mapping="C:/image/upload/**" location="/upload/" />
+	<!-- <resources mapping="/home/hosting_users/pnh4033/upload" location="/upload/" /> -->
 
 
 
@@ -88,8 +88,8 @@
 	
 	<beans:bean id="uploadPath" class="java.lang.String">
 	
-	<!-- <beans:constructor-arg value="c:\\image\\upload"/> -->
-	<beans:constructor-arg value="/home/hosting_users/pnh4033/upload"/>
+	<beans:constructor-arg value="c:\\image\\upload"/>
+	<!-- <beans:constructor-arg value="/home/hosting_users/pnh4033/upload"/> -->
 	
 	</beans:bean>
 	

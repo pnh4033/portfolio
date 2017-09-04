@@ -45,7 +45,7 @@ max-width: 200px;
   		<td style="width:50px;">${list.pno}</td>
   		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
   		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} &nbsp;
-  		<button class="btn btn-primary" style="padding: 2px;" data-pno="${list.pno}" data-buytype=${list.buytype"}>입찰</button>&nbsp;
+  		<button class="btn btn-primary" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
   		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>
   		</td>
   	  </tr>

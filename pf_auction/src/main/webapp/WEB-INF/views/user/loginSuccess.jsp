@@ -17,7 +17,7 @@ text-align: center;
 
 #loginName {
 color: #00BF42;
-font-size: 30px;
+font-size: 24px;
 }
 
 
