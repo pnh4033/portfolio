@@ -114,21 +114,25 @@ border: solid #f2f2f2 5px;
 	<br/><br/>
 	
 	<h3>주소 입력</h3>
-	<table class="table table-hover">
+	<table class="table table-hover" style="width:600px;">
 	<tr>
-    	<td>
-    	<input type="text" class="form-control" id="postcode" placeholder="우편번호">
+    	<td style="width:200px;">
+    	<input type="text" class="form-control" id="postcode" placeholder="우편번호" readonly="readonly">
     	</td>
     	<td>
         <input type="button" class="btn btn-default" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
     	</td>
 	</tr>
-        <td>
-        <input type="text" class="form-control" id="address" placeholder="주소">
+	<tr>
+        <td colspan="2">
+        <input type="text" class="form-control" id="address" placeholder="주소" readonly="readonly">
         </td>
-		<td>
+	</tr>
+	<tr>
+		<td colspan="2">
         <input type="text" class="form-control" id="restAddress" placeholder="상세주소">
 		</td>
+	</tr>
 
 	</table><br/>
 
@@ -209,11 +213,8 @@ border: solid #f2f2f2 5px;
     <div class="form-group">
     <label for="clause1">약관 1</label>
     <textarea class="form-control" rows="3" id="clause1">
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
+    약관 1
+	내용
     </textarea>
     </div> 
   </div>
@@ -243,11 +244,9 @@ border: solid #f2f2f2 5px;
     <div class="form-group">
     <label for="clause1">약관 2</label>
     <textarea class="form-control" rows="3" id="clause2">
-     약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
+     약관 2
+	 내용
+    
     </textarea>
     </div> 
   </div>
@@ -276,11 +275,8 @@ border: solid #f2f2f2 5px;
     <div class="form-group">
     <label for="clause1">약관 3</label>
     <textarea class="form-control" rows="3" id="clause3">
-     약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
-    약관 1약관 1약관 1약관 1약관 1약관 1약관 1약관 1
+     약관 3
+	 내용
     </textarea>
     </div> 
   </div>

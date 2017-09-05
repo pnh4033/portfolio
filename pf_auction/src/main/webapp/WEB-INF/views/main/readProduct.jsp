@@ -200,7 +200,8 @@ text-align: center;
 var pno=$("#pno").attr("data-pno");
 var userID=$("#userID").attr("data-userID");
 var finished=$("#finished").attr("data-finished");
- 
+var buytype=$("#buyType").attr("data-buyType");
+
 function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 	var front=fileName.substring(0,12);
 	var rear=fileName.substring(14);
@@ -244,7 +245,16 @@ $(document).ready(function() {
 			
 			if(finished != '종료') {
 				
-    			$("#remain").html(result);
+				if(buytype != 'i') {
+					
+    				$("#remain").html(result);
+    				
+				}else{
+					
+					$("#remain").html("");
+					
+				}
+				
 				
 			}else{
 			
