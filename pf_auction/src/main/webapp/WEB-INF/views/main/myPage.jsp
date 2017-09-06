@@ -145,7 +145,7 @@ font-size: 15px;
     
     <div class="row">
     <p class="alert alert-danger" style="font-size: 15px; padding: 2px;">
-         경매가 포함된 판매 및 입찰이 한건 이상인 물품은 취소 하실 수 없습니다.</p>
+         경매가 포함된 판매 중 입찰이 한건 이상인 물품은 취소 하실 수 없습니다.</p>
     </div>
     <br/>
     
