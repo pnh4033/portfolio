@@ -12,6 +12,8 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
+
 <style>
 
 html, body {
@@ -183,6 +185,30 @@ var buytype=$("#buytype_div").attr("data-buytype");
 var expired="";
 
 
+
+
+//종료 여부 String으로 리턴
+function getEndDate(pno) {
+	
+	return $.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		async:false,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success:function(data) {
+			
+		}
+		
+	}).responseText;
+	
+}
+
+
+
+
+
+
 $(document).ready(function() {
 
 	
@@ -248,11 +274,13 @@ $("#tender_submit").click(function() {
 			data:{pno:pno},
 			success:function(result) {
 				
-				if(result=='종료') {
-					
-					alert("이 상품은 판매가 종료 되었습니다.");
-					setExpire(pno);
-					return;
+				var str=getEndDate(pno);
+
+			    if(str == '판매 종료') {
+				
+			        alert("판매가 종료된 상품 입니다.");
+			        setExpire(pno);
+			        return;
 					
 				}else{
 					

@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
+
 <style type="text/css">
 
 #listImg {
@@ -296,6 +298,29 @@ $("#myPage_a").click(function() {
 
 
 
+
+//종료 여부 String으로 리턴
+function getEndDate(pno) {
+	
+	return $.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		async:false,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success:function(data) {
+			
+		}
+		
+	}).responseText;
+	
+}
+
+
+
+
+
+
 //판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
 function setExpire(pno) {
 		
@@ -335,7 +360,7 @@ $(document).ready(function() {
 					$(id).append("");
 					return;
 					
-				}else	if(finished != '종료') {
+				}else	if(result != '판매 종료') {
 					
 				  $(id).append("&nbsp;"+result);
 				

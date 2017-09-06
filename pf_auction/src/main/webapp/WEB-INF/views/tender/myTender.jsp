@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
 
 <style>
 
@@ -46,7 +47,7 @@ max-width: 200px;
   		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
   		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} &nbsp;
   		<button class="btn btn-primary" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
-  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}">바로 구매</button>
   		</td>
   	  </tr>
   	  
@@ -116,13 +117,41 @@ $(document).ready(function() {
 
 
 
+
+
+
+//종료 여부 String으로 리턴
+function getEndDate(pno) {
+	
+	return $.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		async:false,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success:function(data) {
+			
+		}
+		
+	}).responseText;
+	
+}
+
+
+
+
+
+
+
 //판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
 function setExpire(pno) {
 		
 		$.ajax({
 			
 			url:'/main/setExpired',
-			data:{	pno:pno}
+			data:{	
+				pno:pno
+			}
 		
 		});
 		
@@ -178,11 +207,13 @@ $(".btn.btn-primary").click(function(e) {
 		dataType:'text',
 		success:function(result) {
 			
-			if(result != '진행중') {
-				
-				alert("죄송합니다. 판매가 종료 되었습니다.");
-				setExpire(pno);
-				return;
+			var str=getEndDate(pno);
+
+		    if(str == '판매 종료') {
+			
+		        alert("판매가 종료된 상품 입니다.");
+		        setExpire(pno);
+		        return;
 			
             }else if(buytype == 'i') {
 				
@@ -220,13 +251,16 @@ $(".btn.btn-warning").click(function() {
 	var finished=$(this).attr("data-finished");
 	var userID=$("#div_userID").attr("data-userID");
 	var pno=$(this).attr("data-pno");
+	var buytype=$(this).attr("data-buytype");
 	
-	 if(finished != '진행중') {
-			
-	        alert("판매가 종료된 상품 입니다.");
-	        setExpire(pno);
-	        return;
-		
+	var str=getEndDate(pno);
+
+    if(str == '판매 종료') {
+	
+        alert("판매가 종료된 상품 입니다.");
+        setExpire(pno);
+        return;
+	
  	}else{
 	
 	        window.location.replace("/main/pay?userID="+userID+"&pno="+pno);

@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
+
 <style>
 
 html, body {
@@ -135,7 +137,6 @@ text-align: center;
   
 
 
-
   
 
 <!-- 로그인 값 저장 -->
@@ -208,6 +209,28 @@ function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본
 	
 	return front+rear;
 }
+
+
+
+
+//종료 여부 String으로 리턴
+function getEndDate(pno) {
+	
+	return $.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		async:false,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success:function(data) {
+			
+		}
+		
+	}).responseText;
+	
+}
+
+
 
 
 
@@ -308,6 +331,9 @@ var login=$("#loginVal").attr("data-login");
 var buyType=$("#buyType").attr("data-buyType");
 
 
+
+
+//입찰 버튼 클릭
 $("#btnTender").click(function(event) {
 	
 	event.preventDefault(); 
@@ -317,6 +343,17 @@ $("#btnTender").click(function(event) {
 		alert("입찰 할 수 없는 상품 입니다.");
 		return;
 		
+	}
+	
+	
+	var str=getEndDate(pno);
+
+    if(str == '판매 종료') {
+	
+        alert("판매가 종료된 상품 입니다.");
+        setExpire(pno);
+        return;
+	
 	}
 	
 
@@ -400,15 +437,17 @@ $("#btnFavorite").click(function(e) {
 $("#btnDirect").click(function(e) {
 	
 	e.preventDefault();
-    
+	var expiredResult="";
+	
 	if(!login) {
 		
 		self.location="/user/login2";
 		
 	}else{
 		
-	
-	    if(finished != '진행중') {
+		var str=getEndDate(pno);
+
+	    if(str == '판매 종료') {
 		
 	        alert("판매가 종료된 상품 입니다.");
 	        setExpire(pno);
@@ -424,7 +463,6 @@ $("#btnDirect").click(function(e) {
 	return false;
 	
 }); 
-
 
 
 

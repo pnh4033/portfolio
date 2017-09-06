@@ -217,6 +217,7 @@ public class MainController {
 	
 	
 	
+	//데이터 수정 페이지
 	@RequestMapping(value="/modifyProduct", method=RequestMethod.GET)
 	public void correctProdGET(Integer pno, ProductVO vo, Model model) throws Exception {
 		
@@ -226,6 +227,7 @@ public class MainController {
 	}
 	
 	
+	//데이터 수정 페이지
 	@RequestMapping(value="/modifyProduct", method=RequestMethod.POST)
 	public void correctProdPOST(Integer pno, ProductVO vo, Model model) throws Exception {
 		
@@ -401,7 +403,7 @@ public class MainController {
 		try {
 			
 			prod_service.setExpired(pno);
-			logger.info("setExpired : "+ pno);
+			
 			
 			entity=new ResponseEntity<>("set expired success : "+pno , HttpStatus.OK);
 			
@@ -545,7 +547,7 @@ public class MainController {
 	
 	
 	
-	
+	//결제 완료 정보
 	@RequestMapping(value="/paidResult", method=RequestMethod.GET)
 	public void paidResultGET(PaymentVO paymentVO, Model model) throws Exception {
 		
@@ -557,6 +559,7 @@ public class MainController {
 	}
 	
 	
+	//결제 완료 정보
 	@ResponseBody
 	@RequestMapping(value="/paidResult", method=RequestMethod.POST)
 	public ResponseEntity<String> paidResultPOST(@RequestBody PaymentVO vo) throws Exception {

@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
+
 <style>
 
 a:HOVER {text-decoration: none;}
@@ -59,7 +61,7 @@ background-color: #D32E5A;
   		<a href="/main/readProduct?pno=${list.pno}">${list.title} &nbsp;</a>
   		
   		<button class="btn btn-primary" id="tender_btn" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
-  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}">바로 구매</button>&nbsp;
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}">바로 구매</button>&nbsp;
   		<button type="button" class="btn btn-default" id="remove_button${list.pno}" 
   		data-pno="${list.pno}" style="padding: 2px;">목록에서 제거</button>
 
@@ -152,6 +154,27 @@ $(document).ready(function() {
 
 
 
+//종료 여부 String으로 리턴
+function getEndDate(pno) {
+	
+	return $.ajax({
+		
+		url:'/getEndDate?pno='+pno,
+		dataType:'text',
+		async:false,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success:function(data) {
+			
+		}
+		
+	}).responseText;
+	
+}
+
+
+
+
+
 
 $(".btn.btn-default").click(function(e) {
 	
@@ -210,6 +233,16 @@ $(".btn.btn-primary").click(function(e) {
 		dataType:'text',
 		success:function(result) {
 			
+			var str=getEndDate(pno);
+
+		    if(str == '판매 종료') {
+			
+		        alert("판매가 종료된 상품 입니다.");
+		        setExpire(pno);
+		        return;
+			
+			}
+			
 			if(result != '진행중') {
 				
 				alert("죄송합니다. 판매가 종료 되었습니다.");
@@ -250,12 +283,16 @@ $(".btn.btn-warning").click(function() {
 	
 	var pno=$(this).attr("data-pno");
 	var finished=$(this).attr("data-finished");
+	var buytype=$(this).attr("data-buytype");
 	
-	 if(finished != '진행중') {
-			
-	        alert("판매가 종료된 상품 입니다.");
-	        setExpire(pno);
-	        return;
+	var str=getEndDate(pno);
+
+    if(str == '판매 종료') {
+	
+        alert("판매가 종료된 상품 입니다.");
+        setExpire(pno);
+        return;
+
 		
  	}else{
 	

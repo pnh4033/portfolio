@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import web.portfolio.service.ProductService;
@@ -26,6 +27,7 @@ public class DateController {
 	
 	
 	/*등록일을 계산하여 남은 시간을 반환*/
+	@ResponseBody
 	@RequestMapping(value="/getEndDate", produces="application/text;charset=UTF-8")
 	public ResponseEntity<String> getEndDate(Integer pno) throws Exception {
 		
@@ -84,7 +86,7 @@ public class DateController {
 			
 			if(day<=0 && hourFloor<=0 && minuteFloor<=0 && secondRound<=0) {
 
-				remainTime="종료 되었습니다.";
+				remainTime="판매 종료";
 				
 			}
 			
