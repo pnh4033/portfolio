@@ -167,13 +167,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id="approachExpire">
-	update product_tbl set
-	finished='종료'
-	where 
-	(finished='진행중') 
-	and
+	update product_tbl set finished='종료' 
+	where
 	<![CDATA[
-	enddate < current_timestamp()
+	(select timestampdiff(second, now(), enddate)) < 0 ;
 	]]>
 	</update>
 	
