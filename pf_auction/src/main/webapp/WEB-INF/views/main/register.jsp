@@ -308,7 +308,7 @@ $("#form_buytype").change(function() {
 		$("#opt_val").append("즉시구매 가격 : <input type='text' name='i_price' id='form_i_price' class='reg_form' value='${productVO.i_price}'>원");
 		$("#opt_val").append("<p></p>");
 		
-		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice' class='reg_form' value='${productVO.startprice}'>원");
+		$("#opt_val").append("경매 시작 가격 : <input type='text' name='startprice' id='form_startprice' class='reg_form' value='${productVO.startprice}'>원 (최소 1000원 이상)");
 		$("#opt_val").append("<p></p>");
 		
 	}
