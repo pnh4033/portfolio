@@ -138,6 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and (title like CONCAT('%', #{keyWord}, '%') OR
 	pname like CONCAT('%', #{keyWord}, '%') OR
 	category like CONCAT('%', #{keyWord}, '%'))
+	order by pno desc, createdate desc
 	</select>
 	
 	<select id="searchedCount" resultType="int">
@@ -155,7 +156,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mySelling" resultType="ProductVO">
 	select * from product_tbl
 	where seller = #{userID} 
-	order by pno desc
+	order by pno desc, createdate desc
 	</select>
 	
 	<update id="updateNowPrice">
@@ -201,6 +202,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readMyFavorite" resultType="int">
 	select myFavorite from favorite_tbl
 	where userID=#{userID}
+	order by myFavorite desc
 	</select>
 	
 	<delete id="removeMyFavorite">
@@ -233,12 +235,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 	paymentTime 
 	like CONCAT (#{date}, '%')
+	order by paymentTime desc
 	</select>
 	
 	<select id="getPaymentByPno" resultType="PaymentVO">
 	select * from payment_tbl
 	where
 	pno=#{pno}
+	order by paymentTime desc
 	</select>
 	
 </mapper>

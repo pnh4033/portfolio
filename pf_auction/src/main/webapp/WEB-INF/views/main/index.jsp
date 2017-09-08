@@ -230,7 +230,7 @@ font-size: 14px;
 
 window.name="listWindow";
 
-$(document).ready(function () {
+/* $(document).ready(function () {
 	
   $("html body").animate({
   
@@ -238,7 +238,7 @@ $(document).ready(function () {
 	  
   }, 'slow');
 
-});
+}); */
 
 
 

@@ -107,6 +107,7 @@
 </head>
 <body>
   
+  <div id="window_top"></div>
   <div id="wrap">	
 	<div id="top_left">
 	<table id="homeImg"><tr>
@@ -165,6 +166,10 @@
 
 
 <script>
+
+window.name="topWindow";
+
+
   $(document).ready( function() {
 	
 	$("#reg_btn").on("click", function() {
