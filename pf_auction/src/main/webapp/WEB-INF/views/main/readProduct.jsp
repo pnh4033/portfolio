@@ -15,8 +15,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
-
 <style>
 
 html, body {
@@ -112,7 +110,7 @@ text-align: center;
          <tr><td>현재가</td><td>${productVO.nowprice}</td></tr>
          <tr><td>입찰횟수</td><td>${productVO.tendercnt}</td></tr>
          <tr><td>수량</td><td>${productVO.quantity}</td></tr>
-         <tr><td>등록일</td><td>${productVO.createdate}</td></tr>
+         <tr><td>등록일</td><td><fmt:formatDate value="${productVO.createdate}" type="both" pattern="yyyy/MM/dd HH:mm:ss"/></td></tr>
          <tr><td>남은시간</td><td id="remain" data-pno="${productVO.pno}"></td></tr>
          
         
