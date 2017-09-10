@@ -284,6 +284,38 @@ public class MainController {
 	
 	
 	
+	@RequestMapping(value="/modifyTitle", method=RequestMethod.GET)
+	public void modTitleGET() throws Exception {
+		
+	}
+	
+	
+	@RequestMapping(value="/modifyTitle", method=RequestMethod.POST)
+	public ResponseEntity<String> modTitlePOST(Integer pno, String title) throws Exception {
+		
+		ResponseEntity<String> entity=null;
+		Map map=new HashMap<>();
+		
+		try {
+			
+			map.put("pno", pno);
+			map.put("title", title);
+			
+			prod_service.modifyTitle(map);
+			
+			entity=new ResponseEntity<>(HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
+	
 	
 	/*즉시구매 가격 수정*/
 	@RequestMapping(value="/modifyPrice", method=RequestMethod.GET)

@@ -187,6 +187,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where pno=#{pno}
 	</update>
 	
+	<update id="modifyTitle">
+	update product_tbl set
+	title=#{title}
+	where pno=#{pno}
+	</update>
+	
 	<select id="isExpired" resultType="String">
 	select finished from product_tbl
 	where pno=#{pno}

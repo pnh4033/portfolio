@@ -298,6 +298,14 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 
+
+	@Override
+	public void modifyTitle(Map map) throws Exception {
+		
+		session.update(NAMESPACE+"modifyTitle", map);
+		
+	}
+
 }
 
 

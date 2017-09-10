@@ -35,7 +35,8 @@ public interface ProductService {
 	public List<ProductVO> mySelling(String userID) throws Exception;      /*내가 등록한 상품들 조회*/
 	
 	public void updateNowPrice(Map map) throws Exception;         /*현재가 업데이트*/
-	public void modifyPrice(Map map) throws Exception;            /*즉구가 업데이트*/
+	public void modifyPrice(Map map) throws Exception;            /*즉구가 수정*/
+	public void modifyTitle(Map map) throws Exception;             /*제목 수정*/
 	public void addMyFavorite(Map map) throws Exception;          /*관심목록 추가*/
 	public List<Integer> readMyFavorite(String userID) throws Exception;   /*관심목록 조회*/
 	public void removeMyFavorite(Map map) throws Exception;       /*관심목록에서 제거*/

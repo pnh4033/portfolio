@@ -321,4 +321,13 @@ public class ProductServiceImpl implements ProductService {
 
 
 
+	@Override
+	public void modifyTitle(Map map) throws Exception {
+		
+		dao.modifyTitle(map);
+		
+	}
+
+
+
 }

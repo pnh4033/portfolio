@@ -22,6 +22,15 @@ border: 0px;
 
 #img_mod_wrap {
 border: solid #54B5C9 0.5px;
+background-color: #FAFAFA;
+padding: 30px;
+width: auto;
+height: auto;
+}
+
+#title_mod_wrap {
+border: solid #54B5C9 0.5px;
+background-color: #FAFAFA;
 padding: 30px;
 width: auto;
 height: auto;
@@ -29,6 +38,7 @@ height: auto;
 
 #price_mod_wrap {
 border: solid #54B5C9 0.5px;
+background-color: #FAFAFA;
 padding: 30px;
 width: auto;
 height: auto;
@@ -86,6 +96,26 @@ height: auto;
   <div id="div-buytype" data-buytype="${productVO.buytype}"></div>
   
   
+  
+  
+  <div id="title_mod_wrap">
+  <div class="row"><h4>제목 수정</h4></div>
+  <br/><br/>
+  
+  <div class="row">
+    <div class="form-group">
+      <label for="mod_title">제목 수정</label>
+      <input type="text" class="form-control" id="mod_title" 
+      style="font-size:15px; bolder;" placeholder="${productVO.title}"/>
+      &nbsp;&nbsp;
+    </div>
+      <button class="btn btn-primary" id="btnTitleMod">제목 수정</button>
+  </div>
+  </div>  <!-- title_mod_wrap -->
+  
+  <br/><br/><br/>
+  
+  
   <div id="price_mod_wrap">
   <div class="row"><h4>판매가 수정</h4></div>
   <br/><br/>
@@ -93,7 +123,7 @@ height: auto;
   <div class="row">
     <div class="form-group">
       <label for="mod_imm">즉시구매 가격 수정</label>
-      <input type="text" class="form-control" id="mod_imm" 
+      <input type="text" class="form-control" id="mod_title" 
       style="font-size:15px; bolder;" placeholder="${productVO.i_price}"/>
       &nbsp;&nbsp;
     </div>
@@ -247,6 +277,34 @@ function submit_chk() {
 	}
 	
 }
+
+
+
+
+
+$("#btnTitleMod").click(function() {
+	
+		var pno=${productVO.pno};
+		var title=$("#mod_title").val();
+		
+		$.ajax({
+			
+			url:'/main/modifyTitle',
+			dataType:'text', 
+			data:{pno:pno, title:title},
+			type:'POST',
+			success:function(result) {
+				
+				alert("제목이 수정 되었습니다.");
+				
+			}
+			
+		});
+		
+	
+});
+
+
 
 
 $("#btnImmMod").click(function() {
