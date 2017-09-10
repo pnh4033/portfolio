@@ -285,11 +285,14 @@ function submit_chk_title() {
 	
 	var title_chk=/^[\w|\W]{2,50}$/g;
 	var title=$("#mod_title").val();
-	var title_result=title_chk.test(title.val());
+	var title_result=title_chk.test(title);
 	
 	if(!title_result) {
 		
 		alert("제목은 두글자 이상으로 입력 해야 합니다.");
+		$("#mod_title").val("");
+		$("#mod_title").focus();
+		
 		return false;
 		
 	}else{
