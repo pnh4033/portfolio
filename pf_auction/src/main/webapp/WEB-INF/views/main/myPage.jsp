@@ -171,7 +171,7 @@ font-size: 15px;
   		</c:if>
   		
   		
-  		<c:if test="${(list.finished == '진행중') && (list.tendercnt == 0) && ((list.buytype == 'i') || (list.buytype == 'ai'))}">
+  		<c:if test="${((list.finished == '진행중') && (list.tendercnt == 0) && (list.buytype != 'i') || (list.buytype == 'i'))}">
   		<a href="/main/removeProduct?pno=${list.pno}">
   		<button type="button" class="btn btn-warning" id="cancelBtn${list.pno}" 
   		data-pno="${list.pno}" style="padding: 2px;">판매 취소</button>
