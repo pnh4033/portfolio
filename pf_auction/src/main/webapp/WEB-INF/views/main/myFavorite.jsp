@@ -60,7 +60,7 @@ background-color: #D32E5A;
   		<a href="/main/readProduct?pno=${list.pno}">${list.title} &nbsp;</a>
   		
   		<button class="btn btn-primary" id="tender_btn" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
-  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}">바로 구매</button>&nbsp;
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}" data-seller="${list.seller}">바로 구매</button>&nbsp;
   		<button type="button" class="btn btn-default" id="remove_button${list.pno}" 
   		data-pno="${list.pno}" style="padding: 2px;">목록에서 제거</button>
 
@@ -283,10 +283,20 @@ $(".btn.btn-warning").click(function() {
 	var pno=$(this).attr("data-pno");
 	var finished=$(this).attr("data-finished");
 	var buytype=$(this).attr("data-buytype");
+	var seller=$(this).attr("data-seller");
 	
 	var str=getEndDate(pno);
+	
+	
+	if(seller == userID) {
+		
+		alert("자신이 판매중인 물품은 구매가 불가 합니다.");
+		return;
+		
+	}
+	
 
-    if(str == '판매 종료') {
+    if((str == '판매 종료' && buytype == 'a') || (str == '판매 종료' && buytype == 'ai')) {
 	
         alert("판매가 종료된 상품 입니다.");
         setExpire(pno);

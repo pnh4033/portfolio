@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="/resources/js/getEndDate.js"></script>
 
 <style>
 
@@ -47,7 +46,7 @@ max-width: 200px;
   		<td><img src="/main/listImgsPno?pno=${list.pno}" id="listImg"/></td>
   		<td style="width: 980px; font-size: 24px;" colspan="6">${list.title} &nbsp;
   		<button class="btn btn-primary" style="padding: 2px;" data-pno="${list.pno}" data-buytype="${list.buytype}">입찰</button>&nbsp;
-  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}">바로 구매</button>
+  		<button class="btn btn-warning" style="padding: 2px;" data-pno="${list.pno}" data-finished="${list.finished}" data-buytype="${list.buytype}" data-seller="${list.seller}">바로 구매</button>
   		</td>
   	  </tr>
   	  
@@ -252,10 +251,21 @@ $(".btn.btn-warning").click(function() {
 	var userID=$("#div_userID").attr("data-userID");
 	var pno=$(this).attr("data-pno");
 	var buytype=$(this).attr("data-buytype");
+	var seller=$(this).attr("data-seller");
 	
 	var str=getEndDate(pno);
+	
+	
+	if(seller == userID) {
+		
+		alert("자신이 판매중인 물품은 구매가 불가 합니다.");
+		return;
+		
+	}
+	
+	
 
-    if(str == '판매 종료') {
+    if((str == '판매 종료' && buytype == 'a') || (str == '판매 종료' && buytype == 'ai')) {
 	
         alert("판매가 종료된 상품 입니다.");
         setExpire(pno);

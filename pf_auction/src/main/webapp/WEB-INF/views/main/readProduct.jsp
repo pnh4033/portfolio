@@ -180,9 +180,10 @@ text-align: center;
 </div>  <!-- container -->
 
 
-<div id="buyType" data-buyType="${productVO.buytype}"></div>
+<div id="buytype" data-buytype="${productVO.buytype}"></div>
 <div id="userID" data-userID="${login.userID}"></div>
 <div id="pno" data-pno="${productVO.pno}"></div>
+<div id="seller" data-seller="${productVO.seller}"></div>
 <div id="finished" data-finished="${productVO.finished}"></div>
 
 
@@ -198,8 +199,9 @@ text-align: center;
 
 var pno=$("#pno").attr("data-pno");
 var userID=$("#userID").attr("data-userID");
+var seller=$("#seller").attr("data-seller");
 var finished=$("#finished").attr("data-finished");
-var buytype=$("#buyType").attr("data-buyType");
+var buytype=$("#buytype").attr("data-buytype");
 
 function getImageLink(fileName) {      /* 샘플파일 이름으로부터 원본파일 이름 추출 */
 	var front=fileName.substring(0,12);
@@ -254,7 +256,7 @@ function setExpire(pno) {
 
 $(document).ready(function() {
 	
-
+	var buytype=$("#buytype").attr("data-buytype");
 	
 	/* 남은시간 요청 */
 	$.ajax({
@@ -264,11 +266,11 @@ $(document).ready(function() {
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
 		success: function(result) {
 			
-			if(finished != '종료') {
 				
 				if(buytype != 'i') {
 					
     				$("#remain").html(result);
+    				setExpire(pno);
     				
 				}else{
 					
@@ -276,14 +278,6 @@ $(document).ready(function() {
 					
 				}
 				
-				
-			}else{
-			
-				$("#remain").html("판매가 종료 되었습니다.");
-				setExpire(pno);
-				
-			}
-			
 		}
 		
 	});	
@@ -326,8 +320,6 @@ $(document).ready(function() {
 
 
 var login=$("#loginVal").attr("data-login");
-var buyType=$("#buyType").attr("data-buyType");
-
 
 
 
@@ -336,7 +328,7 @@ $("#btnTender").click(function(event) {
 	
 	event.preventDefault(); 
 	
-	if(buyType=="i") {
+	if(buytype=="i") {
 		
 		alert("입찰 할 수 없는 상품 입니다.");
 		return;
@@ -395,6 +387,10 @@ $("#btnFavorite").click(function(e) {
 	
 	e.preventDefault();
 	
+
+	
+	
+	
 	if(!login) {
 		
 		self.location="/user/login2";
@@ -402,7 +398,7 @@ $("#btnFavorite").click(function(e) {
 	}else{
 		
 	
-	if(finished != '진행중') {
+	if((finished != '진행중' && buytype == 'a') || (finished != '진행중' && buytype == 'ai')) {
 		
 	    alert("판매가 종료된 상품 입니다.");
 	    return;
@@ -437,6 +433,16 @@ $("#btnDirect").click(function(e) {
 	e.preventDefault();
 	var expiredResult="";
 	
+	
+	if(seller == userID) {
+		
+		alert("자신이 판매중인 물품은 구매가 불가 합니다.");
+		return;
+		
+	}
+	
+	
+	
 	if(!login) {
 		
 		self.location="/user/login2";
@@ -445,7 +451,7 @@ $("#btnDirect").click(function(e) {
 		
 		var str=getEndDate(pno);
 
-	    if(str == '판매 종료') {
+	    if((str == '판매 종료' && buytype == 'a') || (str == '판매 종료' && buytype == 'ai')) {
 		
 	        alert("판매가 종료된 상품 입니다.");
 	        setExpire(pno);
