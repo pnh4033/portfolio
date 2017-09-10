@@ -123,7 +123,7 @@ height: auto;
   <div class="row">
     <div class="form-group">
       <label for="mod_imm">즉시구매 가격 수정</label>
-      <input type="text" class="form-control" id="mod_title" 
+      <input type="text" class="form-control" id="mod_imm" 
       style="font-size:15px; bolder;" placeholder="${productVO.i_price}"/>
       &nbsp;&nbsp;
     </div>
@@ -247,7 +247,7 @@ $("#mFile").on("change", function(e) {
 	
 	
 
-function submit_chk() {
+function submit_chk_price() {
 	
 	var i_price_chk=/\d{1,9}$/;
 	var i_price=$("#mod_imm");
@@ -281,12 +281,40 @@ function submit_chk() {
 
 
 
+function submit_chk_title() {
+	
+	var title_chk=/^[\w|\W]{2,50}$/g;
+	var title=$("#mod_title").val();
+	var title_result=title_chk.test(title.val());
+	
+	if(!title_result) {
+		
+		alert("제목은 두글자 이상으로 입력 해야 합니다.");
+		return false;
+		
+	}else{
+		
+		return true;
+		
+	}
+	
+}
+
+
+
+
 
 $("#btnTitleMod").click(function() {
 	
 		var pno=${productVO.pno};
 		var title=$("#mod_title").val();
 		
+		if(!submit_chk_title()) {
+			
+			return;
+			
+		}else{
+			
 		$.ajax({
 			
 			url:'/main/modifyTitle',
@@ -301,6 +329,7 @@ $("#btnTitleMod").click(function() {
 			
 		});
 		
+		}
 	
 });
 
@@ -309,7 +338,7 @@ $("#btnTitleMod").click(function() {
 
 $("#btnImmMod").click(function() {
 	
-	if(!submit_chk()) {
+	if(!submit_chk_price()) {
 		
 		return;
 		
