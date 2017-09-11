@@ -171,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update product_tbl set finished='종료' 
 	where
 	<![CDATA[
-	(select timestampdiff(second, now(), enddate)) < 0 ;
+	(select timestampdiff(second, now(), enddate)) < 0 
 	]]>
 	</update>
 	
