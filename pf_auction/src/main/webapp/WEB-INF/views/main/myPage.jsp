@@ -214,11 +214,11 @@ font-size: 15px;
   		<td class="list_class" colspan="2" style="font-size: 17px;">
   		
   		<c:if test="${list.finished == '진행중'}">
-  		<span class="label label-primary">${list.finished}</span></td>
+  		<span class="label label-primary" id="span-pno" data-pno="${list.pno}">${list.finished}</span></td>
   		</c:if>
   		
   		<c:if test="${list.finished == '종료'}">
-  		<span class="label label-warning">${list.finished}</span></td>
+  		<span class="label label-warning" id="span-pno" data-pno="${list.pno}">${list.finished}</span></td>
   		</c:if>
   		
   		
@@ -245,6 +245,22 @@ font-size: 15px;
 <script>
 
 
+//판매 종료 시간이 지난 물품에 대하여 데이터베이스의 판매 종료 컬럼 업데이트
+function setExpire(pno) {
+		
+		$.ajax({
+			
+			url:'/main/setExpired',
+			data:{	pno:pno},
+			success:function() {
+				
+			}
+		
+		});
+		
+}
+
+
 $(document).ready(function() {
 	
 	var data=$("#ifNull").attr("data-isEmpty");
@@ -255,6 +271,34 @@ $(document).ready(function() {
 				+"<p>판매 물품을 등록 하시면 여기에 추가 됩니다.</p></div>");
 		
 	}
+	
+	
+	$(".label.label-primary").each(function() {
+		
+		var pno=$(this).attr("data-pno");
+		
+		$.ajax({
+			url:'/getEndDate?pno='+pno,
+			dataType:'text',
+			success: function(result) {
+				
+				if(result == '판매 종료') {
+					
+					setExpire(pno);
+					$(this).text("종료");
+				
+				}else{
+					
+					$(this).text("진행중");
+					
+				}
+			}
+		
+			});
+		
+		
+	});
+	
 	
 });
 
