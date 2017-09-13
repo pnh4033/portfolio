@@ -119,6 +119,7 @@ color: #084B8A;
 			<td style="height: 100%; width: 1000px; text-align: center;">
 			<div id="table-view">
 	        
+	        <div class="row"><p class="alert alert-info" style="font-size: 15px;"><strong>샘플 데이터는 2017-09-01, 2017-09-02 에 있습니다.</strong></p></div>
 	        
 	        <div>
 			<c:if test="${empty paidList}">
